@@ -123,7 +123,7 @@ if($clock_in_time_new <= $office_time_new) {
 } else {
 	$interval_late = date_diff($iclock_in_time, $ioffice_time_new);
 	$hours_l   = $interval_late->format('%h');
-	$minutes_l = $interval_late->format('%i');			
+	$minutes_l = $interval_late->format('%i');
 	$total_time_l = $hours_l ."h ".$minutes_l."m";
 }
 if($total_time_l=='') {
@@ -134,9 +134,9 @@ if($total_time_l=='') {
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 ?>
 
-<div class="row justify-content-md-center"> 
+<div class="row justify-content-md-center">
   <!-- [ Attendance view ] start -->
-  <div class="col-md-10"> 
+  <div class="col-md-10">
     <!-- [ Attendance view ] start -->
     <div class="container">
       <div>
@@ -264,16 +264,16 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 						// clock out time
 						$clock_out_time = strtotime($r['clock_out']);
 						$fclock_out = date("h:i a", $clock_out_time);
-						// total work			
+						// total work
 						$timee = $r['total_work'].':00';
 						$str_time =$timee;
-			
+
 						$str_time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_time);
-						
+
 						sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-						
+
 						$hrs_old_seconds = $hours * 3600 + $minutes * 60 + $seconds;
-						
+
 						$hrs_old_int1 += $hrs_old_seconds;
 						$total_work = gmdate("H:i", $hrs_old_int1);
 						if($total_work=='') {
@@ -281,7 +281,7 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 						} else {
 							$total_work = $total_work;
 						}
-						
+
                         ?>
                       <tr>
                         <td width="300"><?= $fclock_in;?></td>
@@ -328,6 +328,6 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
         </div>
       </div>
     </div>
-    <!-- [ Attendance view ] end --> 
+    <!-- [ Attendance view ] end -->
   </div>
 </div>

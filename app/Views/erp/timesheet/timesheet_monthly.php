@@ -82,11 +82,9 @@ $locale = service('request')->getLocale();
                 <?php if($user['user_type'] == 'staff'){?>
                 <select id="S" class="form-control" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.dashboard_employee');?>" name="S">
                   <?php foreach($staff_info as $_user) {?>
-                  <?php if($usession['sup_user_id']== $_user['user_id']):?>
                   <option value="<?= uencode($_user['user_id'])?>">
                   <?= $_user['first_name'].' '.$_user['last_name'];?>
                   </option>
-                  <?php endif;?>
                   <?php } ?>
                 </select>
                 <?php } else {?>

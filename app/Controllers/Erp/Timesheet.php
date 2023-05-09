@@ -74,10 +74,10 @@ class Timesheet extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		if($user_info['user_type'] != 'company'){
-			if(!in_array('attendance',staff_role_resource())) {
-				$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
-				return redirect()->to(site_url('erp/desk'));
-			}
+			// if(!in_array('attendance',staff_role_resource())) {
+			// 	$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
+			// 	return redirect()->to(site_url('erp/desk'));
+			// }
 		}
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
@@ -301,7 +301,7 @@ class Timesheet extends BaseController {
 		$StaffdetailsModel = new StaffdetailsModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
-			$get_data = $UsersModel->where('user_id',$usession['sup_user_id'])->where('user_type','staff')->findAll();
+			$get_data = $UsersModel->where('user_type','staff')->findAll();
 		} else {
 			$get_data = $UsersModel->where('company_id',$usession['sup_user_id'])->where('user_type','staff')->where('is_active',1)->findAll();
 		}
