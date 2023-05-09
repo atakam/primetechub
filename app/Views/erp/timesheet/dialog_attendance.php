@@ -7,7 +7,7 @@ use App\Models\TimesheetModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();			
+$UsersModel = new UsersModel();
 $TimesheetModel = new TimesheetModel();
 $xin_com_system = erp_company_settings();
 $get_animate = '';
@@ -99,15 +99,15 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
   <?= lang('Main.xin_save');?>
   </button>
 </div>
-<?php echo form_close(); ?> 
+<?php echo form_close(); ?>
 <script type="text/javascript">
  $(document).ready(function(){
-							
+
 		// Clock
 		$('.timepicker_m').bootstrapMaterialDatePicker({
 			date: false,
 			format: 'HH:mm'
-		});	 
+		});
 		Ladda.bind('button[type=submit]');
 		// attendance date
 		$('.attendance_date_m').bootstrapMaterialDatePicker({
@@ -116,12 +116,12 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 			clearButton: true,
 			format: '<?= js_set_date_format();?>',
 			lang: '<?= $xin_com_system['datepicker_locale'];?>'
-		});	 
+		});
 		$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
-		$('[data-plugin="select_hrm"]').select2({ width:'100%' });		  
+		$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 		/* Add Attendance*/
 		$("#add_attendance").submit(function(e){
-			
+
 		/*Form Submit*/
 		e.preventDefault();
 			var obj = $(this), action = obj.attr('name');
@@ -160,10 +160,10 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 									},
 								},
 								"fnDrawCallback": function(settings){
-								$('[data-toggle="tooltip"]').tooltip();          
+								$('[data-toggle="tooltip"]').tooltip();
 								}
 							});
-							xin_table.api().ajax.reload(function(){ 
+							xin_table.api().ajax.reload(function(){
 								toastr.success(JSON.result);
 							}, true);
 							$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -172,7 +172,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				}
 			});
 		});
-	});	
+	});
   </script>
 <?php
 } elseif($request->getGet('data') === 'edit_attendance' && $request->getGet('field_id')){
@@ -198,9 +198,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
   <div class="row">
     <div class="col-md-12">
       <?php if($user_info['user_type'] == 'company' || in_array('attendance',staff_role_resource())){?>
-      <?php $staff_info = $UsersModel->where('user_id', $r['employee_id'])->first()?>
-      $staff = $UsersModel->where('user_id', $r['employee_id'])->first();
-			$name = $staff['first_name'].' '.$staff['last_name'];
+      <?php $staff_info = $UsersModel->where('company_id', $usession['sup_user_id'])->where('user_type','staff')->findAll();?>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -209,7 +207,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
             </label>
             <select class="form-control" name="employee_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.dashboard_employee');?>">
               <?php foreach($staff_info as $staff) {?>
-              <option value="<?= $staff['user_id']?>">
+              <option value="<?= $staff['user_id']?>" <?= $staff['user_id'] === $result['employee_id'] ? "selected" : "" ?>>
               <?= $staff['first_name'].' '.$staff['last_name'] ?>
               </option>
               <?php } ?>
@@ -274,7 +272,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
   <?= lang('Main.xin_update');?>
   </button>
 </div>
-<?php echo form_close(); ?> 
+<?php echo form_close(); ?>
 <script type="text/javascript">
 $(document).ready(function(){
 	// attendance date
@@ -284,8 +282,8 @@ $(document).ready(function(){
 		clearButton: true,
 		format: '<?= js_set_date_format();?>',
 		lang: '<?= $xin_com_system['datepicker_locale'];?>'
-	});	 
-	Ladda.bind('button[type=submit]'); 
+	});
+	Ladda.bind('button[type=submit]');
 	$('.timepicker').bootstrapMaterialDatePicker({
 		date: false,
 		format: 'HH:mm'
@@ -294,7 +292,7 @@ $(document).ready(function(){
 	$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 	/* Edit Attendance*/
 	$("#edit_attendance").submit(function(e){
-	
+
 	/*Form Submit*/
 	e.preventDefault();
 		var obj = $(this), action = obj.attr('name');
@@ -333,10 +331,10 @@ $(document).ready(function(){
 								},
 							},
 							"fnDrawCallback": function(settings){
-							$('[data-toggle="tooltip"]').tooltip();          
+							$('[data-toggle="tooltip"]').tooltip();
 							}
 						});
-						xin_table2.api().ajax.reload(function(){ 
+						xin_table2.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -345,7 +343,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-});	
+});
 </script>
 <?php }
 ?>

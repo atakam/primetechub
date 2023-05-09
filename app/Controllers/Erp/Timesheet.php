@@ -20,7 +20,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\I18n\Time;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -33,7 +33,7 @@ use App\Models\OvertimerequestModel;
 class Timesheet extends BaseController {
 
 	public function timesheet_dashboard()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -41,7 +41,7 @@ class Timesheet extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -57,7 +57,7 @@ class Timesheet extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function attendance()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -65,7 +65,7 @@ class Timesheet extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -89,20 +89,20 @@ class Timesheet extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function attendance_view()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$TimesheetModel = new TimesheetModel();
 		$request = \Config\Services::request();
 		$ifield_id = udecode($request->uri->getSegment(3));
 		$date_info = $request->uri->getSegment(4);
 		$attendance_date = udecode($date_info);
-		
+
 		$isegment_val = $TimesheetModel->where('employee_id', $ifield_id)->first();
 		$isegment_date = $TimesheetModel->where('attendance_date', $attendance_date)->first();
 		if(!$isegment_val || !$isegment_date){
@@ -110,7 +110,7 @@ class Timesheet extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -126,16 +126,16 @@ class Timesheet extends BaseController {
 		return view('erp/layout/pre_layout_main', $data); //page load
 	}
 	public function update_attendance()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -144,10 +144,10 @@ class Timesheet extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		if($user_info['user_type'] != 'company'){
-			if(!in_array('upattendance1',staff_role_resource())) {
-				$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
-				return redirect()->to(site_url('erp/desk'));
-			}
+			// if(!in_array('upattendance1',staff_role_resource())) {
+			// 	$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
+			// 	return redirect()->to(site_url('erp/desk'));
+			// }
 		}
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
@@ -159,16 +159,16 @@ class Timesheet extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function monthly_timesheet()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -192,16 +192,16 @@ class Timesheet extends BaseController {
 		return view('erp/layout/pre_layout_main', $data); //page load
 	}
 	public function monthly_timesheet_filter()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -225,16 +225,16 @@ class Timesheet extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function timesheet_calendar()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -251,16 +251,16 @@ class Timesheet extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function overtime_request()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -283,15 +283,15 @@ class Timesheet extends BaseController {
 		$data['subview'] = view('erp/timesheet/timesheet_overtime_request', $data);
 		return view('erp/layout/layout_main', $data); //page load
 	}
-	
+
 	// record list
 	public function attendance_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -308,7 +308,7 @@ class Timesheet extends BaseController {
 		$data = array();
 		$attendance_date = date('Y-m-d');
 		foreach($get_data as $r) {
-			
+
 			//
 			$get_day = strtotime($attendance_date);
 			$day = date('l', $get_day);
@@ -318,7 +318,7 @@ class Timesheet extends BaseController {
 			// shift info
 			$office_shift = $ShiftModel->where('office_shift_id',$user_detail['office_shift_id'])->first();
 			if($office_shift){
-				
+
 			if($day == 'Monday') {
 				if($office_shift['monday_in_time']==''){
 					$in_time = '00:00:00';
@@ -398,7 +398,7 @@ class Timesheet extends BaseController {
 				} else {
 					$interval_late = date_diff($iclock_in_time, $ioffice_time_new);//$office_time_new->date_diff($office_time_new);
 					$hours_l   = $interval_late->format('%h');
-					$minutes_l = $interval_late->format('%i');			
+					$minutes_l = $interval_late->format('%i');
 					$total_time_l = $hours_l ."h ".$minutes_l."m";
 				}
 				if($total_time_l=='') {
@@ -413,45 +413,45 @@ class Timesheet extends BaseController {
 				$Trest = '';
 				$total_time_rs = '';
 				$hrs_old_int_res1 = '';
-				foreach ($total_hrs as $hour_work){		
-					// total work			
+				foreach ($total_hrs as $hour_work){
+					// total work
 					$timee = $hour_work['total_work'].':00';
 					$str_time =$timee;
-		
+
 					$str_time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_time);
-					
+
 					sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-					
+
 					$hrs_old_seconds = $hours * 3600 + $minutes * 60 + $seconds;
-					
+
 					$hrs_old_int1 += $hrs_old_seconds;
-					
-					$Total = gmdate("H:i", $hrs_old_int1);	
+
+					$Total = gmdate("H:i", $hrs_old_int1);
 				}
 				if($Total=='') {
 					$total_work = '00:00';
 				} else {
 					$total_work = $Total;
 				}
-				 
-				// total rest > 
+
+				// total rest >
 				$total_rest = $TimesheetModel->where('employee_id', $r['user_id'])->where('attendance_date', $attendance_date)->where('total_rest !=', '')->findAll();
-				foreach ($total_rest as $rest){			
+				foreach ($total_rest as $rest){
 					// total rest
 					$str_time_rs = $rest['total_rest'].':00';
 					//$str_time_rs =$timee_rs;
-		
+
 					$str_time_rs = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_time_rs);
-					
+
 					sscanf($str_time_rs, "%d:%d:%d", $hours_rs, $minutes_rs, $seconds_rs);
-					
+
 					$hrs_old_seconds_rs = $hours_rs * 3600 + $minutes_rs * 60 + $seconds_rs;
-					
+
 					$hrs_old_int_res1 = $hrs_old_seconds_rs;
-					
+
 					$total_time_rs = gmdate("H:i", $hrs_old_int_res1);
 				}
-			
+
 				// check attendance status
 				$status = '<span class="badge badge-light-success">'.$attendance['attendance_status'].'</span>';
 				if($total_time_rs=='') {
@@ -459,7 +459,7 @@ class Timesheet extends BaseController {
 				} else {
 					$Trest = $total_time_rs;
 				}
-				
+
 			} else {
 				$fclock_in = '00:00';
 				$total_time_l = '00:00';
@@ -473,19 +473,19 @@ class Timesheet extends BaseController {
 				$holiday_date_check = $MainModel->holiday_date_check($attendance_date);
 				if($office_shift){
 					if($office_shift['monday_in_time'] == '' && $day == 'Monday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['tuesday_in_time'] == '' && $day == 'Tuesday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['wednesday_in_time'] == '' && $day == 'Wednesday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['thursday_in_time'] == '' && $day == 'Thursday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['friday_in_time'] == '' && $day == 'Friday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['saturday_in_time'] == '' && $day == 'Saturday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($office_shift['sunday_in_time'] == '' && $day == 'Sunday') {
-						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';	
+						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($holiday_date_check['holiday_count'] > 0){ // holiday
 						$status = '<span class="badge badge-light-success">'.lang('Dashboard.left_holiday').'</span>';
 					} else if($leave_date_chck['leave_count'] > 0){ // on leave
@@ -496,7 +496,7 @@ class Timesheet extends BaseController {
 				} else {
 					$status = '<span class="badge badge-light-danger">'.lang('Users.xin_no_shift_assigned').'</span>';
 				}
-				 
+
 			}
 			// if checkout||| limit-1
 			$check_out_row = $MainModel->attendance_first_out_check($r['user_id'],$attendance_date);
@@ -521,9 +521,9 @@ class Timesheet extends BaseController {
 					} else {
 						$interval_lateo = date_diff($ioffice_time_new, $iclock_in_time);
 						$hours_e   = $interval_lateo->format('%h');
-						$minutes_e = $interval_lateo->format('%i');			
+						$minutes_e = $interval_lateo->format('%i');
 						$total_time_e = $hours_e ."h ".$minutes_e."m";
-					}	
+					}
 				} else {
 					$clock_out2 =  '00:00';
 					$total_time_e = '00:00';
@@ -539,8 +539,8 @@ class Timesheet extends BaseController {
 				$fclock_out = $clock_out2;
 			}
 			$employee_name = $r['first_name'].' '.$r['last_name'];
-			
-			
+
+
 			$staff_name = '<div class="d-inline-block align-middle">
 				<img src="'.base_url().'/public/uploads/users/thumb/'.$r['profile_photo'].'" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
 				<div class="d-inline-block">
@@ -564,10 +564,10 @@ class Timesheet extends BaseController {
 				$total_time_l,
 				$total_time_e,
 				$total_work,
-				//$Trest,				
+				//$Trest,
 			);
-		}			
-			
+		}
+
 		$output = array(
 		   //"draw" => $draw,
 		   "data" => $data
@@ -580,7 +580,7 @@ class Timesheet extends BaseController {
 
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');		
+		$usession = $session->get('sup_username');
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -601,10 +601,10 @@ class Timesheet extends BaseController {
 			$get_data = $TimesheetModel->where('employee_id',$uid)->where('attendance_date',$date)->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  		
-			if(in_array('upattendance3',staff_role_resource()) || $user_info['user_type'] == 'company') {	
+
+          foreach($get_data as $r) {
+
+			if(in_array('upattendance3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 			$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".edit-modal-data" data-field_id="'. uencode($r['time_attendance_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
 				$edit = '';
@@ -614,7 +614,7 @@ class Timesheet extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			//get user info
 			$iuser = $UsersModel->where('user_id', $r['employee_id'])->first();
 			if($iuser){
@@ -638,15 +638,15 @@ class Timesheet extends BaseController {
 			}
 			$clock_in_time = strtotime($r['clock_in']);
 			$fclckIn = date("h:i a", $clock_in_time);
-			
+
 			$clock_out_time = strtotime($r['clock_out']);
 			$fclckOut = date("h:i a", $clock_out_time);
-			$attendance_date = set_date_format($r['attendance_date']);	
+			$attendance_date = set_date_format($r['attendance_date']);
 			$ifname = '
 				'.$fname.'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>';					 			  				
+				</div>';
 			$data[] = array(
 				$ifname,
 				$attendance_date,
@@ -659,7 +659,7 @@ class Timesheet extends BaseController {
                "csrf_hash" => csrf_hash(),
 			   "data" => $data
             );
-		//  $output['csrf_hash'] = csrf_hash();	
+		//  $output['csrf_hash'] = csrf_hash();
 		  $this->output($output);
          // echo json_encode($output);
           exit();
@@ -669,7 +669,7 @@ class Timesheet extends BaseController {
 
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');		
+		$usession = $session->get('sup_username');
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -681,9 +681,9 @@ class Timesheet extends BaseController {
 			$get_data = $OvertimerequestModel->where('company_id',$usession['sup_user_id'])->orderBy('time_request_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  			
+
+          foreach($get_data as $r) {
+
 				if(in_array('overtime_req3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 					$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".edit-modal-data" data-field_id="'. uencode($r['time_request_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				} else {
@@ -694,7 +694,7 @@ class Timesheet extends BaseController {
 				} else {
 					$delete = '';
 				}
-				
+
 				//get user info
 				$iuser = $UsersModel->where('user_id', $r['staff_id'])->first();
 				if($iuser){
@@ -708,15 +708,15 @@ class Timesheet extends BaseController {
 					</div>';
 					$combhr = $edit.$delete;
 				} else {
-					$combhr = $delete;	
+					$combhr = $delete;
 					$fname = lang('Users.xin_user_data_removed');
 				}
 				$clock_in_time = strtotime($r['clock_in']);
 				$fclckIn = date("h:i a", $clock_in_time);
-				
+
 				$clock_out_time = strtotime($r['clock_out']);
 				$fclckOut = date("h:i a", $clock_out_time);
-				$attendance_date = set_date_format($r['request_date']);	
+				$attendance_date = set_date_format($r['request_date']);
 				// status
 				if($r['is_approved'] == 0){
 					$status = '<span class="badge badge-light-warning">'.lang('Main.xin_pending').'</span>';
@@ -729,7 +729,7 @@ class Timesheet extends BaseController {
 					'.$fname.'
 					<div class="overlay-edit">
 						'.$combhr.'
-					</div>';					 			  				
+					</div>';
 				$data[] = array(
 					$ifname,
 					$attendance_date,
@@ -743,18 +743,18 @@ class Timesheet extends BaseController {
                "csrf_hash" => csrf_hash(),
 			   "data" => $data
             );
-		//  $output['csrf_hash'] = csrf_hash();	
+		//  $output['csrf_hash'] = csrf_hash();
 		  $this->output($output);
          // echo json_encode($output);
           exit();
      }
 	// |||add record|||
 	public function add_attendance() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -779,7 +779,7 @@ class Timesheet extends BaseController {
 					]
 				]
 			];
-			
+
 			if(!$this->validate($rules)){
 				$ruleErrors = [
 					"attendance_date_m" => $validation->getError('attendance_date_m'),
@@ -796,7 +796,7 @@ class Timesheet extends BaseController {
 				$attendance_date = $this->request->getPost('attendance_date_m',FILTER_SANITIZE_STRING);
 				$clock_in = $this->request->getPost('clock_in_m',FILTER_SANITIZE_STRING);
 				$clock_out = $this->request->getPost('clock_out_m',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -808,14 +808,14 @@ class Timesheet extends BaseController {
 				}
 				$clock_in2 = $attendance_date.' '.$clock_in.':00';
 				$clock_out2 = $attendance_date.' '.$clock_out.':00';
-				
+
 				$total_work_cin = date_create($clock_in2);
 				$total_work_cout = date_create($clock_out2);
 				$interval_cin = date_diff($total_work_cin, $total_work_cout);
 				$hours_in   = $interval_cin->format('%h');
-				$minutes_in = $interval_cin->format('%i');			
+				$minutes_in = $interval_cin->format('%i');
 				$total_work = $hours_in .":".$minutes_in;
-					
+
 				$data = [
 					'company_id' => $company_id,
 					'employee_id'  => $employee_id,
@@ -837,8 +837,8 @@ class Timesheet extends BaseController {
 					'attendance_status'  => 'Present',
 				];
 				$TimesheetModel = new TimesheetModel();
-				$result = $TimesheetModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TimesheetModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_attendance_added_msg');
 				} else {
@@ -852,14 +852,14 @@ class Timesheet extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||add record|||
 	public function add_overtime() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -890,7 +890,7 @@ class Timesheet extends BaseController {
 					]
 				]
 			];
-			
+
 			if(!$this->validate($rules)){
 				$ruleErrors = [
 					"attendance_date_m" => $validation->getError('attendance_date_m'),
@@ -909,7 +909,7 @@ class Timesheet extends BaseController {
 				$clock_in = $this->request->getPost('clock_in_m',FILTER_SANITIZE_STRING);
 				$clock_out = $this->request->getPost('clock_out_m',FILTER_SANITIZE_STRING);
 				$reason = $this->request->getPost('reason',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -921,14 +921,14 @@ class Timesheet extends BaseController {
 				}
 				$clock_in2 = $attendance_date.' '.$clock_in.':00';
 				$clock_out2 = $attendance_date.' '.$clock_out.':00';
-				
+
 				$total_work_cin = date_create($clock_in2);
 				$total_work_cout = date_create($clock_out2);
 				$interval_cin = date_diff($total_work_cin, $total_work_cout);
 				$hours_in   = $interval_cin->format('%h');
-				$minutes_in = $interval_cin->format('%i');			
+				$minutes_in = $interval_cin->format('%i');
 				$total_work = $hours_in .":".$minutes_in;
-					
+
 				$data = [
 					'company_id' => $company_id,
 					'staff_id'  => $employee_id,
@@ -942,8 +942,8 @@ class Timesheet extends BaseController {
 					'created_at'  => date('d-m-Y h:i:s')
 				];
 				$OvertimerequestModel = new OvertimerequestModel();
-				$result = $OvertimerequestModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $OvertimerequestModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_overtime_added_msg');
 				} else {
@@ -957,14 +957,14 @@ class Timesheet extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||edit record|||
 	public function update_attendance_record() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -989,7 +989,7 @@ class Timesheet extends BaseController {
 					]
 				]
 			];
-			
+
 			if(!$this->validate($rules)){
 				$ruleErrors = [
 					"attendance_date_m" => $validation->getError('attendance_date_m'),
@@ -1018,14 +1018,14 @@ class Timesheet extends BaseController {
 				}
 				$clock_in2 = $attendance_date.' '.$clock_in.':00';
 				$clock_out2 = $attendance_date.' '.$clock_out.':00';
-				
+
 				$total_work_cin = date_create($clock_in2);
 				$total_work_cout = date_create($clock_out2);
 				$interval_cin = date_diff($total_work_cin, $total_work_cout);
 				$hours_in   = $interval_cin->format('%h');
-				$minutes_in = $interval_cin->format('%i');			
+				$minutes_in = $interval_cin->format('%i');
 				$total_work = $hours_in .":".$minutes_in;
-					
+
 				$data = [
 					'company_id' => $company_id,
 					'employee_id'  => $employee_id,
@@ -1039,8 +1039,8 @@ class Timesheet extends BaseController {
 					'attendance_status'  => 'Present',
 				];
 				$TimesheetModel = new TimesheetModel();
-				$result = $TimesheetModel->update($id, $data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TimesheetModel->update($id, $data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_attendance_updated_msg');
 				} else {
@@ -1054,14 +1054,14 @@ class Timesheet extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||edit record|||
 	public function update_overtime_record() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1092,7 +1092,7 @@ class Timesheet extends BaseController {
 					]
 				]
 			];
-			
+
 			if(!$this->validate($rules)){
 				$ruleErrors = [
 					"attendance_date_m" => $validation->getError('attendance_date_m'),
@@ -1124,12 +1124,12 @@ class Timesheet extends BaseController {
 				}
 				$clock_in2 = $attendance_date.' '.$clock_in.':00';
 				$clock_out2 = $attendance_date.' '.$clock_out.':00';
-				
+
 				$total_work_cin = date_create($clock_in2);
 				$total_work_cout = date_create($clock_out2);
 				$interval_cin = date_diff($total_work_cin, $total_work_cout);
 				$hours_in   = $interval_cin->format('%h');
-				$minutes_in = $interval_cin->format('%i');			
+				$minutes_in = $interval_cin->format('%i');
 				$total_work = $hours_in .":".$minutes_in;
 				$data = [
 					'company_id' => $company_id,
@@ -1142,8 +1142,8 @@ class Timesheet extends BaseController {
 					'is_approved'  => $status
 				];
 				$OvertimerequestModel = new OvertimerequestModel();
-				$result = $OvertimerequestModel->update($id, $data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $OvertimerequestModel->update($id, $data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_overtime_updated_msg');
 				} else {
@@ -1157,13 +1157,13 @@ class Timesheet extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// read record
 	public function update_attendance_add()
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1181,7 +1181,7 @@ class Timesheet extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1196,7 +1196,7 @@ class Timesheet extends BaseController {
 	}
 	// delete record
 	public function delete_overtime() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1216,13 +1216,13 @@ class Timesheet extends BaseController {
 		}
 	}
 	public function staff_working_status_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-				
+
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
-		$SystemModel = new SystemModel();		
+		$SystemModel = new SystemModel();
 		$TimesheetModel = new TimesheetModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$current_date = date('Y-m-d');
@@ -1235,7 +1235,7 @@ class Timesheet extends BaseController {
 		}
 		/* Define return | here result is used to return user data and error for error message */
 		$Return = array('absent'=>'', 'working'=>'','absent_label'=>'', 'working_label'=>'');
-		
+
 		// get actual data
 		//$employee_w = $working / $total_staff * 100;
 		// absent
@@ -1253,7 +1253,7 @@ class Timesheet extends BaseController {
 	}
 	// delete record
 	public function delete_attendance() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1274,11 +1274,11 @@ class Timesheet extends BaseController {
 	}
 	// set clock in - clock out > attendance
 	public function set_clocking() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'set_clocking') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1286,7 +1286,7 @@ class Timesheet extends BaseController {
 			$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 			$company_id = $user_info['company_id'];
 			$employee_id = $usession['sup_user_id'];
-			
+
 			$clock_state = $this->request->getPost('clock_state',FILTER_SANITIZE_STRING);
 			$latitude = $this->request->getPost('latitude',FILTER_SANITIZE_STRING);
 			$longitude = $this->request->getPost('longitude',FILTER_SANITIZE_STRING);
@@ -1304,10 +1304,10 @@ class Timesheet extends BaseController {
 					$check_user_attendance_value = check_user_attendance_value();
 					$cout = date_create($check_user_attendance_value[0]->clock_out);
 					$cin = date_create($nowtime);
-					
+
 					$interval_cin = date_diff($cin, $cout);
 					$hours_in   = $interval_cin->format('%h');
-					$minutes_in = $interval_cin->format('%i');			
+					$minutes_in = $interval_cin->format('%i');
 					$total_rest = $hours_in .":".$minutes_in;
 				}
 				$data = [
@@ -1331,8 +1331,8 @@ class Timesheet extends BaseController {
 					'attendance_status'  => 'Present',
 				];
 				$TimesheetModel = new TimesheetModel();
-				$result = $TimesheetModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TimesheetModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Users.xin_strole_success_added');
 				} else {
@@ -1342,12 +1342,12 @@ class Timesheet extends BaseController {
 				$clockout_value = check_user_attendance_clockout_value();
 				$cout = date_create($clockout_value[0]->clock_in);
 				$cin = date_create($nowtime);
-				
+
 				$interval_cin = date_diff($cout, $cin);
 				$hours_in   = $interval_cin->format('%h');
-				$minutes_in = $interval_cin->format('%i');			
+				$minutes_in = $interval_cin->format('%i');
 				$total_work = $hours_in .":".$minutes_in;
-				
+
 				$data = array(
 					'employee_id' => $employee_id,
 					'clock_out' => $nowtime,
