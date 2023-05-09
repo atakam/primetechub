@@ -801,7 +801,7 @@ class Timesheet extends BaseController {
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
 					$company_id = $user_info['company_id'];
-					$employee_id = $usession['sup_user_id'];
+					$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
 				} else {
 					$company_id = $usession['sup_user_id'];
 					$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
@@ -1011,7 +1011,7 @@ class Timesheet extends BaseController {
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
 					$company_id = $user_info['company_id'];
-					$employee_id = $usession['sup_user_id'];
+					$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
 				} else {
 					$company_id = $usession['sup_user_id'];
 					$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);

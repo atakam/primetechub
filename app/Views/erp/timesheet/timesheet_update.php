@@ -79,14 +79,13 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
                     <?= lang('Main.xin_e_details_date');?>
                   </label>
                   <div class="input-group">
-                    <input class="form-control date" placeholder="<?= lang('Main.xin_e_details_date');?>" id="attendance_date" name="attendance_date" type="text" value="<?php echo date('Y-m-d');?>">
+                    <input class="form-control date" placeholder="<?= lang('Main.xin_e_details_date');?>" id="attendance_date" name="attendance_date" type="text">
                     <div class="input-group-append"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span></div>
                   </div>
                 </div>
               </div>
             </div>
-            <?php if($user_info['user_type'] == 'company'){?>
-            <?php $staff_info = $UsersModel->where('company_id', $usession['sup_user_id'])->where('user_type','staff')->findAll();?>
+            <?php $staff_info = $UsersModel->where('user_type','staff')->where('is_active',1)->findAll();?>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -103,7 +102,6 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
                 </div>
               </div>
             </div>
-            <?php } ?>
           </div>
         </div>
       </div>
