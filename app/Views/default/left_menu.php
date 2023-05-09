@@ -27,7 +27,6 @@ $xin_system = $SystemModel->where('setting_id', 1)->first();
 <?php } ?>
 <?php if($user_info['user_type'] == 'staff'){?>
 	<?php // staff menu?>
-    <?= view('default/company_left_menu');?>
     <?= view('default/staff_left_menu');?>
 <?php } ?>
 <?php if($user_info['user_type'] == 'customer'){?>

@@ -31,26 +31,26 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   <li class="pc-item"><a href="<?= site_url('erp/desk');?>" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.dashboard_title');?>
     </span></a></li>
-  <?php if(in_array('attendance',staff_role_resource())) {?>  
+  <?php if(in_array('attendance',staff_role_resource())) {?>
   <!-- Attendance -->
   <li class="pc-item"><a href="<?= site_url('erp/attendance-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="clock"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_attendance');?>
     </span></a></li>
-  <?php } ?>  
-  <?php if(in_array('project1',staff_role_resource())) {?> 
+  <?php } ?>
+  <?php if(in_array('project1',staff_role_resource())) {?>
   <!-- Projects -->
   <li class="pc-item"><a href="<?= site_url('erp/projects-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_projects');?>
     </span></a></li>
-  <?php } ?>  
+  <?php } ?>
   <!-- Tasks -->
-  <?php if(in_array('task1',staff_role_resource())) {?> 
+  <?php if(in_array('task1',staff_role_resource())) {?>
   <li class="pc-item"><a href="<?= site_url('erp/tasks-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="edit"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_tasks');?>
     </span></a></li>
   <?php } ?>
   <!-- Payroll -->
-  <?php if(in_array('pay_history',staff_role_resource())) {?> 
+  <?php if(in_array('pay_history',staff_role_resource())) {?>
   <li class="pc-item"><a href="<?= site_url('erp/payslip-history');?>" class="pc-link "><span class="pc-micon"><i data-feather="speaker"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_payroll');?>
     </span></a></li>
@@ -97,13 +97,13 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   </li>
   <?php } ?>
   <!-- Tickets -->
-  <?php if(in_array('helpdesk1',staff_role_resource())) {?> 
+  <?php if(in_array('helpdesk1',staff_role_resource())) {?>
   <li class="pc-item"><a href="<?= site_url('erp/support-tickets');?>" class="pc-link "><span class="pc-micon"><i data-feather="help-circle"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.dashboard_helpdesk');?>
     </span></a></li>
   <?php } ?>
   <?php if(isset($setup_modules['training'])): if($setup_modules['training']==1):?>
-  <?php if(in_array('training1',staff_role_resource()) || in_array('trainer1',staff_role_resource()) || in_array('training_skill1',staff_role_resource()) || in_array('training_calendar',staff_role_resource())) {?> 
+  <?php if(in_array('training1',staff_role_resource()) || in_array('trainer1',staff_role_resource()) || in_array('training_skill1',staff_role_resource()) || in_array('training_calendar',staff_role_resource())) {?>
   <!-- Training Session -->
   <li class="pc-item"> <a href="<?= site_url('erp/training-sessions');?>" class="pc-link"> <span class="pc-micon"><i data-feather="target"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_training');?>
@@ -165,14 +165,31 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
     </ul>
   </li>
   <?php } ?>
+  <?php if(in_array('attendance',staff_role_resource()) || in_array('upattendance1',staff_role_resource()) || in_array('monthly_time',staff_role_resource())) { ?>
+  <li class="pc-item pc-hasmenu <?php if(!empty($arr_mod['attendance_open']))echo $arr_mod['attendance_open'];?>"> <a href="#" class="pc-link sidenav-toggle"><span class="pc-micon"><i data-feather="clock"></i></span><span class="pc-mtext">
+    <?= lang('Dashboard.left_attendance');?>
+    </span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+    <ul class="pc-submenu" <?php if(!empty($arr_mod['attendance_style_ul']))echo $arr_mod['attendance_style_ul'];?>>
+      <li class="pc-item <?php if(!empty($arr_mod['attnd_active']))echo $arr_mod['attnd_active'];?>"> <a class="pc-link" href="<?= site_url('erp/attendance-list');?>" >
+        <?= lang('Dashboard.left_attendance');?>
+        </a> </li>
+      <li class="pc-item <?php if(!empty($arr_mod['upd_attnd_active']))echo $arr_mod['upd_attnd_active'];?>"> <a class="pc-link" href="<?= site_url('erp/manual-attendance');?>" >
+        <?= lang('Dashboard.left_update_attendance');?>
+        </a> </li>
+      <li class="pc-item <?php if(!empty($arr_mod['timesheet_active']))echo $arr_mod['timesheet_active'];?>"> <a class="pc-link" href="<?= site_url('erp/monthly-attendance');?>" >
+        <?= lang('Dashboard.xin_month_timesheet_title');?>
+        </a> </li>
+    </ul>
+  </li>
+  <?php } ?>
   <?php if(in_array('accounts1',staff_role_resource()) || in_array('deposit1',staff_role_resource()) || in_array('expense1',staff_role_resource()) || in_array('dep_cat1',staff_role_resource()) || in_array('exp_cat1',staff_role_resource())) {?>
   <!-- Finance -->
   <li class="pc-item"> <a href="<?= site_url('erp/accounts-list');?>" class="pc-link"> <span class="pc-micon"><i data-feather="credit-card"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_hr_finance');?>
     </span> </a> </li>
-  <?php } ?>  
+  <?php } ?>
   <?php if(isset($setup_modules['performance'])): if($setup_modules['performance']==1):?>
-  <?php if(in_array('indicator1',staff_role_resource()) || in_array('appraisal1',staff_role_resource()) || in_array('competency1',staff_role_resource()) || in_array('tracking1',staff_role_resource()) || in_array('track_type1',staff_role_resource()) || in_array('track_calendar',staff_role_resource())) {?>  
+  <?php if(in_array('indicator1',staff_role_resource()) || in_array('appraisal1',staff_role_resource()) || in_array('competency1',staff_role_resource()) || in_array('tracking1',staff_role_resource()) || in_array('track_type1',staff_role_resource()) || in_array('track_calendar',staff_role_resource())) {?>
   <!-- Performance -->
   <li class="<?php if(!empty($arr_mod['talent_open']))echo $arr_mod['talent_open'];?> pc-item"> <a href="#" class="pc-link sidenav-toggle"> <span class="pc-micon"><i data-feather="aperture"></i></span>
     <?= lang('Dashboard.left_talent_management');?>
@@ -296,31 +313,31 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
     </li>
     <?php } ?>
     <?php endif; endif;?>
-  <?php if(in_array('client1',staff_role_resource())) {?> 
+  <?php if(in_array('client1',staff_role_resource())) {?>
   <!-- Clients -->
   <li class="pc-item"><a href="<?= site_url('erp/clients-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="user-check"></i></span><span class="pc-mtext">
     <?= lang('Projects.xin_manage_clients');?>
     </span></a></li>
   <?php } ?>
-  <?php if(in_array('leads1',staff_role_resource())) {?> 
+  <?php if(in_array('leads1',staff_role_resource())) {?>
   <!-- Leads -->
   <li class="pc-item"><a href="<?= site_url('erp/leads-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="user-plus"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_leads');?>
     </span></a></li>
-  <?php } ?>  
-  <?php if(in_array('invoice2',staff_role_resource()) || in_array('invoice_payments',staff_role_resource()) || in_array('invoice_calendar',staff_role_resource()) || in_array('tax_type1',staff_role_resource())) {?>   
+  <?php } ?>
+  <?php if(in_array('invoice2',staff_role_resource()) || in_array('invoice_payments',staff_role_resource()) || in_array('invoice_calendar',staff_role_resource()) || in_array('tax_type1',staff_role_resource())) {?>
   <!-- Invoices -->
   <li class="pc-item"><a href="<?= site_url('erp/invoices-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="calendar"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_invoices_title');?>
     </span></a></li>
   <?php } ?>
-  <?php if(in_array('estimate2',staff_role_resource())) {?> 
+  <?php if(in_array('estimate2',staff_role_resource())) {?>
   <!-- Estimates -->
   <li class="pc-item"><a href="<?= site_url('erp/estimates-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="calendar"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_estimates');?>
     </span></a></li>
   <?php } ?>
-  <?php if(in_array('disciplinary1',staff_role_resource()) || in_array('case_type1',staff_role_resource())) {?>   
+  <?php if(in_array('disciplinary1',staff_role_resource()) || in_array('case_type1',staff_role_resource())) {?>
   <!-- Disciplinary -->
   <li class="pc-item"> <a href="<?= site_url('erp/disciplinary-cases');?>" class="pc-link"> <span class="pc-micon"><i data-feather="alert-circle"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_warnings');?>
