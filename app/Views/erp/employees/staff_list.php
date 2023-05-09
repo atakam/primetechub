@@ -31,7 +31,7 @@ if($user_info['user_type'] == 'staff'){
 	$leave_types = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','leave_type')->orderBy('constants_id', 'ASC')->findAll();
 	$roles = $RolesModel->where('company_id',$usession['sup_user_id'])->orderBy('role_id', 'ASC')->findAll();
 }
-		
+
 
 $xin_system = $SystemModel->where('setting_id', 1)->first();
 $employee_id = generate_random_employeeid();
@@ -75,7 +75,7 @@ $get_animate='';
       </a> </li>
      <?php } ?>
   </ul>
-</div>d
+</div>
 <hr class="border-light m-0 mb-3">
 <?php } ?>
 <?php if(in_array('staff3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
@@ -351,7 +351,7 @@ $get_animate='';
       <?= lang('Main.xin_list_all');?>
       <?= lang('Dashboard.dashboard_employees');?>
     </h5>
-    <div class="card-header-right"> <a href="<?= site_url().'erp/staff-grid';?>" class="btn btn-sm waves-effect waves-light btn-primary btn-icon m-0" data-toggle="tooltip" data-placement="top" title="<?= lang('Projects.xin_grid_view');?>"> <i class="fas fa-th-large"></i> </a> 
+    <div class="card-header-right"> <a href="<?= site_url().'erp/staff-grid';?>" class="btn btn-sm waves-effect waves-light btn-primary btn-icon m-0" data-toggle="tooltip" data-placement="top" title="<?= lang('Projects.xin_grid_view');?>"> <i class="fas fa-th-large"></i> </a>
     <?php if(in_array('staff3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
     <a data-toggle="collapse" href="#add_form" aria-expanded="false" class="collapsed btn waves-effect waves-light btn-primary btn-sm m-0"> <i data-feather="plus"></i>
       <?= lang('Main.xin_add_new');?>

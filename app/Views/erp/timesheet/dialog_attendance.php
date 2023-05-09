@@ -32,7 +32,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 <div class="modal-body">
   <div class="row">
     <div class="col-md-12">
-      <?php if(in_array('attendance',staff_role_resource()) || $user_info['user_type'] == 'company'){?>
+      <?php if($user_info['user_type'] == 'company'){?>
       <?php $staff_info = $UsersModel->where('company_id', $usession['sup_user_id'])->where('user_type','staff')->findAll();?>
       <div class="row">
         <div class="col-md-12">
@@ -197,8 +197,10 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 <div class="modal-body">
   <div class="row">
     <div class="col-md-12">
-      <?php if(in_array('attendance',staff_role_resource()) || $user_info['user_type'] == 'company'){?>
-      <?php $staff_info = $UsersModel->where('company_id', $usession['sup_user_id'])->where('user_type','staff')->findAll();?>
+      <?php if($user_info['user_type'] == 'company' || in_array('attendance',staff_role_resource())){?>
+      <?php $staff_info = $UsersModel->where('user_id', $r['employee_id'])->first()?>
+      $staff = $UsersModel->where('user_id', $r['employee_id'])->first();
+			$name = $staff['first_name'].' '.$staff['last_name'];
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
