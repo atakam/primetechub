@@ -20,7 +20,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\I18n\Time;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -42,7 +42,7 @@ use App\Models\Moduleattributesvalsel;
 class Employees extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -50,7 +50,7 @@ class Employees extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -73,7 +73,7 @@ class Employees extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function staff_grid()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -81,7 +81,7 @@ class Employees extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -103,7 +103,7 @@ class Employees extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function staff_dashboard()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -111,7 +111,7 @@ class Employees extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -127,16 +127,16 @@ class Employees extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function staff_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -165,20 +165,20 @@ class Employees extends BaseController {
 		$data['subview'] = view('erp/employees/staff_details', $data);
 		return view('erp/layout/layout_main', $data); //page load
 	}
-	
+
 	// list
 	public function employees_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$config         = new \Config\Encryption();
 		$config->key    = 'aBigsecret_ofAtleast32Characters';
 		$config->driver = 'OpenSSL';
-		
+
 		$encrypter = \Config\Services::encrypter($config);
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
@@ -192,11 +192,11 @@ class Employees extends BaseController {
 			$staff = $UsersModel->where('company_id',$usession['sup_user_id'])->where('user_type','staff')->orderBy('user_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($staff as $r) {						
-		  			
+
+          foreach($staff as $r) {
+
 				if(in_array('staff4',staff_role_resource()) || $user_info['user_type'] == 'company') {
 					$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/employee-details').'/'.uencode($r['user_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
 				} else {
@@ -224,7 +224,7 @@ class Employees extends BaseController {
 			} else {
 				$gender = lang('Main.xin_gender_female');
 			}
-			
+
 			$country_info = $CountryModel->where('country_id', $r['country'])->first();
 			$name = $r['first_name'].' '.$r['last_name'];
 			//designation
@@ -235,7 +235,7 @@ class Employees extends BaseController {
 			} else {
 				$designation_name = '--';
 			}
-			
+
 			$uname = '<div class="d-inline-block align-middle">
 				<img src="'.staff_profile_photo($r['user_id']).'" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
 				<div class="d-inline-block">
@@ -250,7 +250,7 @@ class Employees extends BaseController {
 					'.$combhr.'
 				</div>
 			';
-									 			  				
+
 			$data[] = array(
 				$links,
 				$designation_name,
@@ -273,9 +273,9 @@ class Employees extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -286,12 +286,12 @@ class Employees extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $ContractModel->where('user_id',$id)->where('salay_type','allowances')->orderBy('contract_option_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_type="allowances" data-field_id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-field_type="all_allowances" data-record-id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
-						
+
 			if($r['is_fixed']==1){
 				$is_fixed = lang('Employees.xin_title_tax_fixed');
 			} else {
@@ -304,7 +304,7 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = lang('Employees.xin_partially_taxable');
 			}
-		
+
 			$combhr = $edit.$delete;
 			$salary_option = '
 				'.$r['option_title'].'
@@ -318,7 +318,7 @@ class Employees extends BaseController {
 				$contract_tax_option,
 				$is_fixed,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -326,15 +326,15 @@ class Employees extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	 // record list
 	public function commissions_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -344,12 +344,12 @@ class Employees extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $ContractModel->where('user_id',$id)->where('salay_type','commissions')->orderBy('contract_option_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_type="commissions" data-field_id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-field_type="all_commissions" data-record-id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
-						
+
 			if($r['is_fixed']==0){
 				$is_fixed = lang('Employees.xin_title_tax_fixed');
 			} else {
@@ -362,7 +362,7 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = lang('Employees.xin_partially_taxable');
 			}
-		
+
 			$combhr = $edit.$delete;
 			$salary_option = '
 				'.$r['option_title'].'
@@ -376,7 +376,7 @@ class Employees extends BaseController {
 				$contract_tax_option,
 				$is_fixed,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -390,9 +390,9 @@ class Employees extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -402,17 +402,17 @@ class Employees extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $ContractModel->where('user_id',$id)->where('salay_type','statutory')->orderBy('contract_option_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_type="statutory" data-field_id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-field_type="all_statutory_deductions" data-record-id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
-						
+
 			if($r['is_fixed']==0){
 				$is_fixed = lang('Employees.xin_title_tax_fixed');
 			} else {
 				$is_fixed = lang('Employees.xin_title_tax_percent');
-			}		
+			}
 			$combhr = $edit.$delete;
 			$salary_option = '
 				'.$r['option_title'].'
@@ -425,7 +425,7 @@ class Employees extends BaseController {
 				$r['contract_amount'],
 				$is_fixed
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -433,15 +433,15 @@ class Employees extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	 // record list
 	public function other_payments_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -451,12 +451,12 @@ class Employees extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $ContractModel->where('user_id',$id)->where('salay_type','other_payments')->orderBy('contract_option_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_type="other_payments" data-field_id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-field_type="all_other_payments" data-record-id="'. uencode($r['contract_option_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
-						
+
 			if($r['is_fixed']==0){
 				$is_fixed = lang('Employees.xin_title_tax_fixed');
 			} else {
@@ -469,7 +469,7 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = lang('Employees.xin_partially_taxable');
 			}
-		
+
 			$combhr = $edit.$delete;
 			$salary_option = '
 				'.$r['option_title'].'
@@ -483,7 +483,7 @@ class Employees extends BaseController {
 				$contract_tax_option,
 				$is_fixed,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -497,9 +497,9 @@ class Employees extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -509,9 +509,9 @@ class Employees extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $UserdocumentsModel->where('user_id',$id)->orderBy('document_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_type="document" data-field_id="'. uencode($r['document_id']) . '"><i class="feather icon-edit"></i></button></span>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-field_type="document" data-record-id="'. uencode($r['document_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 			$download_link = '<a href="'.site_url().'download?type=documents&filename='.uencode($r['document_file']).'">'.lang('Main.xin_download').'</a>';
@@ -527,7 +527,7 @@ class Employees extends BaseController {
 				$r['document_type'],
 				$download_link
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -535,17 +535,17 @@ class Employees extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	// |||add record|||
 	public function add_employee() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -624,7 +624,7 @@ class Employees extends BaseController {
 					],
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -665,10 +665,7 @@ class Employees extends BaseController {
 					'max_size[file,4096]',
 				],
 			]);
-			if (!$validated) {
-				$Return['error'] = lang('Employees.xin_staff_picture_field_error');
-			} else {
-				
+			if ($validated) {
 				$user_image = $this->request->getFile('file');
 				$file_name = $user_image->getName();
 				$user_image->move('public/uploads/users/');
@@ -696,8 +693,8 @@ class Employees extends BaseController {
 			$salay_type = $this->request->getPost('salay_type',FILTER_SANITIZE_STRING);
 			$options = array('cost' => 12);
 			$password_hash = password_hash($password, PASSWORD_BCRYPT, $options);
-			
-			
+
+
 			$EmailtemplatesModel = new EmailtemplatesModel();
 			$xin_system = $SystemModel->where('setting_id', 1)->first();
 			$data = [
@@ -771,8 +768,8 @@ class Employees extends BaseController {
 				'created_at' => date('d-m-Y h:i:s')
 			];
 			$StaffdetailsModel->insert($data2);
-			
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Employees.xin_success_add_employee');
 				if($xin_system['enable_email_notification'] == 1){
@@ -798,11 +795,11 @@ class Employees extends BaseController {
 	// contract options
 	// |||add record|||
 	public function add_allowance() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -849,9 +846,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -868,8 +865,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_set_allowance_success');
 				} else {
@@ -886,11 +883,11 @@ class Employees extends BaseController {
 	}
 	// |||edit record|||
 	public function update_allowance() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -937,9 +934,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -955,8 +952,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_updated_allowance_success');
 				} else {
@@ -973,11 +970,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function add_commissions() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1024,9 +1021,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1043,8 +1040,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_set_commission_success');
 				} else {
@@ -1061,11 +1058,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function update_commission() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1112,9 +1109,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1130,8 +1127,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_update_commission_success');
 				} else {
@@ -1148,11 +1145,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function add_statutory() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1191,9 +1188,9 @@ class Employees extends BaseController {
 				}
 			} else {
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1210,8 +1207,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_set_statutory_deduction_success');
 				} else {
@@ -1228,11 +1225,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function update_statutory() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1271,9 +1268,9 @@ class Employees extends BaseController {
 				}
 			} else {
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1288,8 +1285,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_update_statutory_deduction_success');
 				} else {
@@ -1306,11 +1303,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function add_otherpayment() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1357,9 +1354,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1376,8 +1373,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_set_reimbursement_success');
 				} else {
@@ -1394,11 +1391,11 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function update_other_payments() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1445,9 +1442,9 @@ class Employees extends BaseController {
 			} else {
 				$contract_tax_option = $this->request->getPost('contract_tax_option',FILTER_SANITIZE_STRING);
 				$is_fixed = $this->request->getPost('is_fixed',FILTER_SANITIZE_STRING);
-				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);	
+				$option_title = $this->request->getPost('option_title',FILTER_SANITIZE_STRING);
 				$contract_amount = $this->request->getPost('contract_amount',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));		
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$ContractModel = new ContractModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1463,8 +1460,8 @@ class Employees extends BaseController {
 					'option_title'  => $option_title,
 					'contract_amount'  => $contract_amount
 				];
-				$result = $ContractModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ContractModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_update_reimbursement_success');
 				} else {
@@ -1481,14 +1478,14 @@ class Employees extends BaseController {
 	}
 	// |||add record|||
 	public function add_document() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1531,11 +1528,11 @@ class Employees extends BaseController {
 				$document_file = $this->request->getFile('document_file');
 				$file_name = $document_file->getName();
 				$document_file->move('public/uploads/documents/');
-				
+
 				$document_name = $this->request->getPost('document_name',FILTER_SANITIZE_STRING);
 				$document_type = $this->request->getPost('document_type',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1552,8 +1549,8 @@ class Employees extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$UserdocumentsModel = new UserdocumentsModel();
-				$result = $UserdocumentsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $UserdocumentsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_set_document_success');
 				} else {
@@ -1561,7 +1558,7 @@ class Employees extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -1570,14 +1567,14 @@ class Employees extends BaseController {
 	}
 	// |||edit record|||
 	public function update_document() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1623,11 +1620,11 @@ class Employees extends BaseController {
 					$file_name = $document_file->getName();
 					$document_file->move('public/uploads/documents/');
 				}
-				
+
 				$document_name = $this->request->getPost('document_name',FILTER_SANITIZE_STRING);
 				$document_type = $this->request->getPost('document_type',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				if ($validated) {
 					$data = [
 						'document_name'  => $document_name,
@@ -1641,8 +1638,8 @@ class Employees extends BaseController {
 					];
 				}
 				$UserdocumentsModel = new UserdocumentsModel();
-				$result = $UserdocumentsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $UserdocumentsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.employee_update_document_success');
 				} else {
@@ -1650,7 +1647,7 @@ class Employees extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -1659,14 +1656,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_basic_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1674,8 +1671,8 @@ class Employees extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'contact_number' => 'required',		
-					'employee_id' => 'required',			
+					'contact_number' => 'required',
+					'employee_id' => 'required',
 					'role' => 'required',
 				],
 				[   // Errors
@@ -1696,7 +1693,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -1726,7 +1723,7 @@ class Employees extends BaseController {
 			$address_1 = $this->request->getPost('address_1',FILTER_SANITIZE_STRING);
 			$address_2 = $this->request->getPost('address_2',FILTER_SANITIZE_STRING);
 			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);
-			
+
 			// staff details
 			$date_of_birth = $this->request->getPost('date_of_birth',FILTER_SANITIZE_STRING);
 			$marital_status = $this->request->getPost('marital_status',FILTER_SANITIZE_STRING);
@@ -1734,7 +1731,7 @@ class Employees extends BaseController {
 			$blood_group = $this->request->getPost('blood_group',FILTER_SANITIZE_STRING);
 			$citizenship_id = $this->request->getPost('citizenship_id',FILTER_SANITIZE_STRING);
 			$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
-			
+
 			if(empty($country)){
 				$country = 0;
 			}
@@ -1768,10 +1765,10 @@ class Employees extends BaseController {
 						}
 					 }
 					 $i++;
-				 }		
+				 }
 				 if($Return['error']!=''){
 					$this->output($Return);
-				}	
+				}
 			}
 			$data = [
 				'first_name' => $first_name,
@@ -1797,15 +1794,15 @@ class Employees extends BaseController {
 				'blood_group' => $blood_group,
 				'citizenship_id' => $citizenship_id
 			];
-			
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$MainModel = new MainModel();
 				$MainModel->update_employee_record($data2,$id);
 				$Return['result'] = lang('Employees.xin_success_update_employee');
 				if($count_module_attributes > 0){
 					foreach($module_attributes as $mattribute) {
-						
+
 						// update value
 						$count_exist_values = $Moduleattributesval->where('user_id',$id)->where('module_attributes_id',$mattribute['custom_field_id'])->countAllResults();
 						if($count_exist_values > 0){
@@ -1844,14 +1841,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_bio() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1868,7 +1865,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('bio')) {
@@ -1877,7 +1874,7 @@ class Employees extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$UsersModel = new UsersModel();
 			$Moduleattributes = new Moduleattributes();
@@ -1902,10 +1899,10 @@ class Employees extends BaseController {
 						}
 					 }
 					 $i++;
-				 }		
+				 }
 				 if($Return['error']!=''){
 					$this->output($Return);
-				}	
+				}
 			}
 			// employee details
 			$data = [
@@ -1914,7 +1911,7 @@ class Employees extends BaseController {
 			];
 			$MainModel = new MainModel();
 			$result = $MainModel->update_employee_record($data,$id);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.employee_update_bio_success');
 				if($count_module_attributes > 0){
@@ -1957,14 +1954,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_social() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1973,7 +1970,7 @@ class Employees extends BaseController {
 			$twitter_profile = $this->request->getPost('twitter_profile',FILTER_SANITIZE_STRING);
 			$gplus_profile = $this->request->getPost('gplus_profile',FILTER_SANITIZE_STRING);
 			$linkedin_profile = $this->request->getPost('linkedin_profile',FILTER_SANITIZE_STRING);
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$UsersModel = new UsersModel();
 			// employee details
@@ -1985,9 +1982,9 @@ class Employees extends BaseController {
 			];
 			$MainModel = new MainModel();
 			$result = $MainModel->update_employee_record($data,$id);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
-				
+
 				$Return['result'] = lang('Success.employee_update_social_success');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -2002,14 +1999,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_bankinfo() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2020,12 +2017,12 @@ class Employees extends BaseController {
 			$iban = $this->request->getPost('iban',FILTER_SANITIZE_STRING);
 			$swift_code = $this->request->getPost('swift_code',FILTER_SANITIZE_STRING);
 			$bank_branch = $this->request->getPost('bank_branch',FILTER_SANITIZE_STRING);
-			
+
 			// set rules
 			$validation->setRules([
 					'account_title' => 'required',
 					'account_number' => 'required',
-					'bank_name' => 'required',				
+					'bank_name' => 'required',
 					'iban' => 'required',
 					'swift_code' => 'required',
 					'bank_branch' => 'required'
@@ -2051,7 +2048,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('account_title')) {
@@ -2070,7 +2067,7 @@ class Employees extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$UsersModel = new UsersModel();
 			// employee details
@@ -2084,9 +2081,9 @@ class Employees extends BaseController {
 			];
 			$MainModel = new MainModel();
 			$result = $MainModel->update_employee_record($data,$id);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
-				
+
 				$Return['result'] = lang('Success.employee_update_bankinfo_success');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -2101,14 +2098,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_contact_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2139,7 +2136,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('contact_full_name')) {
@@ -2165,9 +2162,9 @@ class Employees extends BaseController {
 			];
 			$MainModel = new MainModel();
 			$result = $MainModel->update_employee_record($data,$id);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
-				
+
 				$Return['result'] = lang('Success.employee_update_emergency_contact_success');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -2182,14 +2179,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_company_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2203,7 +2200,7 @@ class Employees extends BaseController {
 					'designation_id' => 'required',
 					'employee_id' => 'required',
 					'contact_number' => 'required',
-					'office_shift_id' => 'required',					
+					'office_shift_id' => 'required',
 					'role' => 'required'
 				],
 				[   // Errors
@@ -2241,7 +2238,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -2283,7 +2280,7 @@ class Employees extends BaseController {
 			$address_1 = $this->request->getPost('address_1',FILTER_SANITIZE_STRING);
 			$address_2 = $this->request->getPost('address_2',FILTER_SANITIZE_STRING);
 			$country_id = $this->request->getPost('country',FILTER_SANITIZE_STRING);
-			
+
 			// staff details
 			$cat_ids = implode(',',$this->request->getPost('leave_categories',FILTER_SANITIZE_STRING));
 			$employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
@@ -2297,7 +2294,7 @@ class Employees extends BaseController {
 			$religion = $this->request->getPost('religion',FILTER_SANITIZE_STRING);
 			$blood_group = $this->request->getPost('blood_group',FILTER_SANITIZE_STRING);
 			$citizenship_id = $this->request->getPost('citizenship_id',FILTER_SANITIZE_STRING);
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$UsersModel = new UsersModel();
 			$data = [
@@ -2332,8 +2329,8 @@ class Employees extends BaseController {
 				'blood_group' => $blood_group,
 				'citizenship_id' => $citizenship_id
 			];
-			
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$MainModel = new MainModel();
 				$MainModel->update_employee_record($data2,$id);
@@ -2351,14 +2348,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_contract_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2369,7 +2366,7 @@ class Employees extends BaseController {
 					'designation_id' => 'required',
 					'basic_salary' => 'required',
 					'salay_type' => 'required',
-					'office_shift_id' => 'required',					
+					'office_shift_id' => 'required',
 					'role_description' => 'required'
 				],
 				[   // Errors
@@ -2396,7 +2393,7 @@ class Employees extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('contract_date')) {
@@ -2428,7 +2425,7 @@ class Employees extends BaseController {
 			$role_description = $this->request->getPost('role_description',FILTER_SANITIZE_STRING);
 			$date_of_leaving = $this->request->getPost('contract_end',FILTER_SANITIZE_STRING);
 			$cat_ids = implode(',',$this->request->getPost('leave_categories'));
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$MainModel = new MainModel();
 			$UsersModel = new UsersModel();
@@ -2454,10 +2451,10 @@ class Employees extends BaseController {
 						}
 					 }
 					 $i++;
-				 }		
+				 }
 				 if($Return['error']!=''){
 					$this->output($Return);
-				}	
+				}
 			}
 			// employee details
 			$data2 = [
@@ -2474,11 +2471,11 @@ class Employees extends BaseController {
 			];
 			$MainModel = new MainModel();
 			$result = $MainModel->update_employee_record($data2,$id);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				if($count_module_attributes > 0){
 					foreach($module_attributes as $mattribute) {
-						
+
 						// update value
 						$count_exist_values = $Moduleattributesval->where('user_id',$id)->where('module_attributes_id',$mattribute['custom_field_id'])->countAllResults();
 						if($count_exist_values > 0){
@@ -2518,14 +2515,14 @@ class Employees extends BaseController {
 	}
 	// |||update record|||
 	public function update_account_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2545,7 +2542,7 @@ class Employees extends BaseController {
 					],
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if($validation->hasError('email')){
@@ -2558,7 +2555,7 @@ class Employees extends BaseController {
 			}
 			//staff
 			$email = $this->request->getPost('email',FILTER_SANITIZE_STRING);
-			$username = $this->request->getPost('username',FILTER_SANITIZE_STRING);			
+			$username = $this->request->getPost('username',FILTER_SANITIZE_STRING);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$UsersModel = new UsersModel();
 			$data = [
@@ -2566,7 +2563,7 @@ class Employees extends BaseController {
 				'username'  => $username,
 			];
 			$result = $UsersModel->update($id, $data);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.employee_update_accountinfo_success');
 			} else {
@@ -2582,14 +2579,14 @@ class Employees extends BaseController {
 	}
 	// update record
 	public function update_profile_photo() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2602,9 +2599,7 @@ class Employees extends BaseController {
 					'max_size[file,4096]',
 				],
 			]);
-			if (!$validated) {
-				$Return['error'] = lang('Main.xin_error_profile_picture_field');
-			} else {
+			if ($validated) {
 				$avatar = $this->request->getFile('file');
 				$file_name = $avatar->getName();
 				$avatar->move('public/uploads/users/');
@@ -2623,7 +2618,7 @@ class Employees extends BaseController {
 					'profile_photo'  => $file_name
 				];
 				$result = $UsersModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
 			}
@@ -2634,17 +2629,17 @@ class Employees extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// update record
 	public function update_password() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2678,17 +2673,17 @@ class Employees extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
-			
+
+
 			$options = array('cost' => 12);
 			$password_hash = password_hash($new_password, PASSWORD_BCRYPT, $options);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'password' => $password_hash,
 			];
-			
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$result = $UsersModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Main.xin_success_new_password_field');
 			} else {
@@ -2703,14 +2698,14 @@ class Employees extends BaseController {
 		}
 	}
 	public function is_designation() {
-		
+
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->uri->getSegment(4);
-		
+
 		$data = array(
 			'department_id' => $id
 			);
@@ -2725,7 +2720,7 @@ class Employees extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -2737,17 +2732,17 @@ class Employees extends BaseController {
 		} else {
 			return redirect()->to(site_url('erp/login'));
 		}
-	} 
+	}
 	// delete record
 	public function delete_all_allowances() {
-		
+
 		$session = \Config\Services::session();
 			$request = \Config\Services::request();
 			$usession = $session->get('sup_username');
 			if($this->request->getPost('_method')=='DELETE') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			
+
 			$id = udecode($this->request->getPost('_token',FILTER_SANITIZE_STRING));
 			$Return['csrf_hash'] = csrf_hash();
 			$ContractModel = new ContractModel();
@@ -2763,14 +2758,14 @@ class Employees extends BaseController {
 	}
 	// delete record
 	public function delete_all_commissions() {
-		
+
 		$session = \Config\Services::session();
 			$request = \Config\Services::request();
 			$usession = $session->get('sup_username');
 			if($this->request->getPost('_method')=='DELETE') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			
+
 			$id = udecode($this->request->getPost('_token',FILTER_SANITIZE_STRING));
 			$Return['csrf_hash'] = csrf_hash();
 			$ContractModel = new ContractModel();
@@ -2786,14 +2781,14 @@ class Employees extends BaseController {
 	}
 	// delete record
 	public function delete_all_statutory_deductions() {
-		
+
 		$session = \Config\Services::session();
 			$request = \Config\Services::request();
 			$usession = $session->get('sup_username');
 			if($this->request->getPost('_method')=='DELETE') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			
+
 			$id = udecode($this->request->getPost('_token',FILTER_SANITIZE_STRING));
 			$Return['csrf_hash'] = csrf_hash();
 			$ContractModel = new ContractModel();
@@ -2809,14 +2804,14 @@ class Employees extends BaseController {
 	}
 	// delete record
 	public function delete_all_other_payments() {
-		
+
 		$session = \Config\Services::session();
 			$request = \Config\Services::request();
 			$usession = $session->get('sup_username');
 			if($this->request->getPost('_method')=='DELETE') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			
+
 			$id = udecode($this->request->getPost('_token',FILTER_SANITIZE_STRING));
 			$Return['csrf_hash'] = csrf_hash();
 			$ContractModel = new ContractModel();
@@ -2832,14 +2827,14 @@ class Employees extends BaseController {
 	}
 	// delete record
 	public function delete_document() {
-		
+
 		$session = \Config\Services::session();
 			$request = \Config\Services::request();
 			$usession = $session->get('sup_username');
 			if($this->request->getPost('_method')=='DELETE') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			
+
 			$id = udecode($this->request->getPost('_token',FILTER_SANITIZE_STRING));
 			$Return['csrf_hash'] = csrf_hash();
 			$UserdocumentsModel = new UserdocumentsModel();
@@ -2855,7 +2850,7 @@ class Employees extends BaseController {
 	}
 	// delete record
 	public function delete_staff() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

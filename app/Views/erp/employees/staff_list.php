@@ -181,7 +181,7 @@ $get_animate='';
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-eye-slash"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text">
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="password" value="Abcd1234" disabled>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@ $get_animate='';
                     <?= lang('Employees.xin_employee_office_shift');?>
                     </option>
                     <?php foreach($office_shifts as $ioffice_shift):?>
-                    <option value="<?= $ioffice_shift['office_shift_id'];?>">
+                    <option value="<?= $ioffice_shift['office_shift_id'];?>" selected>
                     <?= $ioffice_shift['shift_name'];?>
                     </option>
                     <?php endforeach;?>
@@ -215,7 +215,7 @@ $get_animate='';
                     <option value="<?php echo $role->role_id?>"><?php echo $role->role_name?></option>
                   <?php else:?><?php */?>
                     <?php //if($role->role_id!=1):?>
-                    <option value="<?php echo $role['role_id']?>"><?php echo $role['role_name']?></option>
+                    <option value="<?php echo $role['role_id']?>" selected><?php echo $role['role_name']?></option>
                     <?php //endif;?>
                     <?php /*?><?php endif;?><?php */?>
                     <?php } ?>
