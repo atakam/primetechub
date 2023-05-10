@@ -170,9 +170,6 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
     <?= lang('Dashboard.left_attendance');?>
     </span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
     <ul class="pc-submenu" <?php if(!empty($arr_mod['attendance_style_ul']))echo $arr_mod['attendance_style_ul'];?>>
-      <li class="pc-item <?php if(!empty($arr_mod['attnd_active']))echo $arr_mod['attnd_active'];?>"> <a class="pc-link" href="<?= site_url('erp/attendance-list');?>" >
-        <?= lang('Dashboard.left_attendance');?>
-        </a> </li>
       <li class="pc-item <?php if(!empty($arr_mod['upd_attnd_active']))echo $arr_mod['upd_attnd_active'];?>"> <a class="pc-link" href="<?= site_url('erp/manual-attendance');?>" >
         <?= lang('Dashboard.left_update_attendance');?>
         </a> </li>
