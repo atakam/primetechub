@@ -19,7 +19,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
- 
+
 use App\Models\MainModel;
 use App\Models\SystemModel;
 use App\Models\RolesModel;
@@ -38,7 +38,7 @@ use App\Models\PaystatutorydeductionsModel;
 class Payroll extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -46,7 +46,7 @@ class Payroll extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -70,7 +70,7 @@ class Payroll extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function advance_salary()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -78,7 +78,7 @@ class Payroll extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -102,7 +102,7 @@ class Payroll extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function request_loan()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -110,7 +110,7 @@ class Payroll extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -134,7 +134,7 @@ class Payroll extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function payroll_history()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -142,7 +142,7 @@ class Payroll extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -166,13 +166,13 @@ class Payroll extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function payroll_view()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$PayrollModel = new PayrollModel();
 		$request = \Config\Services::request();
 		$ifield_id = udecode($request->uri->getSegment(3));
@@ -182,7 +182,7 @@ class Payroll extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -197,21 +197,21 @@ class Payroll extends BaseController {
 		$data['subview'] = view('erp/payroll/erp_payroll_view', $data);
 		return view('erp/layout/pre_layout_main', $data); //page load
 	}
-	
+
 	// list
 	public function payslip_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$config         = new \Config\Encryption();
 		$config->key    = 'aBigsecret_ofAtleast32Characters';
 		$config->driver = 'OpenSSL';
-		
+
 		$encrypter = \Config\Services::encrypter($config);
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
@@ -239,11 +239,11 @@ class Payroll extends BaseController {
 			$company_id = $usession['sup_user_id'];
 		}
 		$xin_system = erp_company_settings();
-		
+
 		$data = array();
-		
-          foreach($staff as $r) {						
-		  			
+
+          foreach($staff as $r) {
+
 				$payroll_count = $PayrollModel->where('company_id',$company_id)->where('staff_id',$r['user_id'])->where('salary_month',$payment_date)->countAllResults();
 				// Advance Salary //
 				$advance_salary = $AdvancesalaryModel->where('employee_id',$r['user_id'])->where('status',1)->where('salary_type','advance')->countAllResults();
@@ -272,7 +272,7 @@ class Payroll extends BaseController {
 				} else {
 					$deduct_salary = 0.00;
 					$is_advance_deducted = 0;
-				}	
+				}
 				// Loan Request //
 				$lo_advance_salary = $AdvancesalaryModel->where('employee_id',$r['user_id'])->where('status',1)->where('salary_type','loan')->countAllResults();
 				if($lo_advance_salary > 0) {
@@ -300,9 +300,9 @@ class Payroll extends BaseController {
 				} else {
 					$lo_deduct_salary = 0.00;
 					$lo_is_advance_deducted = 0;
-				}				
-				if($payroll_count > 0){		
-					$payroll_link = $PayrollModel->where('company_id',$company_id)->where('staff_id',$r['user_id'])->where('salary_month',$payment_date)->first();			
+				}
+				if($payroll_count > 0){
+					$payroll_link = $PayrollModel->where('company_id',$company_id)->where('staff_id',$r['user_id'])->where('salary_month',$payment_date)->first();
 					$pay_salary = '';
 					if(in_array('pay3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 						$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($payroll_link['payslip_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
@@ -318,12 +318,12 @@ class Payroll extends BaseController {
 					} else {
 						$pay_salary = '';
 					}
-					
+
 					$view = '';
 					$delete = '';
 					$combhr = $pay_salary.$view.$delete;
 					$status = '<span class="badge badge-light-danger">'.lang('Invoices.xin_unpaid').'</span>';
-				}		
+				}
 				$user_detail = $StaffdetailsModel->where('user_id', $r['user_id'])->first();
 				$wages_type = lang('Membership.xin_per_month');
 				$ibasic_salary = $user_detail['basic_salary'];
@@ -380,7 +380,7 @@ class Payroll extends BaseController {
 				} else {
 					$statutory_deductions_amount = 0;
 				}
-				
+
 				// net salary
 				$inet_salary = $ibasic_salary + $allowance_amount + $commissions_amount + $other_payments_amount - $statutory_deductions_amount + $deduct_salary + $lo_deduct_salary;
 				$net_salary = '<h6 class="text-success">'.number_to_currency($inet_salary, $xin_system['default_currency'],null,2).'</h6>';
@@ -390,7 +390,7 @@ class Payroll extends BaseController {
 					<div class="overlay-edit">
 						'.$combhr.'
 					</div>
-				';					 			  				
+				';
 				$data[] = array(
 					$links,
 					$user_detail['employee_id'],
@@ -412,9 +412,9 @@ class Payroll extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -428,9 +428,9 @@ class Payroll extends BaseController {
 			$get_data = $AdvancesalaryModel->where('company_id',$usession['sup_user_id'])->where('salary_type','advance')->orderBy('advance_salary_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  			
+
+          foreach($get_data as $r) {
+
 				if(in_array('advance_salary4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 					$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['advance_salary_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 				} else {
@@ -447,8 +447,8 @@ class Payroll extends BaseController {
 			$month_year = $get_month.', '.$d[0];
 			// user info
 			$iuser_info = $UsersModel->where('user_id', $r['employee_id'])->first();
-			
-			if($r['one_time_deduct']==1): $onetime = lang('Main.xin_yes'); else: $onetime = lang('Main.xin_no'); endif;	
+
+			if($r['one_time_deduct']==1): $onetime = lang('Main.xin_yes'); else: $onetime = lang('Main.xin_no'); endif;
 			if($r['status'] == 0){
 				$app_status = '<span class="badge badge-light-warning">'.lang('Main.xin_pending').'</span>';
 			} else if($r['status'] == 1){
@@ -483,11 +483,11 @@ class Payroll extends BaseController {
 				'.$uname.'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>';	 			  				
+				</div>';
 			} else {
 				$icname = $uname;
 			}
-			
+
 			$data[] = array(
 				$icname,
 				$itotal_paid,
@@ -496,7 +496,7 @@ class Payroll extends BaseController {
 				$monthly_installment,
 				$iapp_status,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -510,9 +510,9 @@ class Payroll extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -526,9 +526,9 @@ class Payroll extends BaseController {
 			$get_data = $AdvancesalaryModel->where('company_id',$usession['sup_user_id'])->where('salary_type','loan')->orderBy('advance_salary_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  			
+
+          foreach($get_data as $r) {
+
 				if(in_array('advance_salary4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 					$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['advance_salary_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 				} else {
@@ -545,8 +545,8 @@ class Payroll extends BaseController {
 			$month_year = $get_month.', '.$d[0];
 			// user info
 			$iuser_info = $UsersModel->where('user_id', $r['employee_id'])->first();
-			
-			if($r['one_time_deduct']==1): $onetime = lang('Main.xin_yes'); else: $onetime = lang('Main.xin_no'); endif;	
+
+			if($r['one_time_deduct']==1): $onetime = lang('Main.xin_yes'); else: $onetime = lang('Main.xin_no'); endif;
 			if($r['status'] == 0){
 				$app_status = '<span class="badge badge-light-warning">'.lang('Main.xin_pending').'</span>';
 			} else if($r['status'] == 1){
@@ -581,11 +581,11 @@ class Payroll extends BaseController {
 				'.$uname.'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>';	 			  				
+				</div>';
 			} else {
 				$icname = $uname;
 			}
-			
+
 			$data[] = array(
 				$icname,
 				$itotal_paid,
@@ -594,7 +594,7 @@ class Payroll extends BaseController {
 				$monthly_installment,
 				$iapp_status,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -609,14 +609,14 @@ class Payroll extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$config         = new \Config\Encryption();
 		$config->key    = 'aBigsecret_ofAtleast32Characters';
 		$config->driver = 'OpenSSL';
-		
+
 		$encrypter = \Config\Services::encrypter($config);
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
@@ -625,7 +625,10 @@ class Payroll extends BaseController {
 		$PayrollModel = new PayrollModel();
 		$StaffdetailsModel = new StaffdetailsModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if($user_info['user_type'] == 'staff'){
+		if($user_info['user_type'] == 'staff' && in_array('pay1',staff_role_resource())){
+			$payslip = $PayrollModel->where('company_id',$user_info['company_id'])->orderBy('payslip_id', 'ASC')->findAll();
+			$company_id = $user_info['company_id'];
+		} else if($user_info['user_type'] == 'staff'){
 			$payslip = $PayrollModel->where('company_id',$user_info['company_id'])->where('staff_id',$usession['sup_user_id'])->orderBy('payslip_id', 'ASC')->findAll();
 			$company_id = $user_info['company_id'];
 		} else {
@@ -634,13 +637,13 @@ class Payroll extends BaseController {
 		}
 		$xin_system = erp_company_settings();
 		$data = array();
-		
-          foreach($payslip as $r) {						
-		  			
-					
+
+          foreach($payslip as $r) {
+
+
 				$user_detail = $UsersModel->where('user_id', $r['staff_id'])->first();
 				$wages_type = lang('Membership.xin_per_month');
-				
+
 				$name = $user_detail['first_name'].' '.$user_detail['last_name'];
 				$uname = '<div class="d-inline-block align-middle">
 					<img src="'.base_url().'/public/uploads/users/thumb/'.$user_detail['profile_photo'].'" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
@@ -651,7 +654,7 @@ class Payroll extends BaseController {
 				</div>';
 				// Salary Options //
 				$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Payroll.xin_view_payslip').'"><a target="_blank" href="'.site_url('erp/payroll-view').'/'.uencode($r['payslip_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
-				
+
 				// net salary
 				$inet_salary = $r['net_salary'];
 				$smonth = strtotime($r['salary_month']);
@@ -664,7 +667,7 @@ class Payroll extends BaseController {
 					<div class="overlay-edit">
 						'.$combhr.'
 					</div>
-				';					 			  				
+				';
 				$data[] = array(
 					$links,
 					$net_salary,
@@ -681,11 +684,11 @@ class Payroll extends BaseController {
      }
 	// |||add record|||
 	public function add_advance_salary() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -745,7 +748,7 @@ class Payroll extends BaseController {
 						$emi_amount = $this->request->getPost('emi_amount',FILTER_SANITIZE_STRING);
 					}
 				}
-							
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -771,8 +774,8 @@ class Payroll extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$AdvancesalaryModel = new AdvancesalaryModel();
-				$result = $AdvancesalaryModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AdvancesalaryModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_advance_salary_created__msg');
 				} else {
@@ -786,14 +789,14 @@ class Payroll extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||update record|||
 	public function edit_advance_salary() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -855,7 +858,7 @@ class Payroll extends BaseController {
 						$emi_amount = $this->request->getPost('emi_amount',FILTER_SANITIZE_STRING);
 					}
 				}
-							
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -881,8 +884,8 @@ class Payroll extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$AdvancesalaryModel = new AdvancesalaryModel();
-				$result = $AdvancesalaryModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AdvancesalaryModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_advance_salary_updated_msg');
 				} else {
@@ -896,14 +899,14 @@ class Payroll extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||add record|||
 	public function add_loan() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -963,7 +966,7 @@ class Payroll extends BaseController {
 						$emi_amount = $this->request->getPost('emi_amount',FILTER_SANITIZE_STRING);
 					}
 				}
-							
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -989,8 +992,8 @@ class Payroll extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$AdvancesalaryModel = new AdvancesalaryModel();
-				$result = $AdvancesalaryModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AdvancesalaryModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_loan_created__msg');
 				} else {
@@ -1004,14 +1007,14 @@ class Payroll extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||update record|||
 	public function edit_loan() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1073,7 +1076,7 @@ class Payroll extends BaseController {
 						$emi_amount = $this->request->getPost('emi_amount',FILTER_SANITIZE_STRING);
 					}
 				}
-							
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1099,8 +1102,8 @@ class Payroll extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$AdvancesalaryModel = new AdvancesalaryModel();
-				$result = $AdvancesalaryModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AdvancesalaryModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_loan_updated_msg');
 				} else {
@@ -1114,24 +1117,24 @@ class Payroll extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// add payslip
 	public function add_pay_monthly() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_monthly_payment') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
 			if($this->request->getPost('payslip_comments') === ''){
 				$Return['error'] = lang('Success.xin_payslip_comments_field_error');
 			}
-					
+
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
@@ -1258,8 +1261,8 @@ class Payroll extends BaseController {
 				}
 			} else {
 				$statutory_deductions_amount = 0;
-			}								
-			
+			}
+
 			$generate_key = uencode(generate_random_employeeid());
 			$UsersModel = new UsersModel();
 			$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -1274,7 +1277,7 @@ class Payroll extends BaseController {
 			$EmailtemplatesModel = new EmailtemplatesModel();
 			$SmstemplatesModel = new SmstemplatesModel();
 			$user_detail = $StaffdetailsModel->where('user_id', $id)->first();
-			$ibasic_salary = $user_detail['basic_salary'];	
+			$ibasic_salary = $user_detail['basic_salary'];
 			// net salary
 			$inet_salary = $ibasic_salary + $allowance_amount + $commissions_amount + $other_payments_amount - $statutory_deductions_amount;
 			// add info
@@ -1308,7 +1311,7 @@ class Payroll extends BaseController {
 			$PayrollModel = new PayrollModel();
 			$result = $PayrollModel->insert($data);
 			$payroll_id = $PayrollModel->insertID();
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				if($count_allowances > 0) {
 					foreach($salary_allowances as $sl_allowances) {
@@ -1409,12 +1412,12 @@ class Payroll extends BaseController {
 		}
 	}
 	public function payroll_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1426,19 +1429,19 @@ class Payroll extends BaseController {
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		/* Define return | here result is used to return user data and error for error message *///
 		$Return = array('payslip_month'=>'', 'paid_inv_label'=>'','payroll_amount'=>'');
 		$payslip_month = array();
 		$paid_payroll = array();
 		$someArray = array();
 		$j=0;
-		for ($i = 0; $i <= 11; $i++) 
+		for ($i = 0; $i <= 11; $i++)
 		{
-		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));		   
+		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
 		   $paid_amount = erp_payroll($months);
 		   $paid_payroll[] = $paid_amount;
-		   $payslip_month[] = date("M Y",strtotime($months));		   
+		   $payslip_month[] = date("M Y",strtotime($months));
 		}
 		$strtotime = $payslip_month;
 		$Return['payslip_month'] = $strtotime;
@@ -1448,12 +1451,12 @@ class Payroll extends BaseController {
 		exit;
 	}
 	public function staff_payroll_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1467,19 +1470,19 @@ class Payroll extends BaseController {
 			$company_id = $usession['sup_user_id'];
 			$staff_id = $usession['sup_user_id'];
 		}
-		
+
 		/* Define return | here result is used to return user data and error for error message *///
 		$Return = array('payslip_month'=>'', 'paid_inv_label'=>'','payroll_amount'=>'');
 		$payslip_month = array();
 		$paid_payroll = array();
 		$someArray = array();
 		$j=0;
-		for ($i = 0; $i <= 11; $i++) 
+		for ($i = 0; $i <= 11; $i++)
 		{
-		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));		   
+		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
 		   $paid_amount = staff_payroll($months,$staff_id);
 		   $paid_payroll[] = $paid_amount;
-		   $payslip_month[] = date("M Y",strtotime($months));		   
+		   $payslip_month[] = date("M Y",strtotime($months));
 		}
 		$strtotime = $payslip_month;
 		$Return['payslip_month'] = $strtotime;
@@ -1493,7 +1496,7 @@ class Payroll extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1511,7 +1514,7 @@ class Payroll extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1529,7 +1532,7 @@ class Payroll extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1544,7 +1547,7 @@ class Payroll extends BaseController {
 	}
 	// delete record
 	public function delete_advance_salary() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1565,7 +1568,7 @@ class Payroll extends BaseController {
 	}
 	// delete record
 	public function delete_loan() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1586,7 +1589,7 @@ class Payroll extends BaseController {
 	}
 	// delete record
 	public function delete_payslip() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

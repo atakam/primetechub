@@ -17,7 +17,7 @@ $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 $xin_system = $SystemModel->where('setting_id', 1)->first();
 ?>
 <?php $arr_mod = select_module_class($router->controllerName(),$router->methodName()); ?>
-<?php 
+<?php
 if($user_info['user_type'] == 'staff'){
 	$cmembership = $CompanymembershipModel->where('company_id', $user_info['company_id'])->first();
 } else {
@@ -136,6 +136,7 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
         </ul>
     </li>
     <?php endif; endif;?>
+  </li>
     <!-- Tasks -->
   <li class="pc-item"> <a href="<?= site_url('erp/tasks-grid');?>" class="pc-link"><span class="pc-micon"><i data-feather="edit"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_tasks');?>
@@ -151,7 +152,7 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   <!-- Leads -->
   <li class="pc-item"><a href="<?= site_url('erp/leads-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="user-plus"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_leads');?>
-    </span></a></li>  
+    </span></a></li>
   <!-- Performance -->
   <?php if(isset($setup_modules['performance'])): if($setup_modules['performance']==1):?>
   <li class="<?php if(!empty($arr_mod['talent_open']))echo $arr_mod['talent_open'];?> pc-item"> <a href="#" class="pc-link sidenav-toggle"> <span class="pc-micon"><i data-feather="aperture"></i></span>
@@ -196,7 +197,7 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
  <!-- Estimates -->
   <li class="pc-item"><a href="<?= site_url('erp/estimates-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="calendar"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_estimates');?>
-    </span></a></li>   
+    </span></a></li>
   <!-- Leave -->
   <li class="pc-item"> <a href="<?= site_url('erp/leave-list');?>" class="pc-link"> <span class="pc-micon"><i data-feather="plus-square"></i></span><span class="pc-mtext">
     <?= lang('Leave.left_leave_request');?>
