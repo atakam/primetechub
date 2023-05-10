@@ -47,12 +47,12 @@ if($user_info['user_type'] == 'staff'){
 		$designation_name = '--';
 		$date_of_joining = '--';
 	}
-	
+
 } else {
 	$payslip_data = $PayrollModel->where('company_id', $usession['sup_user_id'])->where('payslip_id', $payslip_id)->first();
 	$user_data = $UsersModel->where('company_id', $usession['sup_user_id'])->where('user_id', $payslip_data['staff_id'])->first();
 	// userdata
-	
+
 	if($user_data){
 		$employee_detail = $StaffdetailsModel->where('user_id', $user_data['user_id'])->first();
 		$idesignations = $DesignationModel->where('company_id', $usession['sup_user_id'])->where('designation_id',$employee_detail['designation_id'])->first();
@@ -77,9 +77,9 @@ $xin_system = erp_company_settings();
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 ?>
 
-<div class="row"> 
+<div class="row">
   <!-- [ Payslip ] start -->
-  <div class="col-md-12"> 
+  <div class="col-md-12">
     <!-- [ Payslip ] start -->
     <div class="container">
       <div>
@@ -146,6 +146,10 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
                       <tr>
                         <td class="text-success"><?php echo lang('Employees.xin_basic_salary');?></td>
                         <td class="text-success"><?= number_to_currency($payslip_data['basic_salary'], $xin_system['default_currency'],null,2);?></td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><?php echo lang('Employees.xin_reimbursements');?></td>
+                        <td class="text-success"><?= number_to_currency($payslip_data['total_other_payments'], $xin_system['default_currency'],null,2);?></td>
                       </tr>
                       <?php $allowance_amount =0; if($count_pay_allowance > 0) { ?>
                       <?php foreach($pay_allowance as $_allowance):?>
@@ -332,6 +336,6 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
         </div>
       </div>
     </div>
-    <!-- [ Payslip ] end --> 
+    <!-- [ Payslip ] end -->
   </div>
 </div>

@@ -96,7 +96,7 @@ return [
 	'xin_allowances' => 'Indemnités',
 	'xin_commissions' => 'Commissions',
 	'xin_satatutory_deductions' => 'Déductions légales',
-	'xin_reimbursements' => 'Remboursements',
+	'xin_reimbursements' => 'Salaire horaire',
 	'xin_edit_allowances' => 'Modifier indemnité',
 	'xin_edit_commissions' => 'Modifier la commission',
 	'xin_edit_satatutory_deductions' => 'Modifier la déduction légale',
@@ -233,5 +233,5 @@ return [
 	'xin_transfer_accepted_msg' => 'Le transfert est accepté.',
 	'xin_transfer_rejected_msg' => 'Le transfert est rejeté.',
 	'xin_timesheet_agenda' => 'Agenda des feuilles de temps',
-	
+
 ];

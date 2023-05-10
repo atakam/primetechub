@@ -95,7 +95,7 @@ return [
 	'xin_allowances' => 'Allowances',
 	'xin_commissions' => 'Commissions',
 	'xin_satatutory_deductions' => 'Statutory deductions',
-	'xin_reimbursements' => 'Reimbursements',
+	'xin_reimbursements' => 'Hourly Salary',
 	'xin_edit_allowances' => 'Edit Allowance',
 	'xin_edit_commissions' => 'Edit Commission',
 	'xin_edit_satatutory_deductions' => 'Edit Statutory deduction',

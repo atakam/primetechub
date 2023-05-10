@@ -4,14 +4,16 @@ use App\Models\RolesModel;
 use App\Models\UsersModel;
 use App\Models\ContractModel;
 use App\Models\StaffdetailsModel;
+use App\Models\TimesheetModel;
 
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();		
-$ContractModel = new ContractModel();	
+$UsersModel = new UsersModel();
+$ContractModel = new ContractModel();
 $SystemModel = new SystemModel();
 $StaffdetailsModel = new StaffdetailsModel();
+$TimesheetModel = new TimesheetModel();
 
 $xin_system = erp_company_settings();
 /* Assets view
@@ -70,10 +72,22 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
 	} else {
 		$statutory_deductions_amount = 0;
 	}
-	
+
+  // Attendance salary
+  $total_hrs = $TimesheetModel->where('employee_id', $user_id)->findAll();
+  $total_work = '';
+  $seconds = 0;
+  foreach ($total_hrs as $hour_work){
+    // total work
+    $timee = $hour_work['total_work'].':00';
+    $seconds += strtotime($timee) - strtotime('TODAY');
+  }
+  $hours_worked = number_format((float)($seconds / 3600), 2, '.', '');
+  $other_payments_amount = $user_detail['hourly_rate'] * $hours_worked;
+
 	// net salary
 	$inet_salary = $ibasic_salary + $allowance_amount + $commissions_amount + $other_payments_amount + $advance_salary + $loan - $statutory_deductions_amount;
-			
+
 ?>
 
 <div class="modal-header">
@@ -99,8 +113,8 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
       </div>
       </div>
     </div>
-   </div> 
-  
+   </div>
+
   <ul class="list-group list-group-flush">
     <li class="list-group-item py-0" style="border:0">
       <div class="table-responsive">
@@ -226,9 +240,9 @@ $(document).ready(function(){
 	$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
 	$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 	Ladda.bind('button[type=submit]');
-	// On page load: datatable					
+	// On page load: datatable
 	$("#pay_monthly").submit(function(e){
-	
+
 	/*Form Submit*/
 	e.preventDefault();
 		var obj = $(this), action = obj.attr('name');
@@ -267,10 +281,10 @@ $(document).ready(function(){
 							},
 						},
 						"fnDrawCallback": function(settings){
-						$('[data-toggle="tooltip"]').tooltip();          
+						$('[data-toggle="tooltip"]').tooltip();
 						}
 					});
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -280,6 +294,6 @@ $(document).ready(function(){
 			}
 		});
 	});
-});	
+});
 </script>
 <?php } ?>
