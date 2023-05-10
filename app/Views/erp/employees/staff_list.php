@@ -165,7 +165,7 @@ $get_animate='';
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="email">
+                  <label for="username">
                     <?= lang('Main.dashboard_username');?>
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
@@ -181,7 +181,7 @@ $get_animate='';
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-eye-slash"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="password" value="Abcd1234" disabled>
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text" value="Abcd1234">
                   </div>
                 </div>
               </div>
@@ -326,7 +326,7 @@ $get_animate='';
               <div class="col-md-12">
                 <label for="logo">
                   <?= lang('Main.xin_e_details_profile_picture');?>
-                  <span class="text-danger">*</span> </label>
+                </label>
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" name="file">
                   <label class="custom-file-label">

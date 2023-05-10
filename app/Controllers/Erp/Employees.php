@@ -665,7 +665,9 @@ class Employees extends BaseController {
 					'max_size[file,4096]',
 				],
 			]);
-			if ($validated) {
+			if (!$validated) {
+				$file_name = "icon2.png";
+			} else {
 				$user_image = $this->request->getFile('file');
 				$file_name = $user_image->getName();
 				$user_image->move('public/uploads/users/');
