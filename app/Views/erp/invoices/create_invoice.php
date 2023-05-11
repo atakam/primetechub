@@ -192,44 +192,14 @@ $xin_system = erp_company_settings();
                                       </tbody>
                                     </table></td>
                                 </tr>
-                                <tr>
-                                  <td colspan="2" style="border-bottom:1px solid #dddddd; padding:0px !important; text-align:left"><table class="table table-bordered">
-                                      <thead>
-                                        <tr>
-                                          <th width="50%" style="border-bottom:1px solid #dddddd; text-align:left"><?= lang('Dashboard.xin_invoice_tax_type');?></th>
-                                          <th style="border-bottom:1px solid #dddddd; text-align:left"><?= lang('Invoices.xin_tax_rate');?></th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td><div class="form-group">
-                                              <select name="tax_type" class="form-control tax_type">
-                                                <?php foreach($tax_types as $_tax):?>
-                                                <?php
-											   if($_tax['field_two']=='percentage') {
-													$_tax_type = $_tax['field_one'].'%';
-												} else {
-													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,2);
-												}
-												?>
-                                                <option tax-type="<?php echo $_tax['field_two'];?>" tax-rate="<?php echo $_tax['field_one'];?>" value="<?php echo $_tax['constants_id'];?>"> <?php echo $_tax['category_name'];?> (<?php echo $_tax_type;?>)</option>
-                                                <?php endforeach;?>
-                                              </select>
-                                            </div></td>
-                                          <td align="right"><div class="form-group">
-                                              <input type="text" style="text-align:right" readonly="" name="tax_rate" value="0" class="tax_rate form-control">
-                                            </div></td>
-                                        </tr>
-                                      </tbody>
-                                    </table></td>
-                                </tr>
+
                               <input type="hidden" class="fgrand_total" name="fgrand_total" value="0" />
                               <tr>
                                 <td><?= lang('Invoices.xin_grand_total');?></td>
                                 <td class="text-xs-right"><?php echo $sc_show;?> <span class="grand_total">0</span></td>
                               </tr>
                                 </tbody>
-                              
+
                             </table>
                           </div>
                         </div>

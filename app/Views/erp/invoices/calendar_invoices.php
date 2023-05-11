@@ -44,15 +44,6 @@ $i=1;
       </div>
       </a> </li>
     <?php } ?>
-	<?php if(in_array('tax_type1',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
-    <li class="nav-item clickable"> <a href="<?= site_url('erp/tax-type');?>" class="mb-3 nav-link"> <span class="sw-done-icon feather icon-check-circle"></span> <span class="sw-icon fas fa-tasks"></span>
-      <?= lang('Dashboard.xin_invoice_tax_type');?>
-      <div class="text-muted small">
-        <?= lang('Main.xin_add');?>
-        <?= lang('Dashboard.xin_invoice_tax_type');?>
-      </div>
-      </a> </li>
-   <?php } ?>
   </ul>
 </div>
 <hr class="border-light m-0 mb-3">
