@@ -3,8 +3,10 @@
 // override core en language system validation or define your own en language validation message
 return [
 	'dashboard_employee_id' => 'ID employé',
+  'dashboard_student_id' => 'ID étudiant',
 	'xin_employee_office_shift' => "Changement de bureau",
 	'xin_employee_office_shifts' => "Changements de bureau",
+  'xin_employee_section' => "Section",
 	'xin_reports_to' => 'Se rapporte à',
 	'xin_hr_leave_cat' => 'Quitter la catégorie',
 	'xin_employee_error_employee_id' => "Le champ d'identification de l'employé est obligatoire.",

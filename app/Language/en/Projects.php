@@ -3,6 +3,8 @@
 return [
 	'xin_start_date' => 'Start Date',
 	'xin_end_date' => 'End Date',
+  'xin_student' => 'Student',
+  'xin_students' => 'Students',
 	'xin_client' => 'Client',
 	'xin_clients' => 'Clients',
 	'xin_project_users' => 'Team',

@@ -31,6 +31,7 @@ return [
 	'xin_below_required_info_add_record' => 'We need below required information to add this record.',
 	'xin_below_required_info_specific' => 'You can view all records of',
 	'xin_contact_number' => 'Contact Number',
+  'xin_parent_number' => 'Parent\'s Number',
 	'xin_select_one' => 'Select One',
 	'xin_email' => 'Email',
 	'xin_website_url' => 'Website URL',

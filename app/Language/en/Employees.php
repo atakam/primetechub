@@ -2,8 +2,10 @@
 // override core en language system validation or define your own en language validation message
 return [
 	'dashboard_employee_id' => 'Employee ID',
+  'dashboard_student_id' => 'Student ID',
 	'xin_employee_office_shift' => "Office Shift",
 	'xin_employee_office_shifts' => "Office Shifts",
+  'xin_employee_section' => "Section",
 	'xin_reports_to' => 'Reports To',
 	'xin_hr_leave_cat' => 'Leave Category',
 	'xin_employee_error_employee_id' => "The employee id field is required.",

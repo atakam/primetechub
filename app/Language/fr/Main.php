@@ -32,6 +32,7 @@ return [
 'xin_below_required_info_add_record' => 'Nous avons besoin des informations requises ci-dessous pour ajouter cet enregistrement.',
 'xin_below_required_info_specific' => 'Vous pouvez afficher tous les enregistrements de',
 'xin_contact_number' => 'Numéro de contact',
+'xin_parent_number' => 'Numéro de contact parent',
 'xin_select_one' => 'Sélectionnez-en un',
 'xin_email' => 'E-mail',
 'xin_website_url' => 'URL du site Web',
