@@ -8,13 +8,13 @@ use App\Models\ConstantsModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();	
-$InvoicesModel = new InvoicesModel();			
+$UsersModel = new UsersModel();
+$InvoicesModel = new InvoicesModel();
 $ConstantsModel = new ConstantsModel();
 $get_animate = '';
 if($request->getGet('data') === 'invoice_pay' && $request->getGet('field_id')){
 $invoice_id = udecode($field_id);
-//$result = $InvoicesModel->where('invoice_id', $invoice_id)->first();
+$result = $InvoicesModel->where('invoice_id', $invoice_id)->first();
 $payment_method = $ConstantsModel->where('type','payment_method')->orderBy('constants_id', 'ASC')->findAll();
 ?>
 
@@ -24,7 +24,7 @@ $payment_method = $ConstantsModel->where('type','payment_method')->orderBy('cons
  </h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
 </div>
-<?php $attributes = array('name' => 'pay_invoice_record', 'id' => 'pay_invoice_record', 'autocomplete' => 'off', 'class'=>'m-b-1');?>
+<?php $attributes = array('name' => 'pay_invoice_record', 'id' => 'pay_invoice_record', 'autocomplete' => 'off', 'class' => 'form');?>
 <?php $hidden = array('_method' => 'EDIT', 'token' => $field_id);?>
 <?= form_open('erp/invoices/pay_invoice_record', $attributes, $hidden);?>
 <div class="modal-body">
@@ -32,9 +32,20 @@ $payment_method = $ConstantsModel->where('type','payment_method')->orderBy('cons
     <div class="col-md-12">
       <div class="form-group">
           <label for="payment_method">
+            <?= lang('Invoices.xin_amount');?>
+          </label>
+          <input type="text" name="amount" value="0" class="amount form-control" required>
+          <input type="text" name="total_amount" value="<?= $result['grand_total'] ?>" class="amount form-control" required hidden>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+          <label for="payment_method">
             <?= lang('Main.xin_payment_method');?>
           </label>
-          <select name="payment_method" class="form-control" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_payment_method');?>">
+          <select name="payment_method" class="form-control" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_payment_method');?>" required>
             <option value=""></option>
             <?php foreach($payment_method as $ipayment_method) {?>
             <option value="<?php echo $ipayment_method['constants_id'];?>"> <?php echo $ipayment_method['category_name'];?></option>
@@ -46,11 +57,12 @@ $payment_method = $ConstantsModel->where('type','payment_method')->orderBy('cons
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="status"><?php echo lang('Main.dashboard_xin_status');?></label>
-        <select class="form-control" name="status" data-plugin="select_hrm" data-placeholder="<?php echo lang('Main.dashboard_xin_status');?>">
-          <option value=""></option>
-          <option value="1"><?php echo lang('Invoices.xin_paid');?></option>
-        </select>
+        <label for="payment_date">
+          <?= lang('Invoices.xin_payment_date');?> <span class="text-danger">*</span>
+        </label>
+        <div class="input-group">
+          <input class="form-control date" placeholder="<?= lang('Invoices.xin_payment_date');?>" name="payment_date" type="date" value="" required>
+        </div>
       </div>
     </div>
   </div>
@@ -65,16 +77,16 @@ $payment_method = $ConstantsModel->where('type','payment_method')->orderBy('cons
 </div>
 <?= form_close(); ?>
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
 
 	$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
-	$('[data-plugin="select_hrm"]').select2({ width:'100%' }); 	 
+	$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 	Ladda.bind('button[type=submit]');
 
 	/* Edit data */
 	$("#pay_invoice_record").submit(function(e){
 	e.preventDefault();
-		var obj = $(this), action = obj.attr('name');		
+		var obj = $(this), action = obj.attr('name');
 		$.ajax({
 			type: "POST",
 			url: e.target.action,
@@ -95,7 +107,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-});	
+});
   </script>
 <?php }
 ?>

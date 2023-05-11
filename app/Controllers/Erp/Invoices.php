@@ -16,7 +16,7 @@
  */
 namespace App\Controllers\Erp;
 use App\Controllers\BaseController;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\ConstantsModel;
@@ -24,18 +24,19 @@ use App\Models\UsersModel;
 use App\Models\ProjectsModel;
 use App\Models\InvoicesModel;
 use App\Models\InvoiceitemsModel;
+use App\Models\ClientinvoicepaymentsModel;
 
 class Invoices extends BaseController {
 
 	public function project_invoices()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -55,17 +56,17 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/invoice_project_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function project_invoice_payment()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -85,10 +86,10 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/project_invoice_payment_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function client_invoice_payment()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -100,10 +101,10 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/client_invoice_payment_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function invoices_client()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -115,10 +116,10 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/client_invoice_project_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function invoice_dashboard()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -130,17 +131,17 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/invoice_dashboard', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function invoice_calendar()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -160,10 +161,10 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/calendar_invoices', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function client_invoice_calendar()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -175,10 +176,10 @@ class Invoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/calendar_client_invoices', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function create_invoice()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -186,7 +187,7 @@ class Invoices extends BaseController {
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -208,7 +209,7 @@ class Invoices extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function edit_invoice()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -224,7 +225,7 @@ class Invoices extends BaseController {
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -246,7 +247,7 @@ class Invoices extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function invoice_details()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -262,7 +263,7 @@ class Invoices extends BaseController {
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -284,7 +285,7 @@ class Invoices extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function view_project_invoice()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -311,7 +312,7 @@ class Invoices extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicesModel = new InvoicesModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -323,12 +324,12 @@ class Invoices extends BaseController {
 			$get_data = $InvoicesModel->where('company_id',$usession['sup_user_id'])->orderBy('invoice_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  	
-			
+
+          foreach($get_data as $r) {
+
+
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
 			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency']);
 
@@ -369,7 +370,7 @@ class Invoices extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicesModel = new InvoicesModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -377,12 +378,12 @@ class Invoices extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $InvoicesModel->where('company_id',$user_info['company_id'])->where('client_id',$usession['sup_user_id'])->orderBy('invoice_id', 'ASC')->findAll();
 		$xin_system = erp_company_settings();
-		
+
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  	
-			
+
+          foreach($get_data as $r) {
+
+
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
 			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
 
@@ -423,12 +424,12 @@ class Invoices extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	 // list
 	public function client_profile_invoices_list() {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
 		$InvoicesModel = new InvoicesModel();
 		$SystemModel = new SystemModel();
@@ -443,12 +444,12 @@ class Invoices extends BaseController {
 		}
 		$get_data = $InvoicesModel->where('company_id',$company_id)->where('client_id',$client_id)->orderBy('invoice_id', 'ASC')->findAll();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  	
-			
+
+          foreach($get_data as $r) {
+
+
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
 			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
 
@@ -482,12 +483,12 @@ class Invoices extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	// list
 	public function project_billing_list() {
-		
+
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicesModel = new InvoicesModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -500,12 +501,12 @@ class Invoices extends BaseController {
 			$get_data = $InvoicesModel->where('company_id',$usession['sup_user_id'])->where('status',1)->orderBy('invoice_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  	
-			
+
+          foreach($get_data as $r) {
+
+
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
 			if($project){
 				$ititle = $project['title'];
@@ -554,9 +555,9 @@ class Invoices extends BaseController {
      }
 	 // list
 	public function client_project_billing_list() {
-		
+
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicesModel = new InvoicesModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -565,11 +566,11 @@ class Invoices extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $InvoicesModel->where('company_id',$user_info['company_id'])->where('client_id',$usession['sup_user_id'])->where('status',1)->orderBy('invoice_id', 'ASC')->findAll();
 		$xin_system = erp_company_settings();
-		
+
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  	
+
+          foreach($get_data as $r) {
+
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
 			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
 
@@ -608,11 +609,11 @@ class Invoices extends BaseController {
      }
 	// |||add record|||
 	public function create_new_invoice() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -671,7 +672,7 @@ class Invoices extends BaseController {
 					// item price
 					$unit_price = $this->request->getPost('unit_price',FILTER_SANITIZE_STRING);
 					$price = $unit_price[$j];
-					
+
 					if($iname==='') {
 						$Return['error'] = lang('Success.xin_item_field_field_error');
 					} else if($qty==='') {
@@ -692,7 +693,7 @@ class Invoices extends BaseController {
 				$tax_rate = $this->request->getPost('tax_rate',FILTER_SANITIZE_STRING);
 				$fgrand_total = $this->request->getPost('fgrand_total',FILTER_SANITIZE_STRING);
 				$invoice_note = $this->request->getPost('invoice_note',FILTER_SANITIZE_STRING);
-							
+
 				$UsersModel = new UsersModel();
 				$ProjectsModel = new ProjectsModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -727,27 +728,27 @@ class Invoices extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$InvoicesModel = new InvoicesModel();
-				$result = $InvoicesModel->insert($data);	
+				$result = $InvoicesModel->insert($data);
 				$invoice_id = $InvoicesModel->insertID();
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$key=0;
 					foreach($this->request->getPost('item_name',FILTER_SANITIZE_STRING) as $items){
-		
+
 						/* get items info */
 						// item name
 						$item_name = $this->request->getPost('item_name',FILTER_SANITIZE_STRING);
-						$iname = $item_name[$key]; 
+						$iname = $item_name[$key];
 						// item qty
 						$qty = $this->request->getPost('qty_hrs',FILTER_SANITIZE_STRING);
-						$qtyhrs = $qty[$key]; 
+						$qtyhrs = $qty[$key];
 						// item price
 						$unit_price = $this->request->getPost('unit_price',FILTER_SANITIZE_STRING);
-						$price = $unit_price[$key]; 
+						$price = $unit_price[$key];
 						// item sub_total
 						$sub_total_item = $this->request->getPost('sub_total_item',FILTER_SANITIZE_STRING);
 						$item_sub_total = $sub_total_item[$key];
-						// add values  
+						// add values
 						$data2 = array(
 						'invoice_id' => $invoice_id,
 						'project_id' => $project_id,
@@ -758,7 +759,7 @@ class Invoices extends BaseController {
 						'created_at' => date('d-m-Y H:i:s')
 						);
 						$InvoiceitemsModel = new InvoiceitemsModel();
-						$InvoiceitemsModel->insert($data2);						
+						$InvoiceitemsModel->insert($data2);
 					$key++; }
 					$Return['result'] = lang('Success.ci_invoice_created__msg');
 				} else {
@@ -775,11 +776,11 @@ class Invoices extends BaseController {
 	}
 	// |||update record|||
 	public function update_invoice() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -838,7 +839,7 @@ class Invoices extends BaseController {
 					// item price
 					$unit_price = $this->request->getPost('eunit_price',FILTER_SANITIZE_STRING);
 					$price = $unit_price[$eitem_id];
-					
+
 					if($iname==='') {
 						$Return['error'] = lang('Success.xin_item_field_field_error');
 					} else if($qty==='') {
@@ -848,18 +849,18 @@ class Invoices extends BaseController {
 					}
 					// item name
 					$item_name = $this->request->getPost('eitem_name',FILTER_SANITIZE_STRING);
-					$iname = $item_name[$eitem_id]; 
+					$iname = $item_name[$eitem_id];
 					// item qty
 					$qty = $this->request->getPost('eqty_hrs',FILTER_SANITIZE_STRING);
-					$qtyhrs = $qty[$eitem_id]; 
+					$qtyhrs = $qty[$eitem_id];
 					// item price
 					$unit_price = $this->request->getPost('eunit_price',FILTER_SANITIZE_STRING);
-					$price = $unit_price[$eitem_id]; 
+					$price = $unit_price[$eitem_id];
 					// item sub_total
 					$sub_total_item = $this->request->getPost('esub_total_item',FILTER_SANITIZE_STRING);
 					$item_sub_total = $sub_total_item[$eitem_id];
-					
-					// add values  
+
+					// add values
 					$data2 = array(
 					'item_name' => $iname,
 					'item_qty' => $qtyhrs,
@@ -868,7 +869,7 @@ class Invoices extends BaseController {
 					);
 					$InvoiceitemsModel = new InvoiceitemsModel();
 					$InvoiceitemsModel->update($eitem_id,$data2);
-					
+
 					$j++;
 				}
 				if($Return['error']!=''){
@@ -885,7 +886,7 @@ class Invoices extends BaseController {
 						// item price
 						$unit_price = $this->request->getPost('unit_price',FILTER_SANITIZE_STRING);
 						$price = $unit_price[$k];
-						
+
 						if($iname==='') {
 							$Return['error'] = lang('Success.xin_item_field_field_error');
 						} else if($qty==='') {
@@ -899,7 +900,7 @@ class Invoices extends BaseController {
 						$this->output($Return);
 					}
 				}
-				
+
 				$items_sub_total = $this->request->getPost('items_sub_total',FILTER_SANITIZE_STRING);
 				$discount_type = $this->request->getPost('discount_type',FILTER_SANITIZE_STRING);
 				$discount_figure = $this->request->getPost('discount_figure',FILTER_SANITIZE_STRING);
@@ -909,7 +910,7 @@ class Invoices extends BaseController {
 				$fgrand_total = $this->request->getPost('fgrand_total',FILTER_SANITIZE_STRING);
 				$invoice_note = $this->request->getPost('invoice_note',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-							
+
 				$UsersModel = new UsersModel();
 				$ProjectsModel = new ProjectsModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -941,28 +942,28 @@ class Invoices extends BaseController {
 					'invoice_note'  => $invoice_note,
 				];
 				$InvoicesModel = new InvoicesModel();
-				$result = $InvoicesModel->update($id,$data);	
+				$result = $InvoicesModel->update($id,$data);
 				//$invoice_id = $InvoicesModel->insertID();
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					if($this->request->getPost('item_name')) {
 					$ik=0;
 					foreach($this->request->getPost('item_name',FILTER_SANITIZE_STRING) as $items){
-		
+
 						/* get items info */
 						// item name
 						$item_name = $this->request->getPost('item_name',FILTER_SANITIZE_STRING);
-						$iname = $item_name[$ik]; 
+						$iname = $item_name[$ik];
 						// item qty
 						$qty = $this->request->getPost('qty_hrs',FILTER_SANITIZE_STRING);
-						$qtyhrs = $qty[$ik]; 
+						$qtyhrs = $qty[$ik];
 						// item price
 						$unit_price = $this->request->getPost('unit_price',FILTER_SANITIZE_STRING);
-						$price = $unit_price[$ik]; 
+						$price = $unit_price[$ik];
 						// item sub_total
 						$sub_total_item = $this->request->getPost('sub_total_item',FILTER_SANITIZE_STRING);
 						$item_sub_total = $sub_total_item[$ik];
-						// add values  
+						// add values
 						$data3 = array(
 						'invoice_id' => $id,
 						'project_id' => $project_id,
@@ -973,7 +974,7 @@ class Invoices extends BaseController {
 						'created_at' => date('d-m-Y H:i:s')
 						);
 						$InvoiceitemsModel = new InvoiceitemsModel();
-						$InvoiceitemsModel->insert($data3);						
+						$InvoiceitemsModel->insert($data3);
 					$ik++; }
 					}
 					$Return['result'] = lang('Success.ci_invoice_updated_msg');
@@ -989,10 +990,10 @@ class Invoices extends BaseController {
 			exit;
 		}
 	}
-	
+
 	// delete record
 	public function delete_invoice_items() {
-		
+
 		if($this->request->getVar('record_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1012,12 +1013,12 @@ class Invoices extends BaseController {
 		}
 	}
 	public function invoice_status_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1033,7 +1034,7 @@ class Invoices extends BaseController {
 		}
 		/* Define return | here result is used to return user data and error for error message */
 		$Return = array('paid'=>'', 'paid_count'=>'','unpaid'=>'', 'unpaid_count'=>'');
-		
+
 		// unpaid
 		$Return['unpaid'] = lang('Invoices.xin_unpaid');
 		$Return['unpaid_count'] = $unpaid_count;
@@ -1044,12 +1045,12 @@ class Invoices extends BaseController {
 		exit;
 	}
 	public function invoice_amount_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1061,23 +1062,23 @@ class Invoices extends BaseController {
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		/* Define return | here result is used to return user data and error for error message *///
 		$Return = array('invoice_amount'=>'', 'paid_invoice'=>'','unpaid_invoice'=>'', 'paid_inv_label'=>'','unpaid_inv_label'=>'');
 		$invoice_month = array();
 		$paid_invoice = array();
 		$someArray = array();
 		$j=0;
-		for ($i = 0; $i <= 5; $i++) 
+		for ($i = 0; $i <= 5; $i++)
 		{
-		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));		   
+		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
 		   $paid_amount = erp_paid_invoices($months);
 		   $paid_amount =  number_format($paid_amount, 2, '.', '');
 		   $unpaid_amount = erp_unpaid_invoices($months);
 		   $unpaid_amount =  number_format($unpaid_amount, 2, '.', '');
 		   $paid_invoice[] = $paid_amount;
 		   $unpaid_invoice[] = $unpaid_amount;
-		   $invoice_month[] = $months;		   
+		   $invoice_month[] = $months;
 		}
 		$Return['invoice_month'] = $invoice_month;
 		$Return['paid_inv_label'] = lang('Invoices.xin_paid_invoices');
@@ -1088,12 +1089,12 @@ class Invoices extends BaseController {
 		exit;
 	}
 	public function client_invoice_amount_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1105,21 +1106,21 @@ class Invoices extends BaseController {
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		/* Define return | here result is used to return user data and error for error message *///
 		$Return = array('invoice_amount'=>'', 'paid_invoice'=>'','unpaid_invoice'=>'', 'paid_inv_label'=>'','unpaid_inv_label'=>'');
 		$invoice_month = array();
 		$paid_invoice = array();
 		$someArray = array();
 		$j=0;
-		for ($i = 0; $i <= 5; $i++) 
+		for ($i = 0; $i <= 5; $i++)
 		{
-		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));		   
+		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
 		   $paid_amount = client_paid_invoices($months);
 		   $unpaid_amount = client_unpaid_invoices($months);
 		   $paid_invoice[] = $paid_amount;
 		   $unpaid_invoice[] = $unpaid_amount;
-		   $invoice_month[] = $months;		   
+		   $invoice_month[] = $months;
 		}
 		$Return['invoice_month'] = $invoice_month;
 		$Return['paid_inv_label'] = lang('Invoices.xin_paid_invoices');
@@ -1134,7 +1135,7 @@ class Invoices extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1149,11 +1150,11 @@ class Invoices extends BaseController {
 	}
 	// |||update record|||
 	public function pay_invoice_record() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1164,18 +1165,11 @@ class Invoices extends BaseController {
 					'errors' => [
 						'required' => lang('Main.xin_error_field_text')
 					]
-				],
-				'status' => [
-					'rules'  => 'required',
-					'errors' => [
-						'required' => lang('Main.xin_error_field_text')
-					]
 				]
 			];
 			if(!$this->validate($rules)){
 				$ruleErrors = [
-                    "payment_method" => $validation->getError('payment_method'),
-					"status" => $validation->getError('status')
+                    "payment_method" => $validation->getError('payment_method')
                 ];
 				foreach($ruleErrors as $err){
 					$Return['error'] = $err;
@@ -1184,9 +1178,11 @@ class Invoices extends BaseController {
 					}
 				}
 			} else {
-				$payment_method = $this->request->getPost('payment_method',FILTER_SANITIZE_STRING);	
-				$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+				$payment_method = $this->request->getPost('payment_method',FILTER_SANITIZE_STRING);
+        $payment_date = $this->request->getPost('payment_date',FILTER_SANITIZE_STRING);
+				$amount = $this->request->getPost('amount',FILTER_SANITIZE_STRING);
+        $total_amount = $this->request->getPost('total_amount',FILTER_SANITIZE_STRING);
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1196,12 +1192,24 @@ class Invoices extends BaseController {
 				}
 				$data = [
 					'payment_method' => $payment_method,
-					'status'  => $status
+          'payment_date' => $payment_date,
+          'amount' => $amount,
+					'invoice_id' => $id,
+          'recorded_by' => $usession['sup_user_id'],
 				];
-				$InvoicesModel = new InvoicesModel();
-				$result = $InvoicesModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$ClientinvoicepaymentsModel = new ClientinvoicepaymentsModel();
+				$result = $ClientinvoicepaymentsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
+          $payments = $ClientinvoicepaymentsModel->where('invoice_id',$id)->findAll();
+          $payment_amount = 0;
+          foreach($payments as $p) {
+            $payment_amount += $p['amount'];
+          }
+          if ($payment_amount >= $total_amount) {
+            $InvoicesModel = new InvoicesModel();
+            $InvoicesModel->update($id,['status'=>1]);
+          }
 					$Return['result'] = lang('Success.ci_invoice_status_updated_msg');
 				} else {
 					$Return['error'] = lang('Main.xin_error_msg');
@@ -1217,7 +1225,7 @@ class Invoices extends BaseController {
 	}
 	// delete record
 	public function delete_invoice() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

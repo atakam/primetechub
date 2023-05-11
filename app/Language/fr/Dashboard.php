@@ -101,7 +101,7 @@ return [
 	'left_tasks' => 'Tâches',
 	'xin_tasks_calendar' => 'Calendrier des tâches',
 	'xin_tasks_sboard' => 'Tableau Kanban Tâches',
-	'xin_invoices_title' => 'Factures',
+	'xin_invoices_title' => 'Factures de scolarité',
 	'xin_invoice_calendar' => 'Calendrier des factures',
 	'xin_acc_invoice_payments' => 'Paiements de factures',
 	'xin_invoice_tax_type' => 'Type de taxe',
