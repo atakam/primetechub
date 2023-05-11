@@ -2,18 +2,33 @@
 use App\Models\UsersModel;
 use App\Models\CountryModel;
 use App\Models\SuperroleModel;
+use App\Models\StaffdetailsModel;
+use App\Models\ShiftModel;
+use App\Models\DepartmentModel;
+use App\Models\DesignationModel;
 
 $CountryModel = new CountryModel();
 $SuperroleModel = new SuperroleModel();
 $UsersModel = new UsersModel();
+$StaffdetailsModel = new StaffdetailsModel();
+$ShiftModel = new ShiftModel();
+$DepartmentModel = new DepartmentModel();
+$DesignationModel = new DesignationModel();
 $request = \Config\Services::request();
 
 $roles = $SuperroleModel->orderBy('role_id', 'ASC')->findAll();
 $segment_id = $request->uri->getSegment(3);
 $user_id = udecode($segment_id);
 $result = $UsersModel->where('user_id', $user_id)->first();
+$employee_detail = $StaffdetailsModel->where('user_id', $result['user_id'])->first();
 /////
-$all_countries = $CountryModel->orderBy('country_id', 'ASC')->findAll();
+
+$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
+
+$departments = $DepartmentModel->orderBy('department_id', 'ASC')->findAll();
+$designations = $DesignationModel->where('department_id',$employee_detail['department_id'])->orderBy('designation_id', 'ASC')->findAll();
+$office_shifts = $ShiftModel->orderBy('office_shift_id', 'ASC')->findAll();
+$company_id = $user_info['company_id'];
 
 if($result['is_active'] == 1){
 	$status = '<span class="badge badge-light-success"><em class="icon ni ni-check-circle"></em> '.lang('Main.xin_employees_active').'</span>';
@@ -84,6 +99,11 @@ if($result['is_active'] == 1){
           </span> <a href="#" class="float-right text-body">
           <?= $result['contact_number'];?>
           </a> </li>
+        <li class="list-group-item"> <span class="f-w-500"><i class="feather icon-phone-call m-r-10"></i>
+          <?= lang('Main.xin_parent_number');?>
+          </span> <a href="#" class="float-right text-body">
+          <?= $employee_detail['account_number'];?>
+          </a> </li>
       </ul>
       <div class="nav flex-column nav-pills list-group list-group-flush list-pills" id="user-set-tab" role="tablist" aria-orientation="vertical"> <a class="nav-link list-group-item list-group-item-action active" id="user-basic-tab" data-toggle="pill" href="#user-edit-account" role="tab" aria-controls="user-edit-account" aria-selected="false"> <span class="f-w-500"><i class="feather icon-user m-r-10 h5 "></i>
         <?= lang('Main.xin_personal_info');?>
@@ -140,6 +160,17 @@ if($result['is_active'] == 1){
               </div>
               <div class="col-md-4">
                 <div class="form-group">
+                  <label for="date_of_birth">
+                    <?= lang('Employees.xin_employee_dob');?>
+                    <span class="text-danger">*</span> </label>
+                  <div class="input-group">
+                    <input class="form-control date" placeholder="<?= lang('Employees.xin_employee_dob');?>" name="date_of_birth" type="text" value="<?= $employee_detail['date_of_birth'];?>">
+                    <div class="input-group-append"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
                   <label for="email">
                     <?= lang('Main.dashboard_username');?>
                     <span class="text-danger">*</span></label>
@@ -171,6 +202,14 @@ if($result['is_active'] == 1){
               </div>
               <div class="col-md-4">
                 <div class="form-group">
+                  <label for="account_number">
+                    <?= lang('Main.xin_parent_number');?>
+                    <span class="text-danger">*</span></label>
+                  <input class="form-control" placeholder="<?= lang('Main.xin_parent_number');?>" name="account_number" type="text" value="<?= $employee_detail['account_number'];?>">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
                   <label for="gender" class="control-label">
                     <?= lang('Main.xin_employee_gender');?>
                   </label>
@@ -186,18 +225,68 @@ if($result['is_active'] == 1){
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="country">
-                    <?= lang('Main.xin_country');?>
-                    <span class="text-danger">*</span> </label>
-                  <select class="form-control" name="country" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_country');?>">
+                  <label for="employee_id">
+                    <?= lang('Employees.dashboard_student_id');?> <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_student_id');?>" name="employee_id" type="text" value="<?= $employee_detail['employee_id'];?>">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="account_title">
+                    <?= lang('Employees.dashboard_id_card');?> <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_id_card');?>" name="account_title" type="text" value="<?= $employee_detail['account_title'];?>">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="department">
+                    <?= lang('Dashboard.left_department');?> <span class="text-danger">*</span>
+                  </label>
+
+                  <select class="form-control" name="department_id" id="department_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_department');?>">
                     <option value="">
-                    <?= lang('Main.xin_select_one');?>
+                    <?= lang('Dashboard.left_department');?>
                     </option>
-                    <?php foreach($all_countries as $country) {?>
-                    <option value="<?= $country['country_id'];?>" <?php if($country['country_id']==$result['country']):?> selected="selected"<?php endif;?>>
-                    <?= $country['country_name'];?>
+                    <?php foreach($departments as $idepartment):?>
+                    <option value="<?= $idepartment['department_id'];?>" <?php if($employee_detail['department_id']==$idepartment['department_id']):?> selected="selected"<?php endif;?>>
+                    <?= $idepartment['department_name'];?>
                     </option>
-                    <?php } ?>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4" id="designation_ajax">
+                <div class="form-group">
+                  <label for="designation">
+                    <?= lang('Dashboard.left_designation');?>
+                  </label>
+                  <span class="text-danger">*</span>
+                  <select class="form-control" name="designation_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_designation');?>">
+                    <?php foreach($designations as $idesignation):?>
+                    <option value="<?= $idesignation['designation_id'];?>" <?php if($employee_detail['designation_id']==$idesignation['designation_id']):?> selected="selected"<?php endif;?>>
+                    <?= $idesignation['designation_name'];?>
+                    </option>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="office_shift_id" class="control-label">
+                    <?= lang('Employees.xin_employee_section');?>
+                  </label>
+                  <span class="text-danger">*</span>
+                  <select class="form-control" name="office_shift_id" data-plugin="select_hrm" data-placeholder="<?= lang('Employees.xin_employee_section');?>">
+                    <option value="">
+                    <?= lang('Employees.xin_employee_section');?>
+                    </option>
+                    <?php foreach($office_shifts as $ioffice_shift):?>
+                    <option value="<?= $ioffice_shift['office_shift_id'];?>" <?php if($employee_detail['office_shift_id']==$ioffice_shift['office_shift_id']):?> selected="selected"<?php endif;?>>
+                    <?= $ioffice_shift['shift_name'];?>
+                    </option>
+                    <?php endforeach;?>
                   </select>
                 </div>
               </div>

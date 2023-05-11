@@ -29,7 +29,7 @@ if($user_info['user_type'] == 'staff'){
 	$office_shifts = $ShiftModel->where('company_id',$usession['sup_user_id'])->orderBy('office_shift_id', 'ASC')->findAll();
 	$leave_types = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','leave_type')->orderBy('constants_id', 'ASC')->findAll();
 }
-		
+
 $roles = $RolesModel->orderBy('role_id', 'ASC')->findAll();
 $xin_system = $SystemModel->where('setting_id', 1)->first();
 $get_animate = '';
@@ -77,40 +77,6 @@ $employee_id = generate_random_employeeid();
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="website">
-                    <?= lang('Main.xin_employee_password');?>
-                    <span class="text-danger">*</span></label>
-                  <div class="input-group">
-                    <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-eye-slash"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="contact_number">
-                    <?= lang('Main.xin_contact_number');?>
-                    <span class="text-danger">*</span></label>
-                  <input class="form-control" placeholder="<?= lang('Main.xin_contact_number');?>" name="contact_number" type="number">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="gender" class="control-label">
-                    <?= lang('Main.xin_employee_gender');?>
-                  </label>
-                  <select class="form-control" name="gender" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_employee_gender');?>">
-                    <option value="1">
-                    <?= lang('Main.xin_gender_male');?>
-                    </option>
-                    <option value="2">
-                    <?= lang('Main.xin_gender_female');?>
-                    </option>
-                  </select>
-                </div>
-              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="email">
@@ -131,6 +97,113 @@ $employee_id = generate_random_employeeid();
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
                     <input class="form-control" placeholder="<?= lang('Main.dashboard_username');?>" name="username" type="text">
                   </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="date_of_birth">
+                    <?= lang('Employees.xin_employee_dob');?>
+                    <span class="text-danger">*</span> </label>
+                  <div class="input-group">
+                    <input class="form-control date" placeholder="<?= lang('Employees.xin_employee_dob');?>" name="date_of_birth" type="text">
+                    <div class="input-group-append"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="contact_number">
+                    <?= lang('Main.xin_contact_number');?>
+                    <span class="text-danger">*</span></label>
+                  <input class="form-control" placeholder="<?= lang('Main.xin_contact_number');?>" name="contact_number" type="number">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="account_number">
+                    <?= lang('Main.xin_parent_number');?>
+                    <span class="text-danger">*</span></label>
+                  <input class="form-control" placeholder="<?= lang('Main.xin_parent_number');?>" name="account_number" type="number">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="gender" class="control-label">
+                    <?= lang('Main.xin_employee_gender');?>
+                    <span class="text-danger">*</span></label>
+                  <select class="form-control" name="gender" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_employee_gender');?>">
+                    <option value="1">
+                    <?= lang('Main.xin_gender_male');?>
+                    </option>
+                    <option value="2">
+                    <?= lang('Main.xin_gender_female');?>
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="employee_id">
+                    <?= lang('Employees.dashboard_student_id');?>
+                  </label>
+                  <span class="text-danger">*</span>
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_student_id');?>" name="employee_id" type="text" value="<?php echo $employee_id;?>" disabled>
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_student_id');?>" name="employee_id" type="text" value="<?php echo $employee_id;?>" hidden>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="account_title">
+                    <?= lang('Employees.dashboard_id_card');?> <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_id_card');?>" name="account_title" type="text">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="department">
+                    <?= lang('Dashboard.left_department');?>
+                  </label>
+                  <span class="text-danger">*</span>
+                  <select class="form-control" name="department_id" id="department_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_department');?>">
+                    <option value="">
+                    <?= lang('Dashboard.left_department');?>
+                    </option>
+                    <?php foreach($departments as $idepartment):?>
+                    <option value="<?= $idepartment['department_id'];?>">
+                    <?= $idepartment['department_name'];?>
+                    </option>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="website">
+                    <?= lang('Main.xin_employee_password');?>
+                    <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-eye-slash"></i></span></div>
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text" value="Abcd1234">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="office_shift_id" class="control-label">
+                    <?= lang('Employees.xin_employee_section');?>
+                  </label>
+                  <span class="text-danger">*</span>
+                  <select class="form-control" name="office_shift_id" data-plugin="select_hrm" data-placeholder="<?= lang('Employees.xin_employee_section');?>">
+                    <option value="">
+                    <?= lang('Employees.xin_employee_section');?>
+                    </option>
+                    <?php foreach($office_shifts as $ioffice_shift):?>
+                    <option value="<?= $ioffice_shift['office_shift_id'];?>" selected>
+                    <?= $ioffice_shift['shift_name'];?>
+                    </option>
+                    <?php endforeach;?>
+                  </select>
                 </div>
               </div>
             </div>
@@ -159,7 +232,7 @@ $employee_id = generate_random_employeeid();
                 <div class="form-group">
                   <label for="logo">
                     <?= lang('Main.xin_attachment');?>
-                    <span class="text-danger">*</span> </label>
+                  </label>
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" name="file">
                     <label class="custom-file-label">
@@ -185,7 +258,7 @@ $employee_id = generate_random_employeeid();
       <?= lang('Main.xin_list_all');?>
       <?= lang('Dashboard.xin_project_clients');?>
     </h5>
-    <div class="card-header-right"> <a href="<?= site_url().'erp/clients-grid';?>" class="btn btn-sm waves-effect waves-light btn-primary btn-icon m-0" data-toggle="tooltip" data-placement="top" title="<?= lang('Projects.xin_grid_view');?>"> <i class="fas fa-th-large"></i> </a> 
+    <div class="card-header-right"> <a href="<?= site_url().'erp/clients-grid';?>" class="btn btn-sm waves-effect waves-light btn-primary btn-icon m-0" data-toggle="tooltip" data-placement="top" title="<?= lang('Projects.xin_grid_view');?>"> <i class="fas fa-th-large"></i> </a>
     <?php if(in_array('client2',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
     <a data-toggle="collapse" href="#add_form" aria-expanded="false" class="collapsed btn waves-effect waves-light btn-primary btn-sm m-0"> <i data-feather="plus"></i>
       <?= lang('Main.xin_add_new');?>
