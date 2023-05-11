@@ -94,7 +94,7 @@ return [
 	'left_payroll' => 'Payroll',
 	'xin_payslip_history' => 'Payslip History',
 	'left_projects' => 'Projects',
-	'xin_project_clients' => 'Clients',
+	'xin_project_clients' => 'Students',
 	'xin_project_timelogs' => 'Time Logs',
 	'xin_projects_scrm_board' => 'Kanban Board',
 	'left_tasks' => 'Tasks',
