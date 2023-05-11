@@ -62,7 +62,7 @@ $employee_id = generate_random_employeeid();
                     <span class="text-danger">*</span> </label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_first_name');?>" name="first_name" type="text">
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_first_name');?>" name="first_name" type="text" required>
                   </div>
                 </div>
               </div>
@@ -73,7 +73,7 @@ $employee_id = generate_random_employeeid();
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_last_name');?>" name="last_name" type="text">
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_last_name');?>" name="last_name" type="text" required>
                   </div>
                 </div>
               </div>
@@ -84,7 +84,7 @@ $employee_id = generate_random_employeeid();
                     <span class="text-danger">*</span> </label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_email');?>" name="email" type="text">
+                    <input class="form-control" placeholder="<?= lang('Main.xin_email');?>" name="email" type="text" required>
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@ $employee_id = generate_random_employeeid();
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.dashboard_username');?>" name="username" type="text">
+                    <input class="form-control" placeholder="<?= lang('Main.dashboard_username');?>" name="username" type="text" required>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ $employee_id = generate_random_employeeid();
                     <?= lang('Employees.xin_employee_dob');?>
                     <span class="text-danger">*</span> </label>
                   <div class="input-group">
-                    <input class="form-control date" placeholder="<?= lang('Employees.xin_employee_dob');?>" name="date_of_birth" type="text">
+                    <input class="form-control date" placeholder="<?= lang('Employees.xin_employee_dob');?>" name="date_of_birth" type="text" required>
                     <div class="input-group-append"><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span></div>
                   </div>
                 </div>
@@ -115,7 +115,7 @@ $employee_id = generate_random_employeeid();
                   <label for="contact_number">
                     <?= lang('Main.xin_contact_number');?>
                     <span class="text-danger">*</span></label>
-                  <input class="form-control" placeholder="<?= lang('Main.xin_contact_number');?>" name="contact_number" type="number">
+                  <input class="form-control" placeholder="<?= lang('Main.xin_contact_number');?>" name="contact_number" type="number" required>
                 </div>
               </div>
               <div class="col-md-4">
@@ -123,7 +123,7 @@ $employee_id = generate_random_employeeid();
                   <label for="account_number">
                     <?= lang('Main.xin_parent_number');?>
                     <span class="text-danger">*</span></label>
-                  <input class="form-control" placeholder="<?= lang('Main.xin_parent_number');?>" name="account_number" type="number">
+                  <input class="form-control" placeholder="<?= lang('Main.xin_parent_number');?>" name="account_number" type="number" required>
                 </div>
               </div>
               <div class="col-md-4">
@@ -131,7 +131,10 @@ $employee_id = generate_random_employeeid();
                   <label for="gender" class="control-label">
                     <?= lang('Main.xin_employee_gender');?>
                     <span class="text-danger">*</span></label>
-                  <select class="form-control" name="gender" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_employee_gender');?>">
+                  <select class="form-control" name="gender" data-plugin="select_hrm" data-placeholder="<?= lang('Main.xin_employee_gender');?>" required>
+                    <option value="">
+                    <?= lang('Main.xin_employee_gender');?>
+                    </option>
                     <option value="1">
                     <?= lang('Main.xin_gender_male');?>
                     </option>
@@ -156,7 +159,7 @@ $employee_id = generate_random_employeeid();
                   <label for="account_title">
                     <?= lang('Employees.dashboard_id_card');?> <span class="text-danger">*</span>
                   </label>
-                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_id_card');?>" name="account_title" type="text">
+                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_id_card');?>" name="account_title" type="text" required>
                 </div>
               </div>
               <div class="col-md-4">
@@ -165,7 +168,7 @@ $employee_id = generate_random_employeeid();
                     <?= lang('Dashboard.left_department');?>
                   </label>
                   <span class="text-danger">*</span>
-                  <select class="form-control" name="department_id" id="department_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_department');?>">
+                  <select class="form-control" name="department_id" id="department_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_department');?>" required>
                     <option value="">
                     <?= lang('Dashboard.left_department');?>
                     </option>
@@ -184,7 +187,7 @@ $employee_id = generate_random_employeeid();
                     <span class="text-danger">*</span></label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-eye-slash"></i></span></div>
-                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text" value="Abcd1234">
+                    <input class="form-control" placeholder="<?= lang('Main.xin_employee_password');?>" name="password" type="text" value="Abcd1234" required>
                   </div>
                 </div>
               </div>
@@ -194,7 +197,7 @@ $employee_id = generate_random_employeeid();
                     <?= lang('Employees.xin_employee_section');?>
                   </label>
                   <span class="text-danger">*</span>
-                  <select class="form-control" name="office_shift_id" data-plugin="select_hrm" data-placeholder="<?= lang('Employees.xin_employee_section');?>">
+                  <select class="form-control" name="office_shift_id" data-plugin="select_hrm" data-placeholder="<?= lang('Employees.xin_employee_section');?>" required>
                     <option value="">
                     <?= lang('Employees.xin_employee_section');?>
                     </option>
@@ -272,9 +275,9 @@ $employee_id = generate_random_employeeid();
         <thead>
           <tr>
             <th><?= lang('Main.xin_name');?></th>
-            <th><i class="fa fa-user"></i>
-              <?= lang('Main.dashboard_username');?></th>
+            <th><?= lang('Dashboard.left_department');?></th>
             <th><?= lang('Main.xin_contact_number');?></th>
+            <th><?= lang('Main.xin_parent_number');?></th>
             <th><?= lang('Main.xin_employee_gender');?></th>
             <th><?= lang('Main.xin_country');?></th>
             <th><?= lang('Main.dashboard_xin_status');?></th>

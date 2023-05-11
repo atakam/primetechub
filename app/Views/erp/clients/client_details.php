@@ -104,6 +104,11 @@ if($result['is_active'] == 1){
           </span> <a href="#" class="float-right text-body">
           <?= $employee_detail['account_number'];?>
           </a> </li>
+        <li class="list-group-item"> <span class="f-w-500"><i class="feather icon-phone-call m-r-10"></i>
+          <?= lang('Employees.dashboard_student_id');?>
+          </span> <a href="#" class="float-right text-body">
+          <?= $employee_detail['employee_id'];?>
+          </a> </li>
       </ul>
       <div class="nav flex-column nav-pills list-group list-group-flush list-pills" id="user-set-tab" role="tablist" aria-orientation="vertical"> <a class="nav-link list-group-item list-group-item-action active" id="user-basic-tab" data-toggle="pill" href="#user-edit-account" role="tab" aria-controls="user-edit-account" aria-selected="false"> <span class="f-w-500"><i class="feather icon-user m-r-10 h5 "></i>
         <?= lang('Main.xin_personal_info');?>
@@ -225,14 +230,6 @@ if($result['is_active'] == 1){
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="employee_id">
-                    <?= lang('Employees.dashboard_student_id');?> <span class="text-danger">*</span>
-                  </label>
-                  <input class="form-control" placeholder="<?= lang('Employees.dashboard_student_id');?>" name="employee_id" type="text" value="<?= $employee_detail['employee_id'];?>">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
                   <label for="account_title">
                     <?= lang('Employees.dashboard_id_card');?> <span class="text-danger">*</span>
                   </label>
@@ -257,21 +254,6 @@ if($result['is_active'] == 1){
                   </select>
                 </div>
               </div>
-              <div class="col-sm-4" id="designation_ajax">
-                <div class="form-group">
-                  <label for="designation">
-                    <?= lang('Dashboard.left_designation');?>
-                  </label>
-                  <span class="text-danger">*</span>
-                  <select class="form-control" name="designation_id" data-plugin="select_hrm" data-placeholder="<?= lang('Dashboard.left_designation');?>">
-                    <?php foreach($designations as $idesignation):?>
-                    <option value="<?= $idesignation['designation_id'];?>" <?php if($employee_detail['designation_id']==$idesignation['designation_id']):?> selected="selected"<?php endif;?>>
-                    <?= $idesignation['designation_name'];?>
-                    </option>
-                    <?php endforeach;?>
-                  </select>
-                </div>
-              </div>
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="office_shift_id" class="control-label">
@@ -290,6 +272,8 @@ if($result['is_active'] == 1){
                   </select>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="address_1">

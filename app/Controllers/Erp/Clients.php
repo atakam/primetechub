@@ -30,6 +30,7 @@ use App\Models\CountryModel;
 use App\Models\LeadsfollowupModel;
 use App\Models\EmailtemplatesModel;
 use App\Models\StaffdetailsModel;
+use App\Models\DepartmentModel;
 
 class Clients extends BaseController {
 
@@ -214,6 +215,8 @@ class Clients extends BaseController {
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
 		$CountryModel = new CountryModel();
+    $StaffdetailsModel = new StaffdetailsModel();
+    $DepartmentModel = new DepartmentModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$staff = $UsersModel->where('company_id',$user_info['company_id'])->where('user_type','customer')->orderBy('user_id', 'ASC')->findAll();
@@ -224,7 +227,7 @@ class Clients extends BaseController {
 
 		$data = array();
 
-          foreach($staff as $r) {
+      foreach($staff as $r) {
 
 				if(in_array('client3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 					$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/view-client-info').'/'.uencode($r['user_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
@@ -268,12 +271,20 @@ class Clients extends BaseController {
 			} else {
 				$links = $uname;
 			}
-
+      $employee_detail = $StaffdetailsModel->where('user_id', $r['user_id'])->first();
+      $departments = $DepartmentModel->orderBy('department_id', 'ASC')->findAll();
+      $department_name = '';
+      foreach($departments as $idepartment) {
+        if($employee_detail['department_id']==$idepartment['department_id']) {
+          $department_name = $idepartment['department_name'];
+        }
+      }
 
 			$data[] = array(
 				$links,
-				$r['username'],
+				$department_name,
 				$r['contact_number'],
+        $employee_detail['account_number'],
 				$gender,
 				$country_info['country_name'],
 				$status
@@ -601,6 +612,7 @@ class Clients extends BaseController {
           'office_shift_id' => 'required',
           'department_id' => 'required',
           'account_number' => 'required',
+          'account_title' => 'required',
           'date_of_birth' => 'required',
 				],
 				[   // Errors
@@ -702,6 +714,7 @@ class Clients extends BaseController {
       $office_shift_id = $this->request->getPost('office_shift_id',FILTER_SANITIZE_STRING);
 			$department_id = $this->request->getPost('department_id',FILTER_SANITIZE_STRING);
       $account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
+      $account_title = $this->request->getPost('account_title',FILTER_SANITIZE_STRING);
 
 			$UsersModel = new UsersModel();
 			$SystemModel = new SystemModel();
@@ -756,6 +769,7 @@ class Clients extends BaseController {
 				'designation_id'  => 0,
 				'office_shift_id' => $office_shift_id,
         'account_number' => $account_number,
+        'account_title' => $account_title,
         'date_of_birth' => $date_of_birth,
 				'basic_salary'  => 0,
 				'hourly_rate'  => 0,
@@ -1031,7 +1045,6 @@ class Clients extends BaseController {
 					'email' => 'required|valid_email',
 					'username' => 'required|min_length[6]',
 					'contact_number' => 'required',
-					'country' => 'required',
 					'status' => 'required'
 				],
 				[   // Errors
@@ -1051,9 +1064,6 @@ class Clients extends BaseController {
 					],
 					'contact_number' => [
 						'required' => lang('Main.xin_error_subscription_field'),
-					],
-					'country' => [
-						'required' => lang('Main.xin_error_country_field'),
 					],
 					'status' => [
 						'required' => lang('Main.xin_error_field_text'),
@@ -1075,12 +1085,12 @@ class Clients extends BaseController {
 				$Return['error'] = $validation->getError('status');
 			} elseif($validation->hasError('contact_number')){
 				$Return['error'] = $validation->getError('contact_number');
-			} elseif($validation->hasError('country')){
-				$Return['error'] = $validation->getError('country');
 			}
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
+
+      $MainModel = new MainModel();
 
 			$first_name = $this->request->getPost('first_name',FILTER_SANITIZE_STRING);
 			$last_name = $this->request->getPost('last_name',FILTER_SANITIZE_STRING);
@@ -1096,14 +1106,18 @@ class Clients extends BaseController {
 			$zipcode = $this->request->getPost('zipcode',FILTER_SANITIZE_STRING);
 			$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
+      $office_shift_id = $this->request->getPost('office_shift_id',FILTER_SANITIZE_STRING);
+			$department_id = $this->request->getPost('department_id',FILTER_SANITIZE_STRING);
+      $account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
+      $account_title = $this->request->getPost('account_title',FILTER_SANITIZE_STRING);
+      $date_of_birth = $this->request->getPost('date_of_birth',FILTER_SANITIZE_STRING);
+
 			$data = [
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
 				'email'  => $email,
 				'username'  => $username,
 				'contact_number'  => $contact_number,
-				'country'  => $country,
-				'user_role_id' => 0,
 				'address_1'  => $address_1,
 				'address_2'  => $address_2,
 				'city'  => $city,
@@ -1114,8 +1128,19 @@ class Clients extends BaseController {
 			];
 			$UsersModel = new UsersModel();
 			$result = $UsersModel->update($id, $data);
+
+      $data2 = [
+				'department_id'  => $department_id,
+				'office_shift_id' => $office_shift_id,
+				'date_of_birth' => $date_of_birth,
+        'account_number' => $account_number,
+        'account_title' => $account_title,
+			];
+
 			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
+        $MainModel = new MainModel();
+				$MainModel->update_employee_record($data2,$id);
 				$Return['result'] = lang('Success.ci_client_updated_msg');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
