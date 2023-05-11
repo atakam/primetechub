@@ -1282,7 +1282,7 @@ class Payroll extends BaseController {
       $seconds = 0;
       foreach ($total_hrs as $hour_work){
         // total work
-        if (date('Y-m',strtotime(str_replace('/', '-', $hour_work['attendance_date']))) == date('Y-m')) {
+        if (date('Y-m',strtotime(str_replace('/', '-', $hour_work['attendance_date']))) == $salary_month) {
           $timee = $hour_work['total_work'].':00';
           $seconds += strtotime($timee) - strtotime('TODAY');
         }
