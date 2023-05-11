@@ -93,7 +93,7 @@ return [
 	'xin_customers_group' => 'Customers Group',
 	'left_payroll' => 'Payroll',
 	'xin_payslip_history' => 'Payslip History',
-  'left_projects' => 'Student Accounts',
+	'left_projects' => 'Student Accounts',
 	'xin_project_clients' => 'Students',
 	'xin_project_timelogs' => 'Time Logs',
 	'xin_projects_scrm_board' => 'Kanban Board',

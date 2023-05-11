@@ -94,7 +94,7 @@ return [
 	'xin_customers_group' => 'Groupe de clients',
 	'left_payroll' => 'Paie',
 	'xin_payslip_history' => 'Historique des fiches de paie',
-  'left_projects' => 'Comptes étudiants',
+	'left_projects' => 'Comptes étudiants',
 	'xin_project_clients' => 'Étudiants',
 	'xin_project_timelogs' => 'Journaux horaires',
 	'xin_projects_scrm_board' => 'Tableau Kanban',
