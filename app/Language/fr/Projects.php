@@ -4,8 +4,10 @@
 return [
 'xin_start_date' => 'Date de début',
 'xin_end_date' => 'Date de fin',
-'xin_client' => 'Étudiant',
-'xin_clients' => 'Étudiants',
+'xin_student' => 'Étudiant',
+'xin_students' => 'Étudiants',
+'xin_client' => 'Client',
+'xin_clients' => 'Clients',
 'xin_project_users' => 'Équipe',
 'xin_p_priority' => 'Priorité',
 'dashboard_xin_progress' => 'Progression',
