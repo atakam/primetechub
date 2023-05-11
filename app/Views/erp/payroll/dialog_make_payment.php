@@ -27,6 +27,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
 	$user_info = $UsersModel->where('user_id', $user_id)->first();
 	$user_detail = $StaffdetailsModel->where('user_id', $user_info['user_id'])->first();
 	$ibasic_salary = $user_detail['basic_salary'];
+  $hourly_salary = $request->getGet('hourly_salary');
 	// Salary Options //
 	// 1:: Allowances
 	$count_allowances = $ContractModel->where('user_id',$user_id)->where('salay_type','allowances')->countAllResults();
@@ -74,16 +75,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
 	}
 
   // Attendance salary
-  $total_hrs = $TimesheetModel->where('employee_id', $user_id)->findAll();
-  $total_work = '';
-  $seconds = 0;
-  foreach ($total_hrs as $hour_work){
-    // total work
-    $timee = $hour_work['total_work'].':00';
-    $seconds += strtotime($timee) - strtotime('TODAY');
-  }
-  $hours_worked = number_format((float)($seconds / 3600), 2, '.', '');
-  $other_payments_amount = $user_detail['hourly_rate'] * $hours_worked;
+  $other_payments_amount = $hourly_salary;
 
 	// net salary
 	$inet_salary = $ibasic_salary + $allowance_amount + $commissions_amount + $other_payments_amount + $advance_salary + $loan - $statutory_deductions_amount;
@@ -219,7 +211,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
   <div class="col-md-12 reject_opt">
       <div class="form-group">
         <label for="description"><?= lang('Payroll.xin_payslip_comments');?></label>
-        <textarea class="form-control textarea" placeholder="<?= lang('Payroll.xin_payslip_comments');?>" name="payslip_comments" cols="30" rows="3"></textarea>
+        <textarea class="form-control textarea" placeholder="<?= lang('Payroll.xin_payslip_comments');?>" name="payslip_comments" cols="30" rows="3">Paid in cash</textarea>
       </div>
     </div>
    </div>

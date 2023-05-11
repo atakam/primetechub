@@ -249,6 +249,33 @@ class Payroll extends BaseController {
 				$payroll_count = $PayrollModel->where('company_id',$company_id)->where('staff_id',$r['user_id'])->where('salary_month',$payment_date)->countAllResults();
 				// Advance Salary //
 				$advance_salary = $AdvancesalaryModel->where('employee_id',$r['user_id'])->where('status',1)->where('salary_type','advance')->countAllResults();
+        $user_detail = $StaffdetailsModel->where('user_id', $r['user_id'])->first();
+
+        // 3:: Other Payments
+				$count_other_payments = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','other_payments')->countAllResults();
+				$other_payments = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','other_payments')->findAll();
+				$other_payments_amount = 0;
+				if($count_other_payments > 0) {
+					foreach($other_payments as $sl_other_payments) {
+						$other_payments_amount += $sl_other_payments['contract_amount'];
+					}
+				} else {
+					$other_payments_amount = 0;
+				}
+
+        // Attendance salary
+        $total_hrs = $TimesheetModel->where('employee_id', $r['user_id'])->findAll();
+        $total_work = '';
+        $seconds = 0;
+        foreach ($total_hrs as $hour_work){
+					// total work
+          if (date('Y-m',strtotime(str_replace('/', '-', $hour_work['attendance_date']))) == $payment_date) {
+            $timee = $hour_work['total_work'].':00';
+            $seconds += strtotime($timee) - strtotime('TODAY');
+          }
+				}
+        $hours_worked = number_format((float)($seconds / 3600), 2, '.', '');
+        $other_payments_amount += $user_detail['hourly_rate'] * $hours_worked;
 
 				if($advance_salary > 0) {
 					$fadvance_salary = $AdvancesalaryModel->where('employee_id',$r['user_id'])->where('status',1)->where('salary_type','advance')->first();
@@ -317,7 +344,7 @@ class Payroll extends BaseController {
 					$status = '<span class="badge badge-light-success">'.lang('Invoices.xin_paid').'</span>';
 				} else {
 					if(in_array('pay2',staff_role_resource()) || $user_info['user_type'] == 'company') {
-						$pay_salary = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Payroll.xin_payroll_make_payment').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".payroll-modal-data" data-field_id="'. uencode($r['user_id']) . '" data-payment_date='.uencode($payment_date).' data-advance_salary='.$deduct_salary.' data-loan='.$lo_deduct_salary.'><i class="feather icon-credit-card"></i></button></span>';
+						$pay_salary = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Payroll.xin_payroll_make_payment').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".payroll-modal-data" data-field_id="'. uencode($r['user_id']) . '" data-payment_date='.uencode($payment_date).' data-advance_salary='.$deduct_salary.' data-loan='.$lo_deduct_salary.' data-hourly_salary='.$other_payments_amount.'><i class="feather icon-credit-card"></i></button></span>';
 					} else {
 						$pay_salary = '';
 					}
@@ -327,7 +354,6 @@ class Payroll extends BaseController {
 					$combhr = $pay_salary.$view.$delete;
 					$status = '<span class="badge badge-light-danger">'.lang('Invoices.xin_unpaid').'</span>';
 				}
-				$user_detail = $StaffdetailsModel->where('user_id', $r['user_id'])->first();
 				$wages_type = lang('Membership.xin_per_month');
 				$ibasic_salary = $user_detail['basic_salary'];
 				$name = $r['first_name'].' '.$r['last_name'];
@@ -361,17 +387,7 @@ class Payroll extends BaseController {
 				} else {
 					$commissions_amount = 0;
 				}
-				// 3:: Other Payments
-				$count_other_payments = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','other_payments')->countAllResults();
-				$other_payments = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','other_payments')->findAll();
-				$other_payments_amount = 0;
-				if($count_other_payments > 0) {
-					foreach($other_payments as $sl_other_payments) {
-						$other_payments_amount += $sl_other_payments['contract_amount'];
-					}
-				} else {
-					$other_payments_amount = 0;
-				}
+
 				// 4:: Statutory
 				$count_statutory_deductions = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','statutory')->countAllResults();
 				$statutory_deductions = $ContractModel->where('user_id',$r['user_id'])->where('salay_type','statutory')->findAll();
@@ -383,18 +399,6 @@ class Payroll extends BaseController {
 				} else {
 					$statutory_deductions_amount = 0;
 				}
-
-        // Attendance salary
-        $total_hrs = $TimesheetModel->where('employee_id', $r['user_id'])->findAll();
-        $total_work = '';
-        $seconds = 0;
-        foreach ($total_hrs as $hour_work){
-					// total work
-					$timee = $hour_work['total_work'].':00';
-					$seconds += strtotime($timee) - strtotime('TODAY');
-				}
-        $hours_worked = number_format((float)($seconds / 3600), 2, '.', '');
-        $other_payments_amount = $user_detail['hourly_rate'] * $hours_worked;
 
 				// net salary
 				$inet_salary = $ibasic_salary + $allowance_amount + $commissions_amount + $other_payments_amount - $statutory_deductions_amount + $deduct_salary + $lo_deduct_salary;
@@ -1278,8 +1282,10 @@ class Payroll extends BaseController {
       $seconds = 0;
       foreach ($total_hrs as $hour_work){
         // total work
-        $timee = $hour_work['total_work'].':00';
-        $seconds += strtotime($timee) - strtotime('TODAY');
+        if (date('Y-m',strtotime(str_replace('/', '-', $hour_work['attendance_date']))) == date('Y-m')) {
+          $timee = $hour_work['total_work'].':00';
+          $seconds += strtotime($timee) - strtotime('TODAY');
+        }
       }
       $hours_worked = number_format((float)($seconds / 3600), 2, '.', '');
       $other_payments_amount += $user_detail['hourly_rate'] * $hours_worked;

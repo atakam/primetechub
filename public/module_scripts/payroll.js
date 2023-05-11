@@ -20,7 +20,7 @@ $(document).ready(function() {
 			},
         },
 		"fnDrawCallback": function(settings){
-		$('[data-toggle="tooltip"]').tooltip();          
+		$('[data-toggle="tooltip"]').tooltip();
 		}
     });
 	/* Set Salary Details*/
@@ -51,7 +51,7 @@ $(document).ready(function() {
 				},
 			},
 			"fnDrawCallback": function(settings){
-			$('[data-toggle="tooltip"]').tooltip();          
+			$('[data-toggle="tooltip"]').tooltip();
 			}
 		});
 		xin_table2.api().ajax.reload(function(){
@@ -76,16 +76,16 @@ $(document).ready(function() {
 					Ladda.stopAll();
 				} else {
 					$('.delete-modal').modal('toggle');
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
-					}, true);		
-					$('input[name="csrf_token"]').val(JSON.csrf_hash);	
-					Ladda.stopAll();				
+					}, true);
+					$('input[name="csrf_token"]').val(JSON.csrf_hash);
+					Ladda.stopAll();
 				}
 			}
 		});
 	});
-	
+
 	// edit
 	$('.payroll-modal-data').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget);
@@ -93,11 +93,12 @@ $(document).ready(function() {
 		var payment_date = button.data('payment_date');
 		var advance_salary = button.data('advance_salary');
 		var loan = button.data('loan');
+    var hourly_salary = button.data('hourly_salary');
 		var modal = $(this);
 	$.ajax({
 		url : main_url+"payroll/read_payroll",
 		type: "GET",
-		data: 'jd=1&data=payroll&field_id='+field_id+'&payment_date='+payment_date+'&advance_salary='+advance_salary+'&loan='+loan,
+		data: 'jd=1&data=payroll&field_id='+field_id+'&payment_date='+payment_date+'&advance_salary='+advance_salary+'&loan='+loan+'&hourly_salary='+hourly_salary,
 		success: function (response) {
 			if(response) {
 				$("#ajax_payroll_modal").html(response);
@@ -105,7 +106,7 @@ $(document).ready(function() {
 		}
 		});
 	});
-	
+
 	$('.view-modal-data').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget);
 		var user_id = button.data('field_id');
@@ -121,7 +122,7 @@ $(document).ready(function() {
 		}
 		});
 	});
-	
+
 	/* Add data */ /*Form Submit*/
 	$("#xin-form").submit(function(e){
 		var fd = new FormData(this);
@@ -129,7 +130,7 @@ $(document).ready(function() {
 		fd.append("is_ajax", 1);
 		fd.append("type", 'add_record');
 		fd.append("form", action);
-		e.preventDefault();		
+		e.preventDefault();
 		$.ajax({
 			url: e.target.action,
 			type: "POST",
@@ -144,7 +145,7 @@ $(document).ready(function() {
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
 					Ladda.stopAll();
 				} else {
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -153,12 +154,12 @@ $(document).ready(function() {
 					Ladda.stopAll();
 				}
 			},
-			error: function() 
+			error: function()
 			{
 				toastr.error(JSON.error);
 				$('input[name="csrf_token"]').val(JSON.csrf_hash);
 					Ladda.stopAll();
-			} 	        
+			}
 	   });
 	});
 });
