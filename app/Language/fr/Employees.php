@@ -4,6 +4,7 @@
 return [
 	'dashboard_employee_id' => 'ID employé',
   'dashboard_student_id' => 'ID étudiant',
+  'dashboard_id_card' => 'Numero de carte d\'identité',
 	'xin_employee_office_shift' => "Changement de bureau",
 	'xin_employee_office_shifts' => "Changements de bureau",
   'xin_employee_section' => "Section",
@@ -12,6 +13,7 @@ return [
 	'xin_employee_error_employee_id' => "Le champ d'identification de l'employé est obligatoire.",
 	'xin_employee_id_already_exist' => 'identifiant employé existe déjà.',
 	'xin_employee_error_department' => "Le champ département est obligatoire.",
+  'xin_employee_error_dob' => "Le champ date de naissance est obligatoire.",
 	'xin_employee_error_designation' => "Le champ de désignation est obligatoire.",
 	'xin_employee_error_staff_role' => "Le champ du rôle du personnel est obligatoire.",
 	'xin_staff_picture_field_error' => 'Le champ photo de profil est obligatoire.',

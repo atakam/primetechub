@@ -48,6 +48,8 @@ return [
 'xin_employee_password' => "Mot de passe",
 'xin_company_file_type' => 'Télécharger uniquement les fichiers: gif, png, jpg, jpeg',
 'xin_error_contact_field' => "Le champ du numéro de contact est obligatoire.",
+'xin_error_gender_field' => "Le champ du sexe est obligatoire.",
+'xin_error_parent_contact_field' => "Le champ du numéro de contact parent est obligatoire.",
 'xin_error_cemail_field' => "Le champ email est obligatoire.",
 'xin_error_website_field' => "Le champ du site Web est obligatoire.",
 'xin_error_city_field' => "Le champ de la ville est obligatoire.",

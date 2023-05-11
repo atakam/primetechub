@@ -47,6 +47,8 @@ return [
 	'xin_employee_password' => "Password",
 	'xin_company_file_type' => 'Upload files only: gif,png,jpg,jpeg',
 	'xin_error_contact_field' => "The contact number field is required.",
+  'xin_error_gender_field' => "The gender field is required.",
+  'xin_error_parent_contact_field' => "The parent contact number field is required.",
 	'xin_error_cemail_field' => "The email field is required.",
 	'xin_error_website_field' => "The website field is required.",
 	'xin_error_city_field' => "The city field is required.",
