@@ -287,6 +287,3 @@ $paid = number_format((float)$paid, 1, '.', '');
   <!-- [ invoice-list ] end -->
 </div>
 <hr>
-<div class="p-2">
-<?= $pager->links() ?>
-</div>

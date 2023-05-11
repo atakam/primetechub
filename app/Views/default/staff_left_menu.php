@@ -37,22 +37,10 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
     <?= lang('Dashboard.left_attendance');?>
     </span></a></li>
   <?php } ?>
-  <?php if(in_array('project1',staff_role_resource())) {?>
-  <!-- Projects -->
-  <li class="pc-item"><a href="<?= site_url('erp/projects-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">
-    <?= lang('Dashboard.left_projects');?>
-    </span></a></li>
-  <?php } ?>
   <!-- Tasks -->
   <?php if(in_array('task1',staff_role_resource())) {?>
   <li class="pc-item"><a href="<?= site_url('erp/tasks-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="edit"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_tasks');?>
-    </span></a></li>
-  <?php } ?>
-  <!-- Payroll -->
-  <?php if(in_array('pay_history',staff_role_resource())) {?>
-  <li class="pc-item"><a href="<?= site_url('erp/payslip-history');?>" class="pc-link "><span class="pc-micon"><i data-feather="speaker"></i></span><span class="pc-mtext">
-    <?= lang('Dashboard.left_payroll');?>
     </span></a></li>
   <?php } ?>
   <?php if(in_array('leave1',staff_role_resource()) || in_array('expense1',staff_role_resource()) || in_array('overtime_req1',staff_role_resource()) || in_array('travel1',staff_role_resource())) {?>
@@ -121,6 +109,12 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   <!-- Employees -->
   <li class="pc-item"><a href="<?= site_url('erp/staff-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="users"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.dashboard_employees');?>
+    </span></a></li>
+  <?php } ?>
+  <!-- Payroll -->
+  <?php if(in_array('pay_history',staff_role_resource())) {?>
+  <li class="pc-item"><a href="<?= site_url('erp/payslip-history');?>" class="pc-link "><span class="pc-micon"><i data-feather="speaker"></i></span><span class="pc-mtext">
+    <?= lang('Dashboard.left_payroll');?>
     </span></a></li>
   <?php } ?>
   <?php if(isset($setup_modules['recruitment'])): if($setup_modules['recruitment']==1):?>
@@ -320,6 +314,12 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   <!-- Leads -->
   <li class="pc-item"><a href="<?= site_url('erp/leads-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="user-plus"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.xin_leads');?>
+    </span></a></li>
+  <?php } ?>
+  <?php if(in_array('project1',staff_role_resource())) {?>
+  <!-- Projects -->
+  <li class="pc-item"><a href="<?= site_url('erp/projects-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">
+    <?= lang('Dashboard.left_projects');?>
     </span></a></li>
   <?php } ?>
   <?php if(in_array('invoice2',staff_role_resource()) || in_array('invoice_payments',staff_role_resource()) || in_array('invoice_calendar',staff_role_resource()) || in_array('tax_type1',staff_role_resource())) {?>

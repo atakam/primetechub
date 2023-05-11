@@ -4,18 +4,18 @@ use CodeIgniter\I18n\Time;
 if( !function_exists('dashboard_profile_completeness') ){
 
 	function dashboard_profile_completeness(){
-				
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$ShiftModel = new \App\Models\ShiftModel();
 		$RolesModel = new \App\Models\RolesModel();
 		$ConstantsModel = new \App\Models\ConstantsModel();
 		$DesignationModel = new \App\Models\DesignationModel();
-		$DepartmentModel = new \App\Models\DepartmentModel();		
-		
+		$DepartmentModel = new \App\Models\DepartmentModel();
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$departments = $DepartmentModel->where('company_id',$usession['sup_user_id'])->countAllResults();
 		$designations = $DesignationModel->where('company_id',$usession['sup_user_id'])->countAllResults();
@@ -29,7 +29,7 @@ if( !function_exists('dashboard_profile_completeness') ){
 		if($departments > 0): $departments = 1; endif;
 		if($designations > 0): $designations = 1; endif;
 		if($office_shifts > 0): $office_shifts = 1; endif;
-		
+
 		$val = $roles + $fcompetencies + $departments + $designations + $office_shifts;
 		$total_val = $val * 20;
 		$data = array('departments' => $departments,'designations' => $designations,'office_shifts' => $office_shifts,'roles' => $roles,'competencies' => $fcompetencies,'percent' => $total_val);
@@ -39,7 +39,7 @@ if( !function_exists('dashboard_profile_completeness') ){
 if( !function_exists('attendance_time_checks') ){
 
 	function attendance_time_checks(){
-		
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
@@ -54,7 +54,7 @@ if( !function_exists('attendance_time_checks') ){
 }
 if( !function_exists('attendance_time_checks_value') ){
 	// attendance_time_checks_value
-	function attendance_time_checks_value(){	
+	function attendance_time_checks_value(){
 
 		$db      = \Config\Database::connect();
 		// get session
@@ -75,7 +75,7 @@ if( !function_exists('attendance_time_checks_value') ){
 if( !function_exists('check_user_attendance') ){
 
 	function check_user_attendance(){
-		
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
@@ -90,7 +90,7 @@ if( !function_exists('check_user_attendance') ){
 }
 if( !function_exists('check_user_attendance_value') ){
 	// check_user_attendance
-	function check_user_attendance_value(){	
+	function check_user_attendance_value(){
 
 		$db      = \Config\Database::connect();
 		// get session
@@ -111,7 +111,7 @@ if( !function_exists('check_user_attendance_value') ){
 }
 if( !function_exists('check_user_attendance_clockout_value') ){
 	// check_user_attendance
-	function check_user_attendance_clockout_value(){	
+	function check_user_attendance_clockout_value(){
 
 		$db      = \Config\Database::connect();
 		// get session
@@ -133,7 +133,7 @@ if( !function_exists('check_user_attendance_clockout_value') ){
 }
 if( !function_exists('user_attendance_monthly_value') ){
 	// user_attendance_monthly_value
-	function user_attendance_monthly_value($attendance_date,$user_id){	
+	function user_attendance_monthly_value($attendance_date,$user_id){
 
 		// get session
 		$session = \Config\Services::session();
@@ -152,7 +152,7 @@ if( !function_exists('staff_profile_photo') ){
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$user_info = $UsersModel->where('user_id', $user_id)->first();
 		if($user_info['user_type'] != 'customer'){
@@ -185,9 +185,9 @@ if( !function_exists('multi_user_profile_photo') ){
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
-		
+
 		$ol = '';
 		foreach($multi_user as $user_id) {
 			// get staff info
@@ -223,9 +223,9 @@ if( !function_exists('multi_users_info') ){
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
-		
+
 		$ol = ''; $i=0;
 		foreach($multi_user as $user_id) {
 			// get staff info
@@ -256,7 +256,7 @@ if( !function_exists('user_company_info') ){
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$UsersModel = new \App\Models\UsersModel();
-				
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'company'){
 			$company_id = $usession['sup_user_id'];
@@ -281,12 +281,12 @@ if( !function_exists('company_membership_details') ){
 		$UsersModel = new \App\Models\UsersModel();
 		$MembershipModel = new \App\Models\MembershipModel();
 		$CompanymembershipModel = new \App\Models\CompanymembershipModel();
-	
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-					
+
 		$company_membership = $CompanymembershipModel->where('company_id', $usession['sup_user_id'])->first();
 		$subs_plan = $MembershipModel->where('membership_id', $company_membership['membership_id'])->first();
-		
+
 		if($subs_plan['plan_duration']==1){
 			if($subs_plan['membership_id']==1){
 				$time = Time::parse($company_membership['update_at'], 'Asia/Karachi');
@@ -342,7 +342,7 @@ if( !function_exists('company_membership_details') ){
 // company membership || In-Active|Active
 if( !function_exists('company_membership_activation') ){
 	function company_membership_activation(){
-		
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
@@ -351,7 +351,7 @@ if( !function_exists('company_membership_activation') ){
 		$UsersModel = new \App\Models\UsersModel();
 		$MembershipModel = new \App\Models\MembershipModel();
 		$CompanymembershipModel = new \App\Models\CompanymembershipModel();
-	
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'company'){
 			$company_id = $usession['sup_user_id'];
@@ -360,10 +360,10 @@ if( !function_exists('company_membership_activation') ){
 		} else if($user_info['user_type'] == 'customer'){
 			$company_id = $user_info['company_id'];
 		}
-		
+
 		$company_membership = $CompanymembershipModel->where('company_id', $company_id)->first();
 		$subs_plan = $MembershipModel->where('membership_id', $company_membership['membership_id'])->first();
-		
+
 		if($subs_plan['plan_duration']==1){
 			$time = Time::parse($company_membership['update_at'], 'Asia/Karachi');
 			$add_time = $time->addMonths(1);
@@ -391,14 +391,14 @@ if( !function_exists('notification_data') ){
 }
 if( !function_exists('erp_company_settings') ){
 	function erp_company_settings(){
-		
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 
 		$UsersModel = new \App\Models\UsersModel();
 		$CompanysettingsModel = new \App\Models\CompanysettingsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'company'){
 			$company_id = $usession['sup_user_id'];
@@ -407,7 +407,7 @@ if( !function_exists('erp_company_settings') ){
 		} else if($user_info['user_type'] == 'customer'){
 			$company_id = $user_info['company_id'];
 		}
-		
+
 		$company_settings = $CompanysettingsModel->where('company_id', $company_id)->first();
 		return $company_settings;
 	}
@@ -427,53 +427,53 @@ function generate_timezone_list()
 			DateTimeZone::INDIAN,
 			DateTimeZone::PACIFIC,
 		);
-	
+
 		$timezones = array();
 		foreach( $regions as $region )
 		{
 			$timezones = array_merge( $timezones, DateTimeZone::listIdentifiers( $region ) );
 		}
-	
+
 		$timezone_offsets = array();
 		foreach( $timezones as $timezone )
 		{
 			$tz = new DateTimeZone($timezone);
 			$timezone_offsets[$timezone] = $tz->getOffset(new DateTime);
 		}
-	
+
 		// sort timezone by offset
 		asort($timezone_offsets);
-	
+
 		$timezone_list = array();
 		foreach( $timezone_offsets as $timezone => $offset )
 		{
 			$offset_prefix = $offset < 0 ? '-' : '+';
 			$offset_formatted = gmdate( 'H:i', abs($offset) );
-	
+
 			$pretty_offset = "UTC${offset_prefix}${offset_formatted}";
-	
+
 			$timezone_list[$timezone] = "(${pretty_offset}) $timezone";
 		}
-	
+
 		return $timezone_list;
 	}
 }
 if( !function_exists('timehrm_mail_data') ){
 
 	function timehrm_mail_data($from,$from_name,$to,$subject,$body){
-	  
-		
+
+
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$SystemModel = new \App\Models\SystemModel();
 		$UsersModel = new \App\Models\UsersModel();
 		//$EmailtemplatesModel = new \App\Models\EmailtemplatesModel();
-		
+
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		
+
 		if($xin_system['email_type']=="codeigniter"){
 			//default email config
 			$email = \Config\Services::email();
@@ -483,7 +483,7 @@ if( !function_exists('timehrm_mail_data') ){
 			$email->setSubject($subject);
 			$email->setMessage($body);
 			$email->send();
-		
+
 		} elseif($xin_system['email_type']=="smtp"){
 			//default smtp config
 			$email = \Config\Services::smtp();
@@ -493,49 +493,49 @@ if( !function_exists('timehrm_mail_data') ){
 			$email->setSubject($subject);
 			$email->setMessage($body);
 			$email->send();
-		
+
 		} elseif($xin_system['email_type']=="phpmail"){
-		
+
 			$headers = "MIME-Version: 1.0" . "\r\n";
 			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-			
+
 			// More headers
 			$headers .= 'From: ' .$from. "\r\n";
-			
-			mail($to,$subject,$body,$headers); 
-		
+
+			mail($to,$subject,$body,$headers);
+
 		}
-	  
+
 	}
 }
 if( !function_exists('account_statement_report') ){
 
 	function account_statement_report($start_date,$end_date,$get_id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$AccountsModel = new \App\Models\AccountsModel();
 		$TransactionsModel = new \App\Models\TransactionsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		$builder = $db->table('ci_finance_transactions');
 		$builder->where('transaction_date BETWEEN "'. $start_date. '" and "'. $end_date.'"');
 		$builder->where('account_id', $get_id);
 		$builder->where('company_id', $company_id);
 		$query = $builder->get();
 		$transaction_data = $query->getResult();
-		
+
 		return $transaction_data;
 	}
 }
@@ -543,15 +543,15 @@ if( !function_exists('training_report') ){
 
 	function training_report($start_date,$end_date,$status){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$TrainingModel = new \App\Models\TrainingModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
@@ -563,7 +563,7 @@ if( !function_exists('training_report') ){
 		} else {
 			$training_data = $TrainingModel->where('company_id', $company_id)->where('start_date >=',$start_date)->where('finish_date <=' ,$end_date)->where('training_status' ,$status)->findAll();
 		}
-		
+
 		return $training_data;
 	}
 }
@@ -571,15 +571,15 @@ if( !function_exists('leave_report') ){
 
 	function leave_report($start_date,$end_date,$status){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$LeaveModel = new \App\Models\LeaveModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
@@ -591,7 +591,7 @@ if( !function_exists('leave_report') ){
 		} else {
 			$leave_data = $LeaveModel->where('company_id', $company_id)->where('from_date >=',$start_date)->where('to_date <=' ,$end_date)->where('status' ,$status)->findAll();
 		}
-		
+
 		return $leave_data;
 	}
 }
@@ -599,23 +599,23 @@ if( !function_exists('purchases_report') ){
 
 	function purchases_report($start_date,$end_date,$status){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$PurchasesModel = new \App\Models\PurchasesModel();
 		//$TransactionsModel = new \App\Models\TransactionsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		$builder = $db->table('ci_stock_purchases');
 		if($status == 'all_status'){
 			$builder->where('purchase_date BETWEEN "'. $start_date. '" and "'. $end_date.'"');
@@ -625,10 +625,10 @@ if( !function_exists('purchases_report') ){
 			$builder->where('status', $status);
 			$builder->where('company_id', $company_id);
 		}
-		
+
 		$query = $builder->get();
 		$purchases_data = $query->getResult();
-		
+
 		return $purchases_data;
 	}
 }
@@ -636,23 +636,23 @@ if( !function_exists('invoice_report') ){
 
 	function invoice_report($start_date,$end_date,$status){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$AccountsModel = new \App\Models\AccountsModel();
 		$TransactionsModel = new \App\Models\TransactionsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		$builder = $db->table('ci_invoices');
 		if($status == 'all_status'){
 			$builder->where('invoice_date BETWEEN "'. $start_date. '" and "'. $end_date.'"');
@@ -662,10 +662,10 @@ if( !function_exists('invoice_report') ){
 			$builder->where('status', $status);
 			$builder->where('company_id', $company_id);
 		}
-		
+
 		$query = $builder->get();
 		$transaction_data = $query->getResult();
-		
+
 		return $transaction_data;
 	}
 }
@@ -673,23 +673,23 @@ if( !function_exists('sales_report') ){
 
 	function sales_report($start_date,$end_date,$status){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$AccountsModel = new \App\Models\AccountsModel();
 		$TransactionsModel = new \App\Models\TransactionsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		$builder = $db->table('ci_stock_orders');
 		if($status == 'all_status'){
 			$builder->where('invoice_date BETWEEN "'. $start_date. '" and "'. $end_date.'"');
@@ -699,26 +699,26 @@ if( !function_exists('sales_report') ){
 			$builder->where('status', $status);
 			$builder->where('company_id', $company_id);
 		}
-		
+
 		$query = $builder->get();
 		$transaction_data = $query->getResult();
-		
+
 		return $transaction_data;
 	}
 }
 if( !function_exists('currency_converter_values') ){
 
-	function currency_converter_values() {	
+	function currency_converter_values() {
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$url = 'https://api.exchangerate-api.com/v4/latest/'.$xin_system['default_currency'];
 		//$to_currency = $toCurrency;
 		$url=file_get_contents($url);
@@ -729,35 +729,35 @@ if( !function_exists('currency_converter_values') ){
 }
 if( !function_exists('currency_converted_values') ){
 
-	function currency_converted_values() {	
+	function currency_converted_values() {
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$currency_val = unserialize($xin_system['currency_converter']);
-		
+
 		$converted=0;
 		foreach($currency_val as $_val=>$_key){
 			if($_val == $xin_system['default_currency']){
 				echo $converted = $_key;
-			} 
+			}
 		}
 	}
 }
 if( !function_exists('currency_converter') ){
 
-	function currency_converter($amount) {	
+	function currency_converter($amount) {
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$xin_system = erp_company_settings();
@@ -777,20 +777,20 @@ if( !function_exists('staff_projects') ){
 
 	function staff_projects($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$ProjectsModel = new \App\Models\ProjectsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$data = $ProjectsModel->where('company_id',$company_id)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
-		
+
 		return $data;
 	}
 }
@@ -798,20 +798,20 @@ if( !function_exists('assigned_staff_projects') ){
 
 	function assigned_staff_projects($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$ProjectsModel = new \App\Models\ProjectsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
-		$data = $ProjectsModel->where('company_id',$company_id)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id' or added_by = '$id'")->findAll();
-		
+
+		$data = $ProjectsModel->findAll();
+
 		return $data;
 	}
 }
@@ -819,18 +819,18 @@ if( !function_exists('assigned_staff_projects_board') ){
 
 	function assigned_staff_projects_board($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$ProjectsModel = new \App\Models\ProjectsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$not_started_projects = $ProjectsModel->where('company_id',$company_id)->where('status',0)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$inprogress_projects = $ProjectsModel->where('company_id',$company_id)->where('status',1)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$completed_projects = $ProjectsModel->where('company_id',$company_id)->where('status',2)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
@@ -844,20 +844,20 @@ if( !function_exists('assigned_staff_tasks') ){
 
 	function assigned_staff_tasks($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$TasksModel = new \App\Models\TasksModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$data = $TasksModel->where('company_id',$company_id)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id' or created_by = '$id'")->findAll();
-		
+
 		return $data;
 	}
 }
@@ -865,25 +865,25 @@ if( !function_exists('assigned_staff_tasks_board') ){
 
 	function assigned_staff_tasks_board($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$TasksModel = new \App\Models\TasksModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$not_started_tasks = $TasksModel->where('company_id',$company_id)->where('task_status',0)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$inprogress_tasks = $TasksModel->where('company_id',$company_id)->where('task_status',1)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$completed_tasks = $TasksModel->where('company_id',$company_id)->where('task_status',2)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$cancelled_tasks = $TasksModel->where('company_id',$company_id)->where('task_status',3)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$hold_tasks = $TasksModel->where('company_id',$company_id)->where('task_status',4)->where("assigned_to like '%$id,%' or assigned_to like '%,$id%' or assigned_to = '$id'")->findAll();
 		$data = array('not_started_tasks'=>$not_started_tasks,'inprogress_tasks'=>$inprogress_tasks,'completed_tasks'=>$completed_tasks,'cancelled_tasks'=>$cancelled_tasks,'hold_tasks'=>$hold_tasks);
-		
+
 		return $data;
 	}
 }
@@ -891,20 +891,20 @@ if( !function_exists('assigned_staff_training') ){
 
 	function assigned_staff_training($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$TrainingModel = new \App\Models\TrainingModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$data = $TrainingModel->where('company_id',$company_id)->where("employee_id like '%$id,%' or employee_id like '%,$id%' or employee_id = '$id'")->findAll();
-		
+
 		return $data;
 	}
 }
@@ -912,20 +912,20 @@ if( !function_exists('assigned_staff_events') ){
 
 	function assigned_staff_events($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$EventsModel = new \App\Models\EventsModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$data = $EventsModel->where('company_id',$company_id)->where("employee_id like '%$id,%' or employee_id like '%,$id%' or employee_id = '$id'")->findAll();
-		
+
 		return $data;
 	}
 }
@@ -933,20 +933,20 @@ if( !function_exists('assigned_staff_conference') ){
 
 	function assigned_staff_conference($id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$MeetingModel = new \App\Models\MeetingModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$company_id = $user_info['company_id'];
-		
+
 		$data = $MeetingModel->where('company_id',$company_id)->where("employee_id like '%$id,%' or employee_id like '%,$id%' or employee_id = '$id'")->findAll();
-		
+
 		return $data;
 	}
 }
@@ -954,24 +954,24 @@ if( !function_exists('count_leads_followup') ){
 
 	function count_leads_followup($lead_id){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$LeadsfollowupModel = new \App\Models\LeadsfollowupModel();
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$company_id = $user_info['company_id'];
 		} else {
 			$company_id = $usession['sup_user_id'];
 		}
-		
+
 		$count_result = $LeadsfollowupModel->where('company_id',$company_id)->where('lead_id',$lead_id)->countAllResults();
-		
+
 		return $count_result;
 	}
 }
@@ -979,38 +979,38 @@ if( !function_exists('timehrm_sms_data') ){
 
 	function timehrm_sms_data($recipient,$sms_body){
 		// get db
-		$db      = \Config\Database::connect();	
+		$db      = \Config\Database::connect();
 		// get session
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$UsersModel = new \App\Models\UsersModel();
 		$SystemModel = new \App\Models\SystemModel();
 		$SmstemplatesModel = new \App\Models\SmstemplatesModel();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$service_plan_id = $xin_system['sms_service_plan_id'];
 		$bearer_token = $xin_system['sms_bearer_token'];
-		
+
 		$send_from = $xin_system['sms_from'];
 		$recipient_phone_numbers = $recipient; //May be several, separate with a comma `,`.
 		$message = $sms_body;
-		
+
 		// Check recipient_phone_numbers for multiple numbers and make it an array.
 		if(stristr($recipient_phone_numbers, ',')){
 		  $recipient_phone_numbers = explode(',', $recipient_phone_numbers);
 		}else{
 		  $recipient_phone_numbers = [$recipient_phone_numbers];
 		}
-		
+
 		// Set necessary fields to be JSON encoded
 		$content = [
 		  'to' => array_values($recipient_phone_numbers),
 		  'from' => $send_from,
 		  'body' => $message
 		];
-		
+
 		$data = json_encode($content);
-		
+
 		$ch = curl_init("https://us.sms.api.sinch.com/xms/v1/{$service_plan_id}/batches");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BEARER);
@@ -1019,9 +1019,9 @@ if( !function_exists('timehrm_sms_data') ){
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		
+
 		$result = curl_exec($ch);
-		
+
 		if(curl_errno($ch)) {
 			//echo 'Curl error: ' . curl_error($ch);
 		} else {
@@ -1029,7 +1029,7 @@ if( !function_exists('timehrm_sms_data') ){
 		}
 		curl_close($ch);
 		 //return $result;
-			
+
 			return $data;
 	}
 }

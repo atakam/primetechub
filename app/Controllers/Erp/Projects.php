@@ -20,7 +20,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -39,7 +39,7 @@ use App\Models\ProjectdiscussionModel;
 class Projects extends BaseController {
 
 	public function projects_dashboard()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -47,7 +47,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -63,7 +63,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function projects()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -71,7 +71,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -95,7 +95,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function projects_grid()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -103,7 +103,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -127,7 +127,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function projects_client()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -135,7 +135,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] !=='customer'){
@@ -151,17 +151,17 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function project_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$ProjectsModel = new ProjectsModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -190,17 +190,17 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function client_project_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$ProjectsModel = new ProjectsModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] !='customer'){
@@ -214,7 +214,7 @@ class Projects extends BaseController {
 		if(!$isegment_val){
 			$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
 			return redirect()->to(site_url('erp/desk'));
-		}		
+		}
 		//$data['progress'] = $project_data['project_progress'];
 		$data['title'] = lang('Projects.xin_project_details').' | '.$xin_system['application_name'];
 		$data['path_url'] = 'project_details';
@@ -224,7 +224,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function projects_calendar()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -232,7 +232,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -256,7 +256,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function project_timelogs()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -264,7 +264,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -280,7 +280,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function projects_scrum_board()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -288,7 +288,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -312,7 +312,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function invoices()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -320,7 +320,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -336,7 +336,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function payments_history()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -344,7 +344,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -360,7 +360,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function invoice_taxes()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -368,7 +368,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -384,7 +384,7 @@ class Projects extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function quotes()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -392,7 +392,7 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -412,9 +412,9 @@ class Projects extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -422,14 +422,15 @@ class Projects extends BaseController {
 		$ProjectsModel = new ProjectsModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
-			$get_data = assigned_staff_projects($usession['sup_user_id']);
+			// $get_data = assigned_staff_projects($usession['sup_user_id']);
+      $get_data =  $ProjectsModel->orderBy('project_id', 'ASC')->findAll();
 		} else {
 			$get_data = $ProjectsModel->where('company_id',$usession['sup_user_id'])->orderBy('project_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('project4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['project_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 			} else {
@@ -439,10 +440,10 @@ class Projects extends BaseController {
 			//assigned user
 			$assigned_to = explode(',',$r['assigned_to']);
 			$multi_users = multi_user_profile_photo($assigned_to);
-			
+
 			$start_date = set_date_format($r['start_date']);
 			$end_date = set_date_format($r['end_date']);
-			
+
 			// project progress
 			if($r['project_progress'] <= 20) {
 				$progress_class = 'bg-danger';
@@ -453,9 +454,9 @@ class Projects extends BaseController {
 			} else {
 				$progress_class = 'bg-success';
 			}
-			
+
 			$progress_bar = '<div class="progress" style="height: 10px;"><div class="progress-bar '.$progress_class.' progress-bar-striped" role="progressbar" style="width: '.$r['project_progress'].'%;" aria-valuenow="'.$r['project_progress'].'" aria-valuemin="0" aria-valuemax="100">'.$r['project_progress'].'%</div></div>';
-			// status			
+			// status
 			if($r['status'] == 0) {
 				$status = '<span class="label label-warning">'.lang('Projects.xin_not_started').'</span>';
 			} else if($r['status'] ==1){
@@ -477,7 +478,7 @@ class Projects extends BaseController {
 			} else {
 				$priority = '<span class="badge badge-light-success">'.lang('Projects.xin_low').'</span>';
 			}
-				
+
 			$project_summary = $r['title'];
 			// create by
 			$created_by = $UsersModel->where('user_id',$r['added_by'])->first();
@@ -487,13 +488,13 @@ class Projects extends BaseController {
 				$u_name = '--';
 			}
 			// client
-			$client_info = $UsersModel->where('user_id', $r['client_id'])->where('user_type','customer')->first();	
+			$client_info = $UsersModel->where('user_id', $r['client_id'])->where('user_type','customer')->first();
 			if($client_info){
 				$iclient = $client_info['first_name'].' '.$client_info['last_name'];
 			} else {
 				$iclient = '--';
 			}
-			
+
 			$combhr = $view.$delete;
 			$ititle = '
 				'.$project_summary.'
@@ -509,7 +510,7 @@ class Projects extends BaseController {
 				$priority,
 				$progress_bar
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -523,9 +524,9 @@ class Projects extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -540,9 +541,9 @@ class Projects extends BaseController {
 			$get_data = $ProjecttimelogsModel->where('company_id',$usession['sup_user_id'])->where('project_id',$ifield_id)->orderBy('timelogs_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('hr_event3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['timelogs_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -553,27 +554,27 @@ class Projects extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			//assigned user
 			$iuser = $UsersModel->where('user_id', $r['employee_id'])->first();
 			if($iuser){
 				$employee_name = $iuser['first_name'].' '.$iuser['last_name'];
-				$combhr = $edit.$delete;	
+				$combhr = $edit.$delete;
 			} else {
 				$employee_name = lang('Users.xin_user_data_removed');
-				$combhr = $delete;	
+				$combhr = $delete;
 			}
-			
+
 			$start_date = set_date_format($r['start_date']);
 			$end_date = set_date_format($r['end_date']);
 			$total_hours = $r['total_hours'];
-			
+
 			if(in_array('hr_event3',staff_role_resource()) || in_array('hr_event4',staff_role_resource()) || $user_info['user_type'] == 'company') {
 				$iemployee_name = '
 				'.$employee_name.'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>'; 			  				
+				</div>';
 			} else {
 				$iemployee_name = $employee_name;
 			}
@@ -583,7 +584,7 @@ class Projects extends BaseController {
 				$end_date,
 				$total_hours
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -598,16 +599,16 @@ class Projects extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
-		$TasksModel = new TasksModel();		
+		$TasksModel = new TasksModel();
 		$segment_id = $this->request->getVar('project_val',FILTER_SANITIZE_STRING);
 		$ifield_id = udecode($segment_id);
-		
+
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$get_data = $TasksModel->where('company_id',$user_info['company_id'])->where('project_id',$ifield_id)->orderBy('task_id', 'ASC')->findAll();
@@ -617,9 +618,9 @@ class Projects extends BaseController {
 			$get_data = $TasksModel->where('company_id',$usession['sup_user_id'])->where('project_id',$ifield_id)->orderBy('task_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('project4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['task_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 			} else {
@@ -629,10 +630,10 @@ class Projects extends BaseController {
 			//assigned user
 			$assigned_to = explode(',',$r['assigned_to']);
 			$multi_users = multi_user_profile_photo($assigned_to);
-						
+
 			$start_date = set_date_format($r['start_date']);
 			$end_date = set_date_format($r['end_date']);
-			
+
 			// task progress
 			if($r['task_progress'] <= 20) {
 				$progress_class = 'bg-danger';
@@ -643,9 +644,9 @@ class Projects extends BaseController {
 			} else {
 				$progress_class = 'bg-success';
 			}
-			
+
 			$progress_bar = '<div class="progress" style="height: 10px;"><div class="progress-bar '.$progress_class.' progress-bar-striped" role="progressbar" style="width: '.$r['task_progress'].'%;" aria-valuenow="'.$r['task_progress'].'" aria-valuemin="0" aria-valuemax="100">'.$r['task_progress'].'%</div></div>';
-			// task status			
+			// task status
 			if($r['task_status'] == 0) {
 				$status = '<span class="badge badge-light-warning">'.lang('Projects.xin_not_started').'</span>';
 			} else if($r['task_status'] ==1){
@@ -659,7 +660,7 @@ class Projects extends BaseController {
 			}
 			$created_by = $UsersModel->where('user_id',$r['created_by'])->first();
 			$u_name = $created_by['first_name'].' '.$created_by['last_name'];
-			$ttask_date = lang('xin_start_date').': '.$start_date.'<br>'.lang('xin_end_date').': '.$end_date;	
+			$ttask_date = lang('xin_start_date').': '.$start_date.'<br>'.lang('xin_end_date').': '.$end_date;
 			$combhr = $view.$delete;
 			$overall_progress = $progress_bar.$status;
 			if(in_array('erp9',staff_role_resource()) || in_array('erp10',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -667,7 +668,7 @@ class Projects extends BaseController {
 				'.$r['task_name'].'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>';		 			  				
+				</div>';
 			} else {
 				$itask_name = $r['task_name'];
 			}
@@ -678,7 +679,7 @@ class Projects extends BaseController {
 				$end_date,
 				$overall_progress
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -686,15 +687,15 @@ class Projects extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	// record list
 	public function client_projects_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -703,20 +704,20 @@ class Projects extends BaseController {
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		$get_data = $ProjectsModel->where('company_id',$user_info['company_id'])->where('client_id',$usession['sup_user_id'])->orderBy('project_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['project_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 
 				$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/project-details').'/'.uencode($r['project_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
-						
+
 			//assigned user
 			$assigned_to = explode(',',$r['assigned_to']);
 			$multi_users = multi_user_profile_photo($assigned_to);
-			
+
 			$start_date = set_date_format($r['start_date']);
 			$end_date = set_date_format($r['end_date']);
-			
+
 			// project progress
 			if($r['project_progress'] <= 20) {
 				$progress_class = 'bg-danger';
@@ -727,10 +728,10 @@ class Projects extends BaseController {
 			} else {
 				$progress_class = 'bg-success';
 			}
-			
+
 			$progress_bar = '<div class="progress" style="height: 10px;"><div class="progress-bar '.$progress_class.' progress-bar-striped" role="progressbar" style="width: '.$r['project_progress'].'%;" aria-valuenow="'.$r['project_progress'].'" aria-valuemin="0" aria-valuemax="100">'.$r['project_progress'].'%</div></div>';
-			
-			// project status			
+
+			// project status
 			if($r['status'] == 0) {
 				$status = '<span class="label bg-warning">'.lang('xin_not_started').'</span>';
 			} else if($r['status'] ==1){
@@ -752,11 +753,11 @@ class Projects extends BaseController {
 			} else {
 				$priority = '<span class="badge badge-light-success">'.lang('Projects.xin_low').'</span>';
 			}
-			
+
 			$created_by = $UsersModel->where('user_id',$r['added_by'])->first();
-			$u_name = $created_by['first_name'].' '.$created_by['last_name'];	
+			$u_name = $created_by['first_name'].' '.$created_by['last_name'];
 			$combhr = $view.$delete;
-			
+
 			$ititle = '
 			'.$r['title'].'
 			<div class="overlay-edit">
@@ -770,7 +771,7 @@ class Projects extends BaseController {
 				$priority,
 				$progress_bar
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -784,9 +785,9 @@ class Projects extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$request = \Config\Services::request();
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
@@ -802,18 +803,18 @@ class Projects extends BaseController {
 		}
 		$get_data = $ProjectsModel->where('company_id',$company_id)->where('client_id',$client_id)->orderBy('project_id', 'ASC')->findAll();
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 				$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/project-detail').'/'.uencode($r['project_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
-			
+
 			//assigned user
 			$assigned_to = explode(',',$r['assigned_to']);
 			$multi_users = multi_user_profile_photo($assigned_to);
-			
+
 			$start_date = set_date_format($r['start_date']);
 			$end_date = set_date_format($r['end_date']);
-			
+
 			// project progress
 			if($r['project_progress'] <= 20) {
 				$progress_class = 'bg-danger';
@@ -824,9 +825,9 @@ class Projects extends BaseController {
 			} else {
 				$progress_class = 'bg-success';
 			}
-			
+
 			$progress_bar = '<div class="progress" style="height: 10px;"><div class="progress-bar '.$progress_class.' progress-bar-striped" role="progressbar" style="width: '.$r['project_progress'].'%;" aria-valuenow="'.$r['project_progress'].'" aria-valuemin="0" aria-valuemax="100">'.$r['project_progress'].'%</div></div>';
-			// task status			
+			// task status
 			if($r['status'] == 0) {
 				$status = '<span class="label label-warning">'.lang('xin_not_started').'</span>';
 			} else if($r['status'] ==1){
@@ -848,9 +849,9 @@ class Projects extends BaseController {
 			} else {
 				$priority = '<span class="badge badge-light-success">'.lang('Projects.xin_low').'</span>';
 			}
-				
+
 			$project_summary = '<a href="'.site_url().'erp/project/detail/'.$r['project_id'] . '">'.$r['title'].'</a>';
-			
+
 			$created_by = $UsersModel->where('user_id',$r['added_by'])->first();
 			$u_name = $created_by['first_name'].' '.$created_by['last_name'];
 			$combhr = $view;
@@ -867,7 +868,7 @@ class Projects extends BaseController {
 				$end_date,
 				$progress_bar
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -878,11 +879,11 @@ class Projects extends BaseController {
      }
 	// |||add record|||
 	public function add_project() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -943,7 +944,7 @@ class Projects extends BaseController {
 				$priority = $this->request->getPost('priority',FILTER_SANITIZE_STRING);
 				$budget_hours = $this->request->getPost('budget_hours',FILTER_SANITIZE_STRING);
 				$assigned_ids = implode(',',$this->request->getPost('assigned_to',FILTER_SANITIZE_STRING));
-				$employee_ids = $assigned_ids;			
+				$employee_ids = $assigned_ids;
 				$UsersModel = new UsersModel();
 				$SystemModel = new SystemModel();
 				$SmstemplatesModel = new SmstemplatesModel();
@@ -976,9 +977,9 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjectsModel = new ProjectsModel();
-				$result = $ProjectsModel->insert($data);	
+				$result = $ProjectsModel->insert($data);
 				$module_id = $ProjectsModel->insertID();
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_added_msg');
 					if($xin_system['enable_email_notification'] == 1){
@@ -1006,7 +1007,6 @@ class Projects extends BaseController {
 					$Return['error'] = lang('Main.xin_error_msg');
 				}
 				$this->output($Return);
-				exit;
 			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
@@ -1016,11 +1016,11 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function update_project() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1082,7 +1082,7 @@ class Projects extends BaseController {
 				$assigned_ids = implode(',',$this->request->getPost('assigned_to',FILTER_SANITIZE_STRING));
 				$associated_goals = implode(',',$this->request->getPost('associated_goals',FILTER_SANITIZE_STRING));
 				$employee_ids = $assigned_ids;
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));			
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1102,8 +1102,8 @@ class Projects extends BaseController {
 					'description'  => $description
 				];
 				$ProjectsModel = new ProjectsModel();
-				$result = $ProjectsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_updated_msg');
 				} else {
@@ -1120,11 +1120,11 @@ class Projects extends BaseController {
 	}
 	// |||update record|||
 	public function update_project_progress() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1172,8 +1172,8 @@ class Projects extends BaseController {
 					'priority'  => $priority
 				];
 				$ProjectsModel = new ProjectsModel();
-				$result = $ProjectsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_status_updated_msg');
 				} else {
@@ -1190,11 +1190,11 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function add_note() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1235,8 +1235,8 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjectnotesModel = new ProjectnotesModel();
-				$result = $ProjectnotesModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectnotesModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_note_added_msg');
 				} else {
@@ -1253,11 +1253,11 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function add_bug() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1298,8 +1298,8 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjectbugsModel = new ProjectbugsModel();
-				$result = $ProjectbugsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectbugsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_bug_added_msg');
 				} else {
@@ -1316,11 +1316,11 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function add_timelogs() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_timelogs') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1409,8 +1409,8 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjecttimelogsModel = new ProjecttimelogsModel();
-				$result = $ProjecttimelogsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjecttimelogsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_timelog_added_msg');
 				} else {
@@ -1427,11 +1427,11 @@ class Projects extends BaseController {
 	}
 	// |||update record|||
 	public function update_timelog() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1518,7 +1518,7 @@ class Projects extends BaseController {
 				];
 				$ProjecttimelogsModel = new ProjecttimelogsModel();
 				$result = $ProjecttimelogsModel->update($id,$data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_timelog_updated_msg');
 				} else {
@@ -1535,11 +1535,11 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function add_discussion() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1580,8 +1580,8 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjectdiscussionModel = new ProjectdiscussionModel();
-				$result = $ProjectdiscussionModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectdiscussionModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_discussion_added_msg');
 				} else {
@@ -1598,7 +1598,7 @@ class Projects extends BaseController {
 	}
 	// |||add record|||
 	public function add_attachment() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
@@ -1638,7 +1638,7 @@ class Projects extends BaseController {
 				$attachment = $this->request->getFile('attachment_file');
 				$file_name = $attachment->getName();
 				$attachment->move('public/uploads/project_files/');
-				
+
 				$file_title = $this->request->getPost('file_name',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
@@ -1657,8 +1657,8 @@ class Projects extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ProjectfilesModel = new ProjectfilesModel();
-				$result = $ProjectfilesModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProjectfilesModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_project_file_added_msg');
 				} else {
@@ -1666,7 +1666,7 @@ class Projects extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -1675,7 +1675,7 @@ class Projects extends BaseController {
 	}
 	// update record
 	public function update_project_status() {
-		
+
 		if($this->request->getVar('xfieldid')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1706,12 +1706,12 @@ class Projects extends BaseController {
 		}
 	}
 	public function project_status_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1787,12 +1787,12 @@ class Projects extends BaseController {
 		exit;
 	}
 	public function staff_project_status_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1836,12 +1836,12 @@ class Projects extends BaseController {
 		exit;
 	}
 	public function client_project_status_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1876,15 +1876,15 @@ class Projects extends BaseController {
 		exit;
 	}
 	public function projects_priority_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
-		$SystemModel = new SystemModel();		
+		$SystemModel = new SystemModel();
 		$ProjectsModel = new ProjectsModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
@@ -1900,7 +1900,7 @@ class Projects extends BaseController {
 		}
 		/* Define return | here result is used to return user data and error for error message */
 		$Return = array('highest'=>'','high'=>'','normal'=>'','low'=>'','highest_lb'=>'','high_lb'=>'','normal_lb'=>'','low_lb'=>'');
-		
+
 		// highest
 		$Return['highest_lb'] = lang('Projects.xin_highest');
 		$Return['highest'] = $highest;
@@ -1921,7 +1921,7 @@ class Projects extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1936,7 +1936,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_project() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1957,7 +1957,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_project_note() {
-		
+
 		if($this->request->getVar('field_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1978,7 +1978,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_project_bug() {
-		
+
 		if($this->request->getVar('field_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1999,7 +1999,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_project_discussion() {
-		
+
 		if($this->request->getVar('field_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -2020,7 +2020,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_timelog() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -2041,7 +2041,7 @@ class Projects extends BaseController {
 	}
 	// delete record
 	public function delete_project_file() {
-		
+
 		if($this->request->getVar('field_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

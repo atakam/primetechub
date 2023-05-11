@@ -239,7 +239,7 @@ $get_animate='';
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="summary"><?php echo lang('Main.xin_summary');?> <span class="text-danger">*</span></label>
-                  <textarea class="form-control" placeholder="<?php echo lang('Main.xin_summary');?>" name="summary" cols="30" rows="1" id="summary"></textarea>
+                  <textarea class="form-control" placeholder="<?php echo lang('Main.xin_summary');?>" name="summary" cols="30" rows="1" id="summary">Tuition</textarea>
                 </div>
               </div>
               <div class="col-md-12">
