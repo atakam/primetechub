@@ -7,7 +7,7 @@ use App\Models\ConstantsModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();			
+$UsersModel = new UsersModel();
 $ConstantsModel = new ConstantsModel();
 $get_animate = '';
 if($request->getGet('data') === 'training_type' && $request->getGet('field_id')){
@@ -40,6 +40,16 @@ $result = $ConstantsModel->where('constants_id', $category_id)->where('type','tr
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">
+          <?= lang('Dashboard.left_training_skill_price');?>
+        </label>
+        <input type="text" class="form-control" name="price" placeholder="<?= lang('Dashboard.left_training_skill_price');?>" value="<?= $result['field_one'];?>">
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-light" data-dismiss="modal">
@@ -51,16 +61,16 @@ $result = $ConstantsModel->where('constants_id', $category_id)->where('type','tr
 </div>
 <?= form_close(); ?>
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
 
 	$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
-	$('[data-plugin="select_hrm"]').select2({ width:'100%' }); 	 
+	$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 	Ladda.bind('button[type=submit]');
 
 	/* Edit data */
 	$("#update_constants_type").submit(function(e){
 	e.preventDefault();
-		var obj = $(this), action = obj.attr('name');		
+		var obj = $(this), action = obj.attr('name');
 		$.ajax({
 			type: "POST",
 			url: e.target.action,
@@ -79,10 +89,10 @@ $(document).ready(function(){
 							type : 'GET'
 						},
 						"fnDrawCallback": function(settings){
-						$('[data-toggle="tooltip"]').tooltip();          
+						$('[data-toggle="tooltip"]').tooltip();
 						}
 					});
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -92,7 +102,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-});	
+});
   </script>
 <?php }
 ?>

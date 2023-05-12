@@ -65,15 +65,16 @@ $paid = number_format((float)$paid, 1, '.', '');
       </div>
       </a> </li>
     <?php } ?>
-	<?php if(in_array('invoice_calendar',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
-    <li class="nav-item clickable"> <a href="<?= site_url('erp/invoice-calendar');?>" class="mb-3 nav-link"> <span class="sw-done-icon feather icon-check-circle"></span> <span class="sw-icon fas fa-calendar-plus"></span>
-      <?= lang('Dashboard.xin_acc_calendar');?>
+    <?php if(in_array('training_skill1',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
+    <li class="nav-item clickable"> <a href="<?= site_url('erp/training-skills');?>" class="mb-3 nav-link"> <span class="sw-done-icon feather icon-check-circle"></span> <span class="sw-icon fas fa-tasks"></span>
+      <?= lang('Dashboard.left_training_skills');?>
       <div class="text-muted small">
-        <?= lang('Dashboard.xin_invoice_calendar');?>
+        <?= lang('Main.xin_add');?>
+        <?= lang('Dashboard.left_training_skills');?>
       </div>
       </a> </li>
     <?php } ?>
-	<?php if(in_array('invoice_payments',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
+	<!-- <?php if(in_array('invoice_payments',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
     <li class="nav-item clickable"> <a href="<?= site_url('erp/invoice-payments-list');?>" class="mb-3 nav-link"> <span class="sw-done-icon feather icon-check-circle"></span> <span class="sw-icon fas fa-money-check-alt"></span>
       <?= lang('Dashboard.xin_acc_invoice_payments');?>
       <div class="text-muted small">
@@ -81,7 +82,7 @@ $paid = number_format((float)$paid, 1, '.', '');
         <?= lang('Dashboard.xin_acc_invoice_payments');?>
       </div>
       </a> </li>
-    <?php } ?>
+    <?php } ?> -->
   </ul>
 </div>
 <hr class="border-light m-0 mb-3">
