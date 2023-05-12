@@ -5,6 +5,7 @@ use App\Models\InvoicesModel;
 use App\Models\ProjectsModel;
 use App\Models\ConstantsModel;
 use App\Models\InvoiceitemsModel;
+use App\Models\ClientinvoicepaymentsModel;
 
 
 $request = \Config\Services::request();
@@ -14,9 +15,10 @@ $InvoicesModel = new InvoicesModel();
 $ProjectsModel = new ProjectsModel();
 $ConstantsModel = new ConstantsModel();
 $InvoiceitemsModel = new InvoiceitemsModel();
+$ClientinvoicepaymentsModel = new ClientinvoicepaymentsModel();
 
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -55,6 +57,30 @@ if($result['status'] == 0){
 } else {
 	$status = '<span class="badge badge-light-info">'.lang('Projects.xin_project_cancelled').'</span>';
 }
+
+$payments = $ClientinvoicepaymentsModel->where('invoice_id',$invoice_id)->findAll();
+$payment_amount = 0;
+$payments_markup = '';
+foreach($payments as $p) {
+  $payment_amount += $p['amount'];
+  $payments_markup .= "<tr>";
+  $payments_markup .= "<td>".$p['payment_date']."</td>";
+  $payments_markup .= "<td>&nbsp;&nbsp;&nbsp;</td>";
+  $payments_markup .= "<td>".number_to_currency($p['amount'],$xin_system['default_currency'],null,0)."</td>";
+  $payments_markup .= "</tr>";
+//   ;
+}
+
+if($result['status']==1){
+  $status = '<span class="badge badge-light-success">'.lang('Invoices.xin_paid').'</span>';
+} else if ($payment_amount != 0) {
+  $status = '<span class="badge badge-light-warning">'.lang('Invoices.xin_partial').'</span>';
+} else if($result['status'] == 0){
+  $status = '<span class="badge badge-light-danger">'.lang('Invoices.xin_unpaid').'</span>';
+} else {
+	$status = '<span class="badge badge-light-info">'.lang('Projects.xin_project_cancelled').'</span>';
+}
+
 $_payment_method = $ConstantsModel->where('type','payment_method')->where('constants_id', $result['payment_method'])->first();
 if($_payment_method){
 	$ipayment_method = $_payment_method['category_name'];
@@ -63,9 +89,9 @@ if($_payment_method){
 }
 ?>
 
-<div class="row justify-content-md-center print-invoice"> 
+<div class="row justify-content-md-center print-invoice">
   <!-- [ basic-alert ] start -->
-  <div class="col-md-10"> 
+  <div class="col-md-10">
     <!-- [ Invoice ] start -->
     <div class="container">
       <div>
@@ -181,7 +207,7 @@ if($_payment_method){
                 <h6 class="text-uppercase text-primary">
                   <?= lang('Main.xin_total');?>
                   : <span>
-                  <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,2);?>
+                  <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,0);?>
                   </span> </h6>
               </div>
             </div>
@@ -192,9 +218,7 @@ if($_payment_method){
                     <thead>
                       <tr class="thead-default">
                         <th><?= lang('Main.xin_description');?></th>
-                        <th><?= lang('Main.xin_qty');?></th>
                         <th><?= lang('Invoices.xin_amount');?></th>
-                        <th><?= lang('Main.xin_total');?></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -203,9 +227,7 @@ if($_payment_method){
                         <td><h6>
                             <?= $item['item_name'];?>
                           </h6></td>
-                        <td><?= $item['item_qty'];?></td>
-                        <td><?= number_to_currency($item['item_unit_price'],$xin_system['default_currency'],null,2);?></td>
-                        <td><?= number_to_currency($item['item_sub_total'],$xin_system['default_currency'],null,2);?></td>
+                        <td><?= number_to_currency($item['item_sub_total'],$xin_system['default_currency'],null,0);?></td>
                       </tr>
                       <?php } ?>
                     </tbody>
@@ -220,26 +242,29 @@ if($_payment_method){
                     <tr>
                       <th><?= lang('Invoices.xin_subtotal');?>
                         :</th>
-                      <td><?= number_to_currency($result['sub_total_amount'],$xin_system['default_currency'],null,2);?></td>
+                      <td></td>
+                      <td><?= number_to_currency($result['sub_total_amount'],$xin_system['default_currency'],null,0);?></td>
                     </tr>
                     <tr>
-                      <th><?= lang('Invoices.xin_tax');?>
-                        (0%) :</th>
-                      <td><?= number_to_currency($result['total_tax'],$xin_system['default_currency'],null,2);?></td>
+                      <th><?= lang('Invoices.xin_acc_inv_payments');?></th>
                     </tr>
+
+                    <?= $payments_markup; ?>
+
                     <tr>
                       <th><?= lang('Invoices.xin_discount');?>
                         (0%) :</th>
-                      <td><?= number_to_currency($result['total_discount'],$xin_system['default_currency'],null,2);?></td>
+                      <td></td>
+                      <td><?= number_to_currency($result['total_discount'],$xin_system['default_currency'],null,0);?></td>
                     </tr>
                     <tr class="text-info">
                       <td><hr />
                         <h5 class="text-primary m-r-10">
-                          <?= lang('Main.xin_total');?>
-                          :</h5></td>
+                          <?= lang('Invoices.xin_balance');?>
+                          :</h5></td><td></td>
                       <td><hr />
                         <h5 class="text-primary">
-                          <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,2);?>
+                          <?= number_to_currency($result['grand_total']-$payment_amount,$xin_system['default_currency'],null,0);?>
                         </h5></td>
                     </tr>
                   </tbody>
@@ -260,7 +285,7 @@ if($_payment_method){
         </div>
       </div>
     </div>
-    <!-- [ Invoice ] end --> 
+    <!-- [ Invoice ] end -->
   </div>
-  <!-- [ basic-alert ] end --> 
+  <!-- [ basic-alert ] end -->
 </div>

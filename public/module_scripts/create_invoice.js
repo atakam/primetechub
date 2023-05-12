@@ -1,28 +1,28 @@
-function update_total() { 
+function update_total() {
 	var sub_total = 0;
 	var st_tax = 0;
 	var grand_total = 0;
 	var gdTotal = 0;
 	var rdiscount = 0;
-	
+
 	i = 1;
 	// sub items
 	$('.sub-total-item').each(function(i) {
         var total = $(this).val();
-		
+
 		total = parseFloat(total);
-		
+
 		sub_total = total+sub_total;
     });
 	// discount
 	var discount_figure = $('.discount_figure').val();
 	if($('.discount_type').val() == '1'){
 		 var fsub_total = sub_total - discount_figure;
-		  $('.discount_amount').val(discount_figure); 
+		  $('.discount_amount').val(discount_figure);
 	 } else {
 		 var discount_percent = sub_total / 100 * discount_figure;
 		 var fsub_total = sub_total - discount_percent;
-		$('.discount_amount').val(discount_percent.toFixed(2));	 
+		$('.discount_amount').val(discount_percent.toFixed(2));
 	 }
 	// tax type/rate
 	var element = $(".tax_type option:selected");
@@ -36,13 +36,13 @@ function update_total() {
 		var perc_tax = perc_tax.toFixed(2);
 		$('.tax_rate').val(perc_tax);
 	 }
-	
+
 	var discount_amount = $('.discount_amount').val();
-	
+
 	var tax_rate = $('.tax_rate').val();
-	
+
 	var gdTotal = parseFloat(sub_total) - parseFloat(discount_amount);
-	var grand_total = parseFloat(gdTotal) + parseFloat(tax_rate);
+	var grand_total = parseFloat(gdTotal);
 	jQuery('.sub_total').html(sub_total);
 	jQuery('.items-sub-total').val(sub_total);
 	$('.fgrand_total').val(grand_total.toFixed(2));
@@ -64,9 +64,9 @@ function update_total() {
 	 // calculation
 	 var sbT = (qty * unit_price);
 	 var sub_total = sbT;
-	jQuery(this).closest('.item-row').find('.sub-total-item').val(sub_total); 
 	jQuery(this).closest('.item-row').find('.sub-total-item').val(sub_total);
-	
+	jQuery(this).closest('.item-row').find('.sub-total-item').val(sub_total);
+
 	update_total();
 	//$('.tax-rate-item').html(taxPP.toFixed(2));
 });
@@ -75,18 +75,18 @@ jQuery(document).on('change click','.discount_type',function() {
 	 var unit_price = 0;
 	 var tax_rate = 0;
 	 var discount_figure = $('.discount_figure').val();
-	 var discount_type = $('.discount_type').val(); 
+	 var discount_type = $('.discount_type').val();
 	 var sub_total = $('.items-sub-total').val();
 
 	 if($('.discount_type').val() == '1'){
 		 var grand_total = sub_total - discount_figure;
 		  var discount_amval = discount_figure;
-		  $('.discount_amount').val(discount_amval); 
+		  $('.discount_amount').val(discount_amval);
 	 } else {
 		 var discount_percent = sub_total / 100 * discount_figure;
 		 var grand_total = sub_total - discount_percent;
 		 var discount_amval = discount_percent.toFixed(2);
-		 $('.discount_amount').val(discount_amval);	 
+		 $('.discount_amount').val(discount_amval);
 	 }
 	update_total();
 });
@@ -95,7 +95,7 @@ jQuery(document).on('click keyup change','.discount_figure',function() {
 	 var unit_price = 0;
 	 var tax_rate = 0;
 	 var discount_figure = $('.discount_figure').val();
-	 var discount_type = $('.discount_type').val(); 
+	 var discount_type = $('.discount_type').val();
 	 var sub_total = $('.items-sub-total').val();
 
 	if(parseFloat(discount_figure) <= parseFloat(sub_total)) {
@@ -141,14 +141,14 @@ jQuery(document).on('click','.remove-invoice-item', function () {
 		update_total();
 	});
 });
-$(document).ready(function() {	
+$(document).ready(function() {
 	/* create an invoice */
 	$("#xin-form").submit(function(e){
 	/*Form Submit*/
 	e.preventDefault();
 		var obj = $(this), action = obj.attr('name');
 		$('.save').prop('disabled', true);
-		
+
 		$.ajax({
 			type: "POST",
 			url: e.target.action,
@@ -169,8 +169,8 @@ $(document).ready(function() {
 				}
 			}
 		});
-	});	
-	
+	});
+
 });
 jQuery(document).on('click','.remove-invoice-item-ol', function () {
 	var record_id = $(this).data('record-id');
@@ -181,3 +181,13 @@ jQuery(document).on('click','.remove-invoice-item-ol', function () {
 		update_total();
 	});
 });
+
+function itemSelection(element) {
+  const itemName =  element.value.split('#@#')[0];
+  const itemPrice =  element.value.split('#@#')[1];
+  const parentElement = element.parentElement.parentElement;qty_hrs
+  parentElement.getElementsByClassName('item_name')[0].value = itemName;
+  parentElement.getElementsByClassName('unit_price')[0].value = itemPrice;
+
+  parentElement.getElementsByClassName('unit_price')[0].click();
+};

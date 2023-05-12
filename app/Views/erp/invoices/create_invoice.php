@@ -18,6 +18,8 @@ $xin_system = erp_company_settings();
 $user = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 $locale = service('request')->getLocale();
 
+$result = $ConstantsModel->where('type','training_type')->findAll();
+
 $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 if($user_info['user_type'] == 'staff'){
 	$projects = $ProjectsModel->where('company_id',$user_info['company_id'])->orderBy('project_id', 'ASC')->findAll();
@@ -107,15 +109,17 @@ $xin_system = erp_company_settings();
                                 <label for="item_name">
                                   <?= lang('Invoices.xin_title_item');?>
                                 </label>
-                                <br>
-                                <input type="text" class="form-control item_name" name="item_name[]" id="item_name" placeholder="Item Name">
+                                <select onchange="itemSelection(this)" class="form-control" data-plugin="select_hrm" data-placeholder="<?= lang('Invoices.xin_title_item');?>">
+                                  <option value=""><?= lang('Invoices.xin_title_item');?></option>
+                                  <?php foreach($result as $item) {?>
+                                  <option value="<?php echo $item['category_name'] . '#@#' . $item['field_one']; ?>"><?php echo $item['category_name']?></option>
+                                  <?php } ?>
+                                </select>
+                                <input type="text" class="form-control item_name" name="item_name[]" id="item_name" placeholder="Item Name" hidden>
                               </div>
                               <div class="form-group mb-1 col-sm-12 col-md-2">
-                                <label for="qty_hrs" class="cursor-pointer">
-                                  <?= lang('Invoices.xin_title_qty_hrs');?>
-                                </label>
                                 <br>
-                                <input type="text" class="form-control qty_hrs" name="qty_hrs[]" id="qty_hrs" value="1">
+                                <input type="text" class="form-control qty_hrs" name="qty_hrs[]" id="qty_hrs" value="1" hidden>
                               </div>
                               <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-2">
                                 <label for="unit_price">
@@ -192,44 +196,14 @@ $xin_system = erp_company_settings();
                                       </tbody>
                                     </table></td>
                                 </tr>
-                                <tr>
-                                  <td colspan="2" style="border-bottom:1px solid #dddddd; padding:0px !important; text-align:left"><table class="table table-bordered">
-                                      <thead>
-                                        <tr>
-                                          <th width="50%" style="border-bottom:1px solid #dddddd; text-align:left"><?= lang('Dashboard.xin_invoice_tax_type');?></th>
-                                          <th style="border-bottom:1px solid #dddddd; text-align:left"><?= lang('Invoices.xin_tax_rate');?></th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td><div class="form-group">
-                                              <select name="tax_type" class="form-control tax_type">
-                                                <?php foreach($tax_types as $_tax):?>
-                                                <?php
-											   if($_tax['field_two']=='percentage') {
-													$_tax_type = $_tax['field_one'].'%';
-												} else {
-													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,2);
-												}
-												?>
-                                                <option tax-type="<?php echo $_tax['field_two'];?>" tax-rate="<?php echo $_tax['field_one'];?>" value="<?php echo $_tax['constants_id'];?>"> <?php echo $_tax['category_name'];?> (<?php echo $_tax_type;?>)</option>
-                                                <?php endforeach;?>
-                                              </select>
-                                            </div></td>
-                                          <td align="right"><div class="form-group">
-                                              <input type="text" style="text-align:right" readonly="" name="tax_rate" value="0" class="tax_rate form-control">
-                                            </div></td>
-                                        </tr>
-                                      </tbody>
-                                    </table></td>
-                                </tr>
+
                               <input type="hidden" class="fgrand_total" name="fgrand_total" value="0" />
                               <tr>
                                 <td><?= lang('Invoices.xin_grand_total');?></td>
                                 <td class="text-xs-right"><?php echo $sc_show;?> <span class="grand_total">0</span></td>
                               </tr>
                                 </tbody>
-                              
+
                             </table>
                           </div>
                         </div>

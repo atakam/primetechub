@@ -367,7 +367,7 @@ return [
 'xin_training_report' => 'Rapport entraînement',
 'xin_account_statement_report' => 'Rapport de relevé de compte',
 'xin_all_employees' => 'Tous les employés',
-'xin_all_projects' => 'Tous les projets',
+'xin_all_projects' => 'Tous les comptes étudiants',
 'xin_all_status' => 'Tous les statuts',
 'xin_all_tasks' => 'Toutes les tâches',
 'xin_frontend_landing' => 'Atterrissage frontal',

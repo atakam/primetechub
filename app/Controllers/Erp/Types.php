@@ -19,7 +19,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -28,15 +28,15 @@ use App\Models\ConstantsModel;
 class Types extends BaseController {
 
 	public function asset_category()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -58,15 +58,15 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function product_category()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -88,15 +88,15 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function asset_brand()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -118,16 +118,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function leave_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -149,16 +149,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function award_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -180,16 +180,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function arrangement_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -211,16 +211,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function exit_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -242,7 +242,7 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function income_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -250,7 +250,7 @@ class Types extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -273,16 +273,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function expense_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -304,16 +304,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function competencies()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -335,16 +335,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function goal_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -366,16 +366,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function training_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -397,16 +397,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function case_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -428,16 +428,16 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function tax_type()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -459,13 +459,13 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function jobs_categories()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$data['title'] = lang('Dashboard.xin_category').' | '.$xin_system['application_name'];
 		$data['path_url'] = 'cons_jobs_categories';
@@ -475,13 +475,13 @@ class Types extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function customers_group()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		//$AssetsModel = new AssetsModel();
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$data['title'] = lang('Dashboard.xin_category').' | '.$xin_system['application_name'];
 		$data['path_url'] = 'cons_customers_group';
@@ -495,9 +495,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -509,9 +509,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','assets_category')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('asset_cat3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -522,7 +522,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('asset_cat3',staff_role_resource()) || in_array('asset_cat4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -532,16 +532,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -555,9 +555,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -569,9 +569,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','product_category')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('product_category3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -582,7 +582,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('product_category3',staff_role_resource()) || in_array('product_category4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -592,16 +592,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -615,9 +615,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -629,9 +629,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','travel_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('travel_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -642,7 +642,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('travel_type3',staff_role_resource()) || in_array('travel_type4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -652,16 +652,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -675,9 +675,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -689,9 +689,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','exit_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('exit_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -702,7 +702,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('exit_type3',staff_role_resource()) || in_array('exit_type4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -712,16 +712,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -735,9 +735,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -749,9 +749,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','income_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('dep_cat3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -762,7 +762,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('dep_cat3',staff_role_resource()) || in_array('dep_cat4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -772,16 +772,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -795,9 +795,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -809,9 +809,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','expense_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('exp_cat3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -822,7 +822,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('exp_cat3',staff_role_resource()) || in_array('exp_cat4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -832,16 +832,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -855,9 +855,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -869,9 +869,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','competencies')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('competency3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '" data-comp_option="competencies"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -882,7 +882,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('competency3',staff_role_resource()) || in_array('competency4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -892,16 +892,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -915,9 +915,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -929,9 +929,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','competencies2')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('competency3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '" data-comp_option="competencies2"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -942,7 +942,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('competency3',staff_role_resource()) || in_array('competency4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -952,16 +952,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -975,9 +975,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -989,9 +989,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','goal_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('track_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1002,7 +1002,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('track_type3',staff_role_resource()) || in_array('track_type4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1012,16 +1012,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1035,13 +1035,14 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$ConstantsModel = new ConstantsModel();
+    $xin_system = erp_company_settings();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$category = $ConstantsModel->where('company_id',$user_info['company_id'])->where('type','training_type')->orderBy('constants_id', 'ASC')->findAll();
@@ -1049,9 +1050,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','training_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('training_skill3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1062,7 +1063,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('training_skill3',staff_role_resource()) || in_array('training_skill4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1072,16 +1073,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
-				$created_at
-			);	
-			
+        number_to_currency($r['field_one'], $xin_system['default_currency'],null,0),
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1095,9 +1096,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1109,9 +1110,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','warning_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('case_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1122,7 +1123,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('case_type3',staff_role_resource()) || in_array('case_type4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1132,16 +1133,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1155,9 +1156,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1170,9 +1171,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','tax_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('tax_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1183,7 +1184,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$field_one = number_to_currency($r['field_one'], $xin_system['default_currency'],null,2);
 			if($r['field_two']=='fixed'){
@@ -1198,18 +1199,18 @@ class Types extends BaseController {
 					<div class="overlay-edit">
 						'.$combhr.'
 					</div>
-				';			  				
+				';
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$field_one,
 				$_type,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1223,9 +1224,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1237,9 +1238,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','jobs_categories')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('erp9',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1250,7 +1251,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('erp9',staff_role_resource()) || in_array('erp10',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1260,16 +1261,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1283,9 +1284,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1297,9 +1298,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','customers_group')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('erp9',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1310,7 +1311,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('erp9',staff_role_resource()) || in_array('erp10',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1320,16 +1321,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1343,9 +1344,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1357,9 +1358,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','leave_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('leave_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1370,7 +1371,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			if($r['field_two'] == 1){
 				$is_require = lang('Main.xin_yes');
 			} else {
@@ -1384,17 +1385,17 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$r['field_one'],
 				$is_require
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1408,9 +1409,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1422,9 +1423,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','award_type')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('award_type3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1435,7 +1436,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('award_type3',staff_role_resource()) || in_array('award_type4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1445,16 +1446,16 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
-			//$combhr = $edit.$delete;	
+			//$combhr = $edit.$delete;
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1468,9 +1469,9 @@ class Types extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -1482,9 +1483,9 @@ class Types extends BaseController {
 			$category = $ConstantsModel->where('company_id',$usession['sup_user_id'])->where('type','assets_brand')->orderBy('constants_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($category as $r) {
-			  
+
 			if(in_array('asset_brand3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['constants_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -1495,7 +1496,7 @@ class Types extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$created_at = set_date_format($r['created_at']);
 			$combhr = $edit.$delete;
 			if(in_array('asset_brand3',staff_role_resource()) || in_array('asset_brand4',staff_role_resource()) || $user_info['user_type'] == 'company') {
@@ -1505,15 +1506,15 @@ class Types extends BaseController {
 						'.$combhr.'
 					</div>
 				';
-					 			  				
+
 			} else {
 				$category_name = $r['category_name'];
 			}
 			$data[] = array(
 				$category_name,
 				$created_at
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -1527,7 +1528,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1545,7 +1546,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1563,7 +1564,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1581,7 +1582,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1599,7 +1600,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1617,7 +1618,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1635,7 +1636,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1653,7 +1654,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1671,7 +1672,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1689,7 +1690,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1707,7 +1708,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1725,7 +1726,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1743,7 +1744,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1761,7 +1762,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1779,7 +1780,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1797,7 +1798,7 @@ class Types extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1812,11 +1813,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_category() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1840,7 +1841,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1857,8 +1858,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Asset.xin_success_assets_category_added');
 				} else {
@@ -1875,11 +1876,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_product_category() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1903,7 +1904,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1920,8 +1921,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Asset.ci_product_category_added_msg');
 				} else {
@@ -1938,11 +1939,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_award_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1966,7 +1967,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -1983,8 +1984,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_award_type_added_msg');
 				} else {
@@ -2001,11 +2002,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_brand() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2029,7 +2030,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2046,8 +2047,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_brand_added_msg');
 				} else {
@@ -2064,11 +2065,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_leave_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2099,9 +2100,9 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);		
-				$days_per_year = $this->request->getPost('days_per_year',FILTER_SANITIZE_STRING);	
-				$requires_approval = $this->request->getPost('requires_approval',FILTER_SANITIZE_STRING);		
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
+				$days_per_year = $this->request->getPost('days_per_year',FILTER_SANITIZE_STRING);
+				$requires_approval = $this->request->getPost('requires_approval',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2118,8 +2119,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_leave_type_added_msg');
 				} else {
@@ -2136,11 +2137,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_arrangement_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2164,7 +2165,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2181,8 +2182,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_arrangement_type_added_msg');
 				} else {
@@ -2199,11 +2200,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_income_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2227,7 +2228,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2244,8 +2245,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_category_added_msg');
 				} else {
@@ -2262,11 +2263,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_expense_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2290,7 +2291,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2307,8 +2308,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_category_added_msg');
 				} else {
@@ -2325,11 +2326,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_competencies() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2353,7 +2354,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2370,8 +2371,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_category_added_msg');
 				} else {
@@ -2388,11 +2389,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_competencies2() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2416,7 +2417,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2433,8 +2434,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_category_added_msg');
 				} else {
@@ -2451,11 +2452,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_goal_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2479,7 +2480,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2496,8 +2497,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_goal_type_added_msg');
 				} else {
@@ -2514,11 +2515,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_training_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2542,7 +2543,8 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
+        $price = $this->request->getPost('price',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2554,13 +2556,13 @@ class Types extends BaseController {
 					'company_id'  => $company_id,
 					'category_name' => $name,
 					'type'  => 'training_type',
-					'field_one'  => 'Null',
+					'field_one'  => $price,
 					'field_two'  => 'Null',
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_training_skills_added_msg');
 				} else {
@@ -2577,11 +2579,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_case_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2605,7 +2607,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2622,8 +2624,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_case_type_added_msg');
 				} else {
@@ -2640,11 +2642,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_jobs_categories() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2668,7 +2670,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2685,8 +2687,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Asset.xin_success_assets_category_added');
 				} else {
@@ -2703,11 +2705,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_tax_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2745,9 +2747,9 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);	
-				$fieldone = $this->request->getPost('fieldone',FILTER_SANITIZE_STRING);	
-				$fieldtwo = $this->request->getPost('fieldtwo',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
+				$fieldone = $this->request->getPost('fieldone',FILTER_SANITIZE_STRING);
+				$fieldtwo = $this->request->getPost('fieldtwo',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2764,8 +2766,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_tax_type_added_msg');
 				} else {
@@ -2782,11 +2784,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_customers_group() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2810,7 +2812,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2827,8 +2829,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Asset.xin_success_assets_category_added');
 				} else {
@@ -2845,11 +2847,11 @@ class Types extends BaseController {
 	}
 	// |||add record|||
 	public function add_exit_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2873,7 +2875,7 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);			
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -2890,8 +2892,8 @@ class Types extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_exit_type_added_msg');
 				} else {
@@ -2908,11 +2910,11 @@ class Types extends BaseController {
 	}
 	// |||update record|||
 	public function update_constants_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -2936,8 +2938,9 @@ class Types extends BaseController {
 					}
 				}
 			} else {
-				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);	
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
+        $price = $this->request->getPost('price',FILTER_SANITIZE_STRING);
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$erp_constant = udecode($this->request->getPost('erp_constant',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
@@ -2948,11 +2951,12 @@ class Types extends BaseController {
 				}
 				$data = [
 					'category_name' => $name,
-					'company_id'  => $company_id
+					'company_id'  => $company_id,
+          'field_one' => $price
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_data_updated_msg');
 				} else {
@@ -2969,11 +2973,11 @@ class Types extends BaseController {
 	}
 	// |||update record|||
 	public function update_tax_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -3013,8 +3017,8 @@ class Types extends BaseController {
 			} else {
 				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$fieldone = $this->request->getPost('fieldone',FILTER_SANITIZE_STRING);
-				$fieldtwo = $this->request->getPost('fieldtwo',FILTER_SANITIZE_STRING);	
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+				$fieldtwo = $this->request->getPost('fieldtwo',FILTER_SANITIZE_STRING);
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -3028,8 +3032,8 @@ class Types extends BaseController {
 					'field_two'  => $fieldtwo
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_tax_type_updated_msg');
 				} else {
@@ -3046,11 +3050,11 @@ class Types extends BaseController {
 	}
 	// |||update record|||
 	public function update_leave_type() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -3082,9 +3086,9 @@ class Types extends BaseController {
 				}
 			} else {
 				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
-				$days_per_year = $this->request->getPost('days_per_year',FILTER_SANITIZE_STRING);	
-				$requires_approval = $this->request->getPost('requires_approval',FILTER_SANITIZE_STRING);	
-				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+				$days_per_year = $this->request->getPost('days_per_year',FILTER_SANITIZE_STRING);
+				$requires_approval = $this->request->getPost('requires_approval',FILTER_SANITIZE_STRING);
+				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -3098,8 +3102,8 @@ class Types extends BaseController {
 					'field_two'  => $requires_approval,
 				];
 				$ConstantsModel = new ConstantsModel();
-				$result = $ConstantsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ConstantsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_leave_type_updated_msg');
 				} else {
@@ -3116,7 +3120,7 @@ class Types extends BaseController {
 	}
 	// delete record
 	public function delete_type() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
