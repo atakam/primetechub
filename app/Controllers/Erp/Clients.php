@@ -20,7 +20,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\I18n\Time;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -29,11 +29,13 @@ use App\Models\LeadsModel;
 use App\Models\CountryModel;
 use App\Models\LeadsfollowupModel;
 use App\Models\EmailtemplatesModel;
+use App\Models\StaffdetailsModel;
+use App\Models\DepartmentModel;
 
 class Clients extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -41,7 +43,7 @@ class Clients extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -64,7 +66,7 @@ class Clients extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function leads_index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -72,7 +74,7 @@ class Clients extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -95,7 +97,7 @@ class Clients extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function clients_grid()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -103,7 +105,7 @@ class Clients extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -126,7 +128,7 @@ class Clients extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function client_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -141,7 +143,7 @@ class Clients extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -164,7 +166,7 @@ class Clients extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function lead_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -179,7 +181,7 @@ class Clients extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -206,13 +208,15 @@ class Clients extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
 		$CountryModel = new CountryModel();
+    $StaffdetailsModel = new StaffdetailsModel();
+    $DepartmentModel = new DepartmentModel();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
 			$staff = $UsersModel->where('company_id',$user_info['company_id'])->where('user_type','customer')->orderBy('user_id', 'ASC')->findAll();
@@ -220,11 +224,11 @@ class Clients extends BaseController {
 			$staff = $UsersModel->where('company_id',$usession['sup_user_id'])->where('user_type','customer')->orderBy('user_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($staff as $r) {						
-		  			
+
+      foreach($staff as $r) {
+
 				if(in_array('client3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 					$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/view-client-info').'/'.uencode($r['user_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
 				} else{
@@ -263,16 +267,24 @@ class Clients extends BaseController {
 					'.$combhr.'
 				</div>
 			';
-					 			  				
+
 			} else {
 				$links = $uname;
 			}
-			
-									 			  				
+      $employee_detail = $StaffdetailsModel->where('user_id', $r['user_id'])->first();
+      $departments = $DepartmentModel->orderBy('department_id', 'ASC')->findAll();
+      $department_name = '';
+      foreach($departments as $idepartment) {
+        if($employee_detail['department_id']==$idepartment['department_id']) {
+          $department_name = $idepartment['department_name'];
+        }
+      }
+
 			$data[] = array(
 				$links,
-				$r['username'],
+				$department_name,
 				$r['contact_number'],
+        $employee_detail['account_number'],
 				$gender,
 				$country_info['country_name'],
 				$status
@@ -290,9 +302,9 @@ class Clients extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$LeadsModel = new LeadsModel();
 		$RolesModel = new RolesModel();
@@ -305,11 +317,11 @@ class Clients extends BaseController {
 			$staff = $LeadsModel->where('company_id',$usession['sup_user_id'])->orderBy('lead_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($staff as $r) {						
-		  			
+
+          foreach($staff as $r) {
+
 				if(in_array('leads3',staff_role_resource()) || $user_info['user_type'] == 'company') {
 					$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/view-lead-info').'/'.uencode($r['lead_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
 				} else{
@@ -364,12 +376,12 @@ class Clients extends BaseController {
 					'.$combhr.'
 				</div>
 			';
-					 			  				
+
 			} else {
 				$links = $uname;
 			}
-			
-									 			  				
+
+
 			$data[] = array(
 				$links,
 				$r['contact_number'],
@@ -391,15 +403,15 @@ class Clients extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$LeadsfollowupModel = new LeadsfollowupModel();
 		$RolesModel = new RolesModel();
 		$SystemModel = new SystemModel();
 		$CountryModel = new CountryModel();
-		
+
 		$lead_id = udecode($this->request->getVar('xlead_id',FILTER_SANITIZE_STRING));
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if($user_info['user_type'] == 'staff'){
@@ -408,15 +420,15 @@ class Clients extends BaseController {
 			$followup = $LeadsfollowupModel->where('company_id',$usession['sup_user_id'])->where('lead_id',$lead_id)->orderBy('followup_id', 'ASC')->findAll();
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
+
           foreach($followup as $r) {
-					
+
 			$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['followup_id']) . '"><i class="feather icon-edit"></i></button></span>';
-		
+
 			$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['followup_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
-					
+
 			$combhr = $edit.$delete;
 			$created_at = set_date_format($r['created_at']);
 			$next_followup = set_date_format($r['next_followup']);
@@ -425,8 +437,8 @@ class Clients extends BaseController {
 			<div class="overlay-edit">
 				'.$combhr.'
 			</div>';
-			
-									 			  				
+
+
 			$data[] = array(
 				$inext_followup,
 				$r['description'],
@@ -442,11 +454,11 @@ class Clients extends BaseController {
      }
 	// |||add record|||
 	public function add_followup() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -478,8 +490,8 @@ class Clients extends BaseController {
 				}
 			} else {
 				$lead_id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				$next_follow_up = $this->request->getPost('next_follow_up',FILTER_SANITIZE_STRING);	
-				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);		
+				$next_follow_up = $this->request->getPost('next_follow_up',FILTER_SANITIZE_STRING);
+				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -495,8 +507,8 @@ class Clients extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$LeadsfollowupModel = new LeadsfollowupModel();
-				$result = $LeadsfollowupModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $LeadsfollowupModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_lead_followup_added_msg');
 				} else {
@@ -510,14 +522,14 @@ class Clients extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||add record|||
 	public function update_followup() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -549,8 +561,8 @@ class Clients extends BaseController {
 				}
 			} else {
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				$next_follow_up = $this->request->getPost('next_follow_up',FILTER_SANITIZE_STRING);	
-				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);		
+				$next_follow_up = $this->request->getPost('next_follow_up',FILTER_SANITIZE_STRING);
+				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				$data = [
@@ -559,7 +571,7 @@ class Clients extends BaseController {
 				];
 				$LeadsfollowupModel = new LeadsfollowupModel();
 				$result = $LeadsfollowupModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_lead_followup_updated_msg');
 				} else {
@@ -573,17 +585,17 @@ class Clients extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// |||add record|||
 	public function add_client() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -594,7 +606,14 @@ class Clients extends BaseController {
 					'email' => 'required|valid_email|is_unique[ci_erp_users.email]',
 					'username' => 'required|min_length[6]|is_unique[ci_erp_users.username]',
 					'password' => 'required|min_length[6]',
-					'contact_number' => 'required'
+					'contact_number' => 'required',
+          'employee_id' => 'required',
+          'gender' => 'required',
+          'office_shift_id' => 'required',
+          'department_id' => 'required',
+          'account_number' => 'required',
+          'account_title' => 'required',
+          'date_of_birth' => 'required',
 				],
 				[   // Errors
 					'first_name' => [
@@ -619,10 +638,28 @@ class Clients extends BaseController {
 					],
 					'contact_number' => [
 						'required' => lang('Main.xin_error_contact_field'),
-					]
+          ],
+          'gender' => [
+						'required' => lang('Main.xin_error_contact_field'),
+          ],
+          'date_of_birth' => [
+						'required' => lang('Main.xin_error_contact_field'),
+          ],
+          'employee_id' => [
+						'required' => lang('Employees.xin_employee_error_employee_id'),
+					],
+					'office_shift_id' => [
+						'required' => lang('Employees.xin_office_shift_field_error'),
+					],
+          'department_id' => [
+						'required' => lang('Employees.xin_employee_error_department'),
+					],
+          'account_number' => [
+						'required' => lang('Main.xin_error_parent_contact_field'),
+          ]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -650,7 +687,7 @@ class Clients extends BaseController {
 				],
 			]);
 			if (!$validated) {
-				$Return['error'] = lang('Employees.xin_staff_picture_field_error');
+				$file_name = "icon2.png";
 			} else {
 				//$image = service('image');
 				$avatar = $this->request->getFile('file');
@@ -670,9 +707,15 @@ class Clients extends BaseController {
 			$password = $this->request->getPost('password',FILTER_SANITIZE_STRING);
 			$contact_number = $this->request->getPost('contact_number',FILTER_SANITIZE_STRING);
 			$gender = $this->request->getPost('gender',FILTER_SANITIZE_STRING);
+      $date_of_birth = $this->request->getPost('date_of_birth',FILTER_SANITIZE_STRING);
 			$options = array('cost' => 12);
 			$password_hash = password_hash($password, PASSWORD_BCRYPT, $options);
-			
+      $employee_id = $this->request->getPost('employee_id',FILTER_SANITIZE_STRING);
+      $office_shift_id = $this->request->getPost('office_shift_id',FILTER_SANITIZE_STRING);
+			$department_id = $this->request->getPost('department_id',FILTER_SANITIZE_STRING);
+      $account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
+      $account_title = $this->request->getPost('account_title',FILTER_SANITIZE_STRING);
+
 			$UsersModel = new UsersModel();
 			$SystemModel = new SystemModel();
 			$EmailtemplatesModel = new EmailtemplatesModel();
@@ -693,7 +736,7 @@ class Clients extends BaseController {
 				'username'  => $username,
 				'password'  => $password_hash,
 				'contact_number'  => $contact_number,
-				'country'  => 0,
+				'country'  => 37,
 				'user_role_id' => 0,
 				'address_1'  => '',
 				'address_2'  => '',
@@ -715,8 +758,28 @@ class Clients extends BaseController {
 				'company_id'  => $company_id,
 				'created_at' => date('d-m-Y h:i:s')
 			];
-			$result = $UsersModel->insert($data);			
-			$Return['csrf_hash'] = csrf_hash();	
+      $StaffdetailsModel = new StaffdetailsModel();
+			$result = $UsersModel->insert($data);
+      $user_id = $UsersModel->insertID();
+			// employee details
+			$data2 = [
+				'user_id' => $user_id,
+				'employee_id'  => $employee_id,
+				'department_id'  => $department_id,
+				'designation_id'  => 0,
+				'office_shift_id' => $office_shift_id,
+        'account_number' => $account_number,
+        'account_title' => $account_title,
+        'date_of_birth' => $date_of_birth,
+				'basic_salary'  => 0,
+				'hourly_rate'  => 0,
+				'salay_type' => 0,
+				'leave_categories' => 0,
+				'created_at' => date('d-m-Y h:i:s')
+			];
+			$StaffdetailsModel->insert($data2);
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.ci_client_added_msg');
 				if($xin_system['enable_email_notification'] == 1){
@@ -741,14 +804,14 @@ class Clients extends BaseController {
 	}
 	// |||add record|||
 	public function add_lead() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -776,7 +839,7 @@ class Clients extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -803,11 +866,11 @@ class Clients extends BaseController {
 			if (!$validated) {
 				$Return['error'] = lang('Employees.xin_staff_picture_field_error');
 			} else {
-				
+
 				$avatar = $this->request->getFile('file');
 				$file_name = $avatar->getName();
 				$avatar->move('public/uploads/clients/');
-				
+
 				$image->withFile(filecsrc($file_name))
 				->fit(100, 100, 'center')
 				->save('public/uploads/clients/thumb/'.$file_name);
@@ -815,14 +878,14 @@ class Clients extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
-				
+
+
 			$first_name = $this->request->getPost('first_name',FILTER_SANITIZE_STRING);
 			$last_name = $this->request->getPost('last_name',FILTER_SANITIZE_STRING);
 			$email = $this->request->getPost('email',FILTER_SANITIZE_STRING);
 			$contact_number = $this->request->getPost('contact_number',FILTER_SANITIZE_STRING);
 			$gender = $this->request->getPost('gender',FILTER_SANITIZE_STRING);
-			
+
 			$UsersModel = new UsersModel();
 			$LeadsModel = new LeadsModel();
 			$SystemModel = new SystemModel();
@@ -835,7 +898,7 @@ class Clients extends BaseController {
 				$company_id = $usession['sup_user_id'];
 				//$iuser_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 			}
-			
+
 			$xin_system = $SystemModel->where('setting_id', 1)->first();
 			$data = [
 				'company_id'  => $company_id,
@@ -854,8 +917,8 @@ class Clients extends BaseController {
 				'status'  => 1,
 				'created_at' => date('d-m-Y h:i:s')
 			];
-			$result = $LeadsModel->insert($data);			
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $LeadsModel->insert($data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.ci_lead_added_msg');
 			} else {
@@ -871,11 +934,11 @@ class Clients extends BaseController {
 	}
 	// update record
 	public function update_lead() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -906,7 +969,7 @@ class Clients extends BaseController {
 					],
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -919,7 +982,7 @@ class Clients extends BaseController {
 				$Return['error'] = $validation->getError('contact_number');
 			} elseif($validation->hasError('country')){
 				$Return['error'] = $validation->getError('country');
-			} 
+			}
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
@@ -935,7 +998,7 @@ class Clients extends BaseController {
 			$city = $this->request->getPost('city',FILTER_SANITIZE_STRING);
 			$state = $this->request->getPost('state',FILTER_SANITIZE_STRING);
 			$zipcode = $this->request->getPost('zipcode',FILTER_SANITIZE_STRING);
-			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
@@ -950,8 +1013,8 @@ class Clients extends BaseController {
 				'gender' => $gender,
 			];
 			$LeadsModel = new LeadsModel();
-			$result = $LeadsModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $LeadsModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.ci_lead_updated_msg');
 			} else {
@@ -967,11 +1030,11 @@ class Clients extends BaseController {
 	}
 	// update record
 	public function update_client() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -982,7 +1045,6 @@ class Clients extends BaseController {
 					'email' => 'required|valid_email',
 					'username' => 'required|min_length[6]',
 					'contact_number' => 'required',
-					'country' => 'required',
 					'status' => 'required'
 				],
 				[   // Errors
@@ -1003,15 +1065,12 @@ class Clients extends BaseController {
 					'contact_number' => [
 						'required' => lang('Main.xin_error_subscription_field'),
 					],
-					'country' => [
-						'required' => lang('Main.xin_error_country_field'),
-					],
 					'status' => [
 						'required' => lang('Main.xin_error_field_text'),
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('first_name')) {
@@ -1026,12 +1085,12 @@ class Clients extends BaseController {
 				$Return['error'] = $validation->getError('status');
 			} elseif($validation->hasError('contact_number')){
 				$Return['error'] = $validation->getError('contact_number');
-			} elseif($validation->hasError('country')){
-				$Return['error'] = $validation->getError('country');
-			} 
+			}
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
+
+      $MainModel = new MainModel();
 
 			$first_name = $this->request->getPost('first_name',FILTER_SANITIZE_STRING);
 			$last_name = $this->request->getPost('last_name',FILTER_SANITIZE_STRING);
@@ -1046,15 +1105,19 @@ class Clients extends BaseController {
 			$state = $this->request->getPost('state',FILTER_SANITIZE_STRING);
 			$zipcode = $this->request->getPost('zipcode',FILTER_SANITIZE_STRING);
 			$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
-			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
+      $office_shift_id = $this->request->getPost('office_shift_id',FILTER_SANITIZE_STRING);
+			$department_id = $this->request->getPost('department_id',FILTER_SANITIZE_STRING);
+      $account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
+      $account_title = $this->request->getPost('account_title',FILTER_SANITIZE_STRING);
+      $date_of_birth = $this->request->getPost('date_of_birth',FILTER_SANITIZE_STRING);
+
 			$data = [
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
 				'email'  => $email,
 				'username'  => $username,
 				'contact_number'  => $contact_number,
-				'country'  => $country,
-				'user_role_id' => 0,
 				'address_1'  => $address_1,
 				'address_2'  => $address_2,
 				'city'  => $city,
@@ -1064,9 +1127,20 @@ class Clients extends BaseController {
 				'is_active'  => $status,
 			];
 			$UsersModel = new UsersModel();
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $UsersModel->update($id, $data);
+
+      $data2 = [
+				'department_id'  => $department_id,
+				'office_shift_id' => $office_shift_id,
+				'date_of_birth' => $date_of_birth,
+        'account_number' => $account_number,
+        'account_title' => $account_title,
+			];
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
+        $MainModel = new MainModel();
+				$MainModel->update_employee_record($data2,$id);
 				$Return['result'] = lang('Success.ci_client_updated_msg');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -1081,11 +1155,11 @@ class Clients extends BaseController {
 	}
 	// update record
 	public function update_client_status() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1099,7 +1173,7 @@ class Clients extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if($validation->hasError('status')){
@@ -1109,13 +1183,13 @@ class Clients extends BaseController {
 				$this->output($Return);
 			}
 			$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
-			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));	
+			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'is_active'  => $status,
 			];
 			$UsersModel = new UsersModel();
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $UsersModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Success.ci_client_status_updated_msg');
 			} else {
@@ -1131,14 +1205,14 @@ class Clients extends BaseController {
 	}
 	// update record
 	public function update_profile_photo() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1172,7 +1246,7 @@ class Clients extends BaseController {
 					'profile_photo'  => $file_name
 				];
 				$result = $UsersModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
 			}
@@ -1183,17 +1257,17 @@ class Clients extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// update record
 	public function update_lead_profile_photo() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1227,7 +1301,7 @@ class Clients extends BaseController {
 					'profile_photo'  => $file_name
 				];
 				$result = $LeadsModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
 			}
@@ -1238,17 +1312,17 @@ class Clients extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// update record
 	public function update_password_opt() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1282,17 +1356,17 @@ class Clients extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
-			
+
+
 			$options = array('cost' => 12);
 			$password_hash = password_hash($new_password, PASSWORD_BCRYPT, $options);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'password' => $password_hash,
 			];
-			
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$result = $UsersModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Main.xin_success_new_password_field');
 			} else {
@@ -1308,14 +1382,14 @@ class Clients extends BaseController {
 	}
 	// update record
 	public function update_password() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1349,17 +1423,17 @@ class Clients extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			
-			
+
+
 			$options = array('cost' => 12);
 			$password_hash = password_hash($new_password, PASSWORD_BCRYPT, $options);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'password' => $password_hash,
 			];
-			
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$result = $UsersModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Main.xin_success_user_password_field');
 			} else {
@@ -1373,30 +1447,30 @@ class Clients extends BaseController {
 			exit;
 		}
 	}
-	
+
 	// |||add record|||
 	public function convert_lead() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type',FILTER_SANITIZE_STRING) === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'status'  => 2,
 			];
 			$UsersModel = new UsersModel();
 			$LeadsModel = new LeadsModel();
-			$result = $LeadsModel->update($id,$data);	
+			$result = $LeadsModel->update($id,$data);
 			$lead_info = $LeadsModel->where('lead_id', $id)->first();
 			$iusername = explode('@',$lead_info['email']);
 			$username = $iusername[0];
 			$options = array('cost' => 12);
 			$password_hash = password_hash($username, PASSWORD_BCRYPT, $options);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$data2 = [
 					'first_name' => $lead_info['first_name'],
@@ -1446,7 +1520,7 @@ class Clients extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1464,7 +1538,7 @@ class Clients extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1479,7 +1553,7 @@ class Clients extends BaseController {
 	}
 	// delete record
 	public function delete_client() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1500,7 +1574,7 @@ class Clients extends BaseController {
 	}
 	// delete record
 	public function delete_lead() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1521,7 +1595,7 @@ class Clients extends BaseController {
 	}
 	// delete record
 	public function delete_lead_followup() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

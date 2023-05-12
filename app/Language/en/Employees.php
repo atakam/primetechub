@@ -2,13 +2,17 @@
 // override core en language system validation or define your own en language validation message
 return [
 	'dashboard_employee_id' => 'Employee ID',
+  'dashboard_student_id' => 'Student ID',
+  'dashboard_id_card' => 'ID Card number',
 	'xin_employee_office_shift' => "Office Shift",
 	'xin_employee_office_shifts' => "Office Shifts",
+  'xin_employee_section' => "Section",
 	'xin_reports_to' => 'Reports To',
 	'xin_hr_leave_cat' => 'Leave Category',
 	'xin_employee_error_employee_id' => "The employee id field is required.",
 	'xin_employee_id_already_exist' => 'Employee ID already exist.',
 	'xin_employee_error_department' => "The department field is required.",
+  'xin_employee_error_dob' => "The date of birth field is required.",
 	'xin_employee_error_designation' => "The designation field is required.",
 	'xin_employee_error_staff_role' => "The staff role field is required.",
 	'xin_staff_picture_field_error' => 'The profile picture field is required.',
