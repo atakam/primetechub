@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -59,7 +59,7 @@ $paid = $PurchasesModel->where('company_id',$company_id)->where('status', 1)->co
 </div>
 <hr class="border-light m-0 mb-3">
 <?php } ?>
-<div class="row"> 
+<div class="row">
   <!-- [ invoice-list ] start -->
   <!-- [ right ] start -->
   <div class="col-xl-12 col-lg-12 filter-bar invoice-list">
@@ -88,7 +88,7 @@ $paid = $PurchasesModel->where('company_id',$company_id)->where('status', 1)->co
 		} else {
 			$status = '<span class="badge badge-light-warning">'.lang('Main.xin_pending').'</span>';
 		}
-		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$supplier_info = $SuppliersModel->where('supplier_id',$r['supplier_id'])->first();
 		if($supplier_info){
 			$supplier_name = $supplier_info['supplier_name'];
@@ -137,7 +137,7 @@ $paid = $PurchasesModel->where('company_id',$company_id)->where('status', 1)->co
                   <li>
                     <?= lang('Invoices.xin_method');?>
                     : <span class="text-semibold"><?= $ipayment_method;?></span></li>
-                  <?php } ?>  
+                  <?php } ?>
                 </ul>
               </div>
             </div>
@@ -178,7 +178,7 @@ $paid = $PurchasesModel->where('company_id',$company_id)->where('status', 1)->co
       <?php } ?>
     </div>
   </div>
-  <!-- [ invoice-list ] end --> 
+  <!-- [ invoice-list ] end -->
 </div>
 <hr>
 <div class="p-2">

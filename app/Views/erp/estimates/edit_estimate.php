@@ -229,7 +229,7 @@ $xin_system = erp_company_settings();
 											   if($_tax['field_two']=='percentage') {
 													$_tax_type = $_tax['field_one'].'%';
 												} else {
-													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,2);
+													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,0);
 												}
 												?>
                                                 <option tax-type="<?php echo $_tax['field_two'];?>" tax-rate="<?php echo $_tax['field_one'];?>" value="<?php echo $_tax['constants_id'];?>" <?php if($_tax['constants_id'] == $get_invoice['tax_type']):?> selected="selected"<?php endif;?>> <?php echo $_tax['category_name'];?> (<?php echo $_tax_type;?>)</option>
@@ -251,7 +251,7 @@ $xin_system = erp_company_settings();
                                   </span></td>
                               </tr>
                                 </tbody>
-                              
+
                             </table>
                           </div>
                         </div>

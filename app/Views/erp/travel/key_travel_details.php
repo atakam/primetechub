@@ -9,8 +9,8 @@ use App\Models\TrackgoalsModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();		
-$TravelModel = new TravelModel();	
+$UsersModel = new UsersModel();
+$TravelModel = new TravelModel();
 $SystemModel = new SystemModel();
 $ConstantsModel = new ConstantsModel();
 $TrackgoalsModel = new TrackgoalsModel();
@@ -38,7 +38,7 @@ $result = $TravelModel->where('travel_id', $travel_id)->first();
 		$status = '<div class="alert alert-success d-block text-center text-uppercase">'.lang('Dashboard.left_travel').': '.lang('Main.xin_accepted').'</div>';
 	else:
 		$status = '<div class="alert alert-danger d-block text-center text-uppercase">'.lang('Dashboard.left_travel').': '.lang('Main.xin_rejected').'</div>';
-	endif;	
+	endif;
 ?>
 
 <div class="row">
@@ -49,7 +49,7 @@ $result = $TravelModel->where('travel_id', $travel_id)->first();
         <h5>
           <?= lang('Employees.xin_travel_details');?>
         </h5>
-        
+
         <div class="card-header-right"> <a href="<?= site_url('erp/business-travel');?>">
           <button type="button" class="btn btn-shadow btn-secondary btn-sm"><i class="mr-2 feather icon-edit"></i>
           <?= lang('Main.xin_add_new');?>
@@ -107,13 +107,13 @@ $result = $TravelModel->where('travel_id', $travel_id)->first();
             <?= lang('Main.xin_overview');?>
             </button>
             </a> </li>
-          <?php if(in_array('travel3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>  
+          <?php if(in_array('travel3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
           <li class="nav-item m-r-5"> <a href="#pills-edit" data-toggle="tab" aria-expanded="false" class="">
             <button type="button" class="btn btn-shadow btn-secondary text-uppercase">
             <?= lang('Main.xin_edit');?>
             </button>
             </a> </li>
-         <?php } ?>   
+         <?php } ?>
         </ul>
       </div>
     </div>
@@ -192,12 +192,12 @@ $result = $TravelModel->where('travel_id', $travel_id)->first();
                   <tr>
                     <td><?php echo lang('Employees.xin_expected_travel_budget');?></td>
                     <td class="text-success"><i class="fas fa-money-check-alt"></i>&nbsp;
-                      <?= number_to_currency($result['expected_budget'], $xin_system['default_currency'],null,2);?></td>
+                      <?= number_to_currency($result['expected_budget'], $xin_system['default_currency'],null,0);?></td>
                   </tr>
                   <tr>
                     <td><?php echo lang('Employees.xin_actual_travel_budget');?></td>
                     <td class="text-warning"><i class="fas fa-money-check-alt"></i>&nbsp;
-                      <?= number_to_currency($result['actual_budget'], $xin_system['default_currency'],null,2);?></td>
+                      <?= number_to_currency($result['actual_budget'], $xin_system['default_currency'],null,0);?></td>
                   </tr>
                 </tbody>
               </table>

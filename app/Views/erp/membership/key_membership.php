@@ -20,7 +20,7 @@ $company_types = $ConstantsModel->where('type','company_type')->orderBy('constan
 $all_countries = $CountryModel->orderBy('country_id', 'ASC')->findAll();
 $membership_plans = $MembershipModel->orderBy('membership_id', 'ASC')->findAll();
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -61,7 +61,7 @@ endif;
 $subs_price = currency_converter($subs_price);
 $company_membership_details = company_membership_details($usession['sup_user_id']);
 ?>
-<div class="row"> 
+<div class="row">
   <!-- current membership start -->
   <div class="col-12">
     <div class="card">
@@ -94,7 +94,7 @@ $company_membership_details = company_membership_details($usession['sup_user_id'
                     <?= $subs_plan['total_employees']?>
                     </small> </a> </div></td>
                 <td><h5>
-                    <?= number_to_currency($subs_price, $xin_system['default_currency'],null,2);?>
+                    <?= number_to_currency($subs_price, $xin_system['default_currency'],null,0);?>
                   </h5></td>
                 <td class="text-left"><div class="text-left d-inline-block">
                     <h6 class="my-0">
@@ -119,7 +119,7 @@ $company_membership_details = company_membership_details($usession['sup_user_id'
       </div>
     </div>
   </div>
-  <!-- current membership  end --> 
+  <!-- current membership  end -->
 </div>
 <div class="nk-block">
   <div class="card card-bordered">

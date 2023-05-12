@@ -33,7 +33,7 @@ use App\Models\CompanymembershipModel;
 
 class Stripe extends BaseController {
 
-	public function payment() 
+	public function payment()
 	{
         $validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
@@ -42,19 +42,19 @@ class Stripe extends BaseController {
 		// get order info
 		$token = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 		$stripe_info = udecode($this->request->getPost('stripe_info',FILTER_SANITIZE_STRING));
-		
+
 		// Membership details
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$MembershipModel = new MembershipModel();
 		$result = $MembershipModel->where('membership_id', $token)->first();
 		$company_id = $UsersModel->where('user_id', $usession['sup_user_id'])->where('user_type','company')->first();
-		
+
 		$xin_system = erp_company_settings();
 		$xin_super_system = $SystemModel->where('setting_id', 1)->first();
 		\Stripe\Stripe::setApiKey($xin_super_system['stripe_secret_key']);
 		$converted = currency_converter($result['price']);
-		//$asdas = number_to_currency($converted, $xin_system['default_currency'],null,2);
+		//$asdas = number_to_currency($converted, $xin_system['default_currency'],null,0);
 		$converted = number_format($converted,2);
 		//echo $converted; exit;
 		$charge = \Stripe\Charge::create ([
@@ -65,7 +65,7 @@ class Stripe extends BaseController {
                 "description" => $result['membership_type']
         ]);
 		$chargeJson = $charge->jsonSerialize();
-	  
+
 	  $data = [
 			'invoice_id'  => $chargeJson['balance_transaction'],
 			'company_id' => $usession['sup_user_id'],
@@ -94,5 +94,5 @@ class Stripe extends BaseController {
 	  $session->setFlashdata('payment_made_successfully',lang('Membership.payment_made_successfully'));
 	  return redirect()->to(site_url('erp/my-subscription'));
     }
-	
+
 }

@@ -116,7 +116,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Employees.xin_allowances');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($allowance_amount, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($allowance_amount, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -130,7 +130,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Employees.xin_commissions');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($commissions_amount, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($commissions_amount, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -144,7 +144,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Employees.xin_reimbursements');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($other_payments_amount, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($other_payments_amount, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -158,7 +158,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Employees.xin_satatutory_deductions');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($statutory_deductions_amount, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($statutory_deductions_amount, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -172,7 +172,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Main.xin_advance_salary');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($advance_salary, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($advance_salary, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -186,7 +186,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
               <td><p class="m-0 d-inline-block align-middle">
                   <?= lang('Main.xin_loan');?>
                 </p></td>
-              <td class="text-right"><?= number_to_currency($loan, $xin_system['default_currency'],null,2);?></td>
+              <td class="text-right"><?= number_to_currency($loan, $xin_system['default_currency'],null,0);?></td>
             </tr>
           </tbody>
         </table>
@@ -199,7 +199,7 @@ if($request->getGet('data') === 'payroll' && $request->getGet('field_id')){
             <tr>
               <td><p class="m-0 d-inline-block align-middle"><strong class="text-primary"><?php echo lang('Employees.xin_payroll_net_salary');?></strong></p></td>
               <td class="text-right"><strong class="text-primary">
-                <?= number_to_currency($inet_salary, $xin_system['default_currency'],null,2);?>
+                <?= number_to_currency($inet_salary, $xin_system['default_currency'],null,0);?>
                 </strong></td>
             </tr>
           </tbody>

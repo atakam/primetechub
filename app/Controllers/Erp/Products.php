@@ -20,7 +20,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\I18n\Time;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -36,16 +36,16 @@ use App\Models\Moduleattributesvalsel;
 class Products extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -68,16 +68,16 @@ class Products extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function out_of_stock()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -100,16 +100,16 @@ class Products extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function expired_stock()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -132,12 +132,12 @@ class Products extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function product_view()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$ProductsModel = new ProductsModel();
-		$session = \Config\Services::session();		
+		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$request = \Config\Services::request();
 		$ifield_id = udecode($request->uri->getSegment(3));
@@ -148,7 +148,7 @@ class Products extends BaseController {
 		}
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -174,9 +174,9 @@ class Products extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -191,9 +191,9 @@ class Products extends BaseController {
 			$get_data = $ProductsModel->where('company_id',$usession['sup_user_id'])->orderBy('product_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url().'erp/product-view/'.uencode($r['product_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><span class="fa fa-arrow-circle-right"></span></button></a></span>';
 			if(in_array('product4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['product_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
@@ -215,9 +215,9 @@ class Products extends BaseController {
 				$warehouse_name = '--';
 			}
 			// purchase price
-			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,2);
+			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,0);
 			// selling price
-			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,2);
+			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,0);
 			// product rating
 			$rating_val = $r['product_rating'];
 			$total_stars = '<span class="overall-stars">';
@@ -265,7 +265,7 @@ class Products extends BaseController {
 				$retail_price,
 				$created_at
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -279,9 +279,9 @@ class Products extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -296,11 +296,11 @@ class Products extends BaseController {
 			$get_data = $ProductsModel->where('company_id',$usession['sup_user_id'])->where('product_qty',0)->orderBy('product_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url().'erp/product-view/'.uencode($r['product_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><span class="fa fa-arrow-circle-right"></span></button></a></span>';
-			
+
 			$created_at = set_date_format($r['created_at']);
 			// category
 			$category_info = $ConstantsModel->where('constants_id', $r['category_id'])->first();
@@ -317,9 +317,9 @@ class Products extends BaseController {
 				$warehouse_name = '--';
 			}
 			// purchase price
-			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,2);
+			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,0);
 			// selling price
-			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,2);
+			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,0);
 			// product rating
 			$rating_val = $r['product_rating'];
 			$total_stars = '<span class="overall-stars">';
@@ -354,7 +354,7 @@ class Products extends BaseController {
 				$retail_price,
 				$created_at
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -368,9 +368,9 @@ class Products extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -385,11 +385,11 @@ class Products extends BaseController {
 			$get_data = $ProductsModel->where('company_id',$usession['sup_user_id'])->where('expiration_date < CURDATE()')->orderBy('product_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url().'erp/product-view/'.uencode($r['product_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><span class="fa fa-arrow-circle-right"></span></button></a></span>';
-			
+
 			$created_at = set_date_format($r['created_at']);
 			// category
 			$category_info = $ConstantsModel->where('constants_id', $r['category_id'])->first();
@@ -406,9 +406,9 @@ class Products extends BaseController {
 				$warehouse_name = '--';
 			}
 			// purchase price
-			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,2);
+			$purchase_price = number_to_currency($r['purchase_price'], $xin_system['default_currency'],null,0);
 			// selling price
-			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,2);
+			$retail_price = number_to_currency($r['retail_price'], $xin_system['default_currency'],null,0);
 			// product rating
 			$rating_val = $r['product_rating'];
 			$total_stars = '<span class="overall-stars">';
@@ -443,7 +443,7 @@ class Products extends BaseController {
 				$retail_price,
 				$created_at
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -454,11 +454,11 @@ class Products extends BaseController {
      }
 	// |||add record|||
 	public function add_product() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -543,7 +543,7 @@ class Products extends BaseController {
 				$product_image = $this->request->getFile('product_image');
 				$file_name = $product_image->getName();
 				$product_image->move('public/uploads/products/');
-				
+
 				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$category = $this->request->getPost('category',FILTER_SANITIZE_STRING);
 				$warehouse = $this->request->getPost('warehouse',FILTER_SANITIZE_STRING);
@@ -557,7 +557,7 @@ class Products extends BaseController {
 				$purchase_price = $this->request->getPost('purchase_price',FILTER_SANITIZE_STRING);
 				$selling_price = $this->request->getPost('selling_price',FILTER_SANITIZE_STRING);
 				$product_description = $this->request->getPost('product_description',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -589,8 +589,8 @@ class Products extends BaseController {
 					'status'  => 1,
 				];
 				$ProductsModel = new ProductsModel();
-				$result = $ProductsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProductsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_product_added_msg');
 				} else {
@@ -598,7 +598,7 @@ class Products extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -607,14 +607,14 @@ class Products extends BaseController {
 	}
 	// update record
 	public function update_product_image() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -647,7 +647,7 @@ class Products extends BaseController {
 					'product_image'  => $file_name
 				];
 				$result = $ProductsModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				$Return['result'] = lang('Inventory.xin_product_image_updated_success');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -662,11 +662,11 @@ class Products extends BaseController {
 	}
 	// |||update record|||
 	public function update_product() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -738,7 +738,7 @@ class Products extends BaseController {
 						$this->output($Return);
 					}
 				}
-			} else {				
+			} else {
 				$name = $this->request->getPost('name',FILTER_SANITIZE_STRING);
 				$category = $this->request->getPost('category',FILTER_SANITIZE_STRING);
 				$warehouse = $this->request->getPost('warehouse',FILTER_SANITIZE_STRING);
@@ -752,7 +752,7 @@ class Products extends BaseController {
 				$selling_price = $this->request->getPost('selling_price',FILTER_SANITIZE_STRING);
 				$product_description = $this->request->getPost('product_description',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$UsersModel = new UsersModel();
 				$MainModel = new MainModel();
 				$Moduleattributes = new Moduleattributes();
@@ -777,10 +777,10 @@ class Products extends BaseController {
 							}
 						 }
 						 $i++;
-					 }		
+					 }
 					 if($Return['error']!=''){
 						$this->output($Return);
-					}	
+					}
 				}
 				$data = [
 					'product_name' => $name,
@@ -797,13 +797,13 @@ class Products extends BaseController {
 					'product_description'  => $product_description
 				];
 				$ProductsModel = new ProductsModel();
-				$result = $ProductsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProductsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_product_updated_msg');
 					if($count_module_attributes > 0){
 					foreach($module_attributes as $mattribute) {
-						
+
 						// update value
 						$count_exist_values = $Moduleattributesval->where('user_id',$id)->where('module_attributes_id',$mattribute['custom_field_id'])->countAllResults();
 						if($count_exist_values > 0){
@@ -834,7 +834,7 @@ class Products extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -843,11 +843,11 @@ class Products extends BaseController {
 	}
 	// |||update record|||
 	public function update_rating() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -877,8 +877,8 @@ class Products extends BaseController {
 					'product_rating' => $product_rating,
 				];
 				$ProductsModel = new ProductsModel();
-				$result = $ProductsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $ProductsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_product_rating_updated_msg');
 				} else {
@@ -898,7 +898,7 @@ class Products extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -913,7 +913,7 @@ class Products extends BaseController {
 	}
 	// delete record
 	public function delete_product() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

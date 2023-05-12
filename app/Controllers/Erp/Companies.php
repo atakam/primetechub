@@ -35,10 +35,10 @@ use App\Models\CompanysettingsModel;
 use App\Models\CompanymembershipModel;
 
 class Companies extends BaseController {
-	
+
 	public function index()
-	{		
-		
+	{
+
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -50,10 +50,10 @@ class Companies extends BaseController {
 		$data['breadcrumbs'] = lang('Company.xin_companies');
 		$data['subview'] = view('erp/companies/company_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function company_details()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -80,7 +80,7 @@ class Companies extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');		
+		$usession = $session->get('sup_username');
 		$ConstantsModel = new ConstantsModel();
 		$CountryModel = new CountryModel();
 		$MembershipModel = new MembershipModel();
@@ -90,9 +90,9 @@ class Companies extends BaseController {
 		$company = $UsersModel->where('user_type', 'company')->orderBy('user_id', 'ASC')->findAll();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$data = array();
-		
-          foreach($company as $r) {						
-		  			
+
+          foreach($company as $r) {
+
 				$view = '<a href="'.site_url('erp/company-detail/'). uencode($r['user_id']) . '"><span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></span></a>';
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['user_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 			$company_types = $ConstantsModel->where('constants_id', $r['company_type_id'])->first();
@@ -102,14 +102,14 @@ class Companies extends BaseController {
 			$membership = $MembershipModel->where('membership_id', $company_membership['membership_id'])->first();
 			if($membership['plan_duration'] == '1'){
 				$subscription = '<span class="text-success">'.lang('Membership.xin_subscription_monthly').'</span>';
-				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,2);
-			
+				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,0);
+
 			} elseif($membership['plan_duration'] == '2') {
 				$subscription = '<span class="text-info">'.lang('Membership.xin_subscription_yearly').'</span>';
-				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,2);
+				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,0);
 			} elseif($membership['plan_duration'] == '3') {
 				$subscription = '<span class="text-info">'.lang('Membership.xin_subscription_unlimit').'</span>';
-				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,2);
+				$iprice = number_to_currency($membership['price'], $xin_system['default_currency'],null,0);
 			}
 			$mp_subs = $membership['membership_type'].'<br><div class="small">'.$iprice.'/'.$subscription.'</div>';
 			$combhr = $edit.$view.$delete;
@@ -124,7 +124,7 @@ class Companies extends BaseController {
 					<h6 class="m-b-0">'.$r['company_name'].'</h6>
 					<p class="m-b-0">'.$r['email'].'</p>
 				</div>
-			</div>'; 
+			</div>';
 			//status
 			if($r['is_active']==1){
 				$status = '<span class="badge badge-light-success">'.lang('Main.xin_employees_active').'</span>';
@@ -136,7 +136,7 @@ class Companies extends BaseController {
 				<div class="overlay-edit">
 					'.$combhr.'
 				</div>
-			';						 			  				
+			';
 			$data[] = array(
 				$links,
 				$company_types['category_name'],
@@ -153,7 +153,7 @@ class Companies extends BaseController {
           exit();
      }
 	public function add_company() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
@@ -213,7 +213,7 @@ class Companies extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('company_name')) {
@@ -278,10 +278,10 @@ class Companies extends BaseController {
 			$city = '';
 			$state = '';
 			$zipcode = '';
-			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);		
+			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);
 			$username = $this->request->getPost('username',FILTER_SANITIZE_STRING);
 			$password = $this->request->getPost('password',FILTER_SANITIZE_STRING);
-							
+
 			$options = array('cost' => 12);
 			$password_hash = password_hash($password, PASSWORD_BCRYPT, $options);
 			$data = [
@@ -315,9 +315,9 @@ class Companies extends BaseController {
 				'added_by'  => $usession['sup_user_id'],
 				'created_at' => date('d-m-Y h:i:s')
 			];
-			
+
 			$UsersModel = new UsersModel();
-			$result = $UsersModel->insert($data);	
+			$result = $UsersModel->insert($data);
 			$user_id = $UsersModel->insertID();
 			$SystemModel = new SystemModel();
 			$MembershipModel = new MembershipModel();
@@ -326,7 +326,7 @@ class Companies extends BaseController {
 			$CompanymembershipModel = new CompanymembershipModel();
 			$membership_info = $MembershipModel->where('membership_id', $membership_type)->first();
 			$xin_system = $SystemModel->where('setting_id', 1)->first();
-			
+
 			$data2 = array(
 				'company_id'  => $user_id,
 				'membership_id'  => $membership_type,
@@ -355,7 +355,7 @@ class Companies extends BaseController {
 				'updated_at'  => date('d-m-Y h:i:s')
 			);
 			$CompanysettingsModel->insert($data3);
-			$Return['csrf_hash'] = csrf_hash();	
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				if($xin_system['enable_email_notification'] == 1){
 					$full_name = $first_name.' '.$last_name;
@@ -378,14 +378,14 @@ class Companies extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// update record
 	public function update_company() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -438,7 +438,7 @@ class Companies extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('company_name')) {
@@ -500,9 +500,9 @@ class Companies extends BaseController {
 			$city = $this->request->getPost('city',FILTER_SANITIZE_STRING);
 			$state = $this->request->getPost('state',FILTER_SANITIZE_STRING);
 			$zipcode = $this->request->getPost('zipcode',FILTER_SANITIZE_STRING);
-			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);		
+			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);
 			$username = $this->request->getPost('username',FILTER_SANITIZE_STRING);
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			if ($validated) {
 			$data = [
@@ -546,9 +546,9 @@ class Companies extends BaseController {
 			}
 			$UsersModel = new UsersModel();
 			$CompanymembershipModel = new CompanymembershipModel();
-			$result = $UsersModel->update($id, $data);			
-			
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $UsersModel->update($id, $data);
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$data2 = array(
 					'membership_id'  => $membership_type
@@ -565,15 +565,15 @@ class Companies extends BaseController {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
 			exit;
-		}		
-	} 
+		}
+	}
 	// update record
 	public function update_basic_info() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -618,7 +618,7 @@ class Companies extends BaseController {
 					]
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if ($validation->hasError('company_name')) {
@@ -650,10 +650,10 @@ class Companies extends BaseController {
 			$xin_gtax = $this->request->getPost('xin_gtax',FILTER_SANITIZE_STRING);
 			$country = $this->request->getPost('country',FILTER_SANITIZE_STRING);
 			$contact_number = $this->request->getPost('contact_number',FILTER_SANITIZE_STRING);
-			$email = $this->request->getPost('email',FILTER_SANITIZE_STRING);	
+			$email = $this->request->getPost('email',FILTER_SANITIZE_STRING);
 			$username = $this->request->getPost('username',FILTER_SANITIZE_STRING);
 			$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'company_name' => $company_name,
@@ -670,9 +670,9 @@ class Companies extends BaseController {
 				'is_active'  => $status,
 				];
 			$UsersModel = new UsersModel();
-			$result = $UsersModel->update($id, $data);			
-			
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $UsersModel->update($id, $data);
+
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Company.xin_success_update_company');
 			} else {
@@ -684,15 +684,15 @@ class Companies extends BaseController {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
 			exit;
-		}		
-	} 
+		}
+	}
 	// update record
 	public function update_plan() {
-		
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -706,7 +706,7 @@ class Companies extends BaseController {
 					],
 				]
 			);
-			
+
 			$validation->withRequest($this->request)->run();
 			//check error
 			if($validation->hasError('membership_type')){
@@ -715,7 +715,7 @@ class Companies extends BaseController {
 			if($Return['error']!=''){
 				$this->output($Return);
 			}
-			$membership_type = $this->request->getPost('membership_type',FILTER_SANITIZE_STRING);		
+			$membership_type = $this->request->getPost('membership_type',FILTER_SANITIZE_STRING);
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$MembershipModel = new MembershipModel();
 			$membership_info = $MembershipModel->where('membership_id', $membership_type)->first();
@@ -725,10 +725,10 @@ class Companies extends BaseController {
 				'update_at'  => date('d-m-Y h:i:s')
 			);
 			$MainModel = new MainModel();
-			$result = $MainModel->update_company_membership($data2,$id);	
-			$Return['csrf_hash'] = csrf_hash();	
+			$result = $MainModel->update_company_membership($data2,$id);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
-				
+
 				$Return['result'] = lang('Company.xin_success_update_company_subscription');
 			} else {
 				$Return['error'] = lang('Main.xin_error_msg');
@@ -739,11 +739,11 @@ class Companies extends BaseController {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
 			exit;
-		}		
-	} 
+		}
+	}
 	// update record
 	public function update_company_photo() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
@@ -773,7 +773,7 @@ class Companies extends BaseController {
 				->fit(100, 100, 'center')
 				->save('public/uploads/users/thumb/'.$file_name);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$UsersModel = new UsersModel();
 				$Return['result'] = lang('Main.xin_profile_picture_success_updated');
 				$data = [
@@ -795,7 +795,7 @@ class Companies extends BaseController {
 	}
 	// update record
 	public function update_company_info() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
@@ -834,7 +834,7 @@ class Companies extends BaseController {
 			$trading_name = $this->request->getPost('trading_name',FILTER_SANITIZE_STRING);
 			$registration_no = $this->request->getPost('registration_no',FILTER_SANITIZE_STRING);
 			$xin_gtax = $this->request->getPost('xin_gtax',FILTER_SANITIZE_STRING);
-			
+
 			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'company_name' => $company_name,
@@ -843,9 +843,9 @@ class Companies extends BaseController {
 				'registration_no'  => $registration_no,
 				'government_tax' => $xin_gtax
 			];
-			
-			$result = $UsersModel->update($id, $data);	
-			$Return['csrf_hash'] = csrf_hash();	
+
+			$result = $UsersModel->update($id, $data);
+			$Return['csrf_hash'] = csrf_hash();
 			if ($result == TRUE) {
 				$Return['result'] = lang('Main.xin_success_company_info_updated');
 			} else {
@@ -858,7 +858,7 @@ class Companies extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-	} 
+	}
 	// read record
 	public function read()
 	{
@@ -876,7 +876,7 @@ class Companies extends BaseController {
 	}
 	 // delete record
 	public function delete_company() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

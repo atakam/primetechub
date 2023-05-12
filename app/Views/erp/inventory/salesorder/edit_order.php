@@ -258,7 +258,7 @@ $invoice_items = $OrderitemsModel->where('order_id', $invoice_id)->findAll();
 											   if($_tax['field_two']=='percentage') {
 													$_tax_type = $_tax['field_one'].'%';
 												} else {
-													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,2);
+													$_tax_type = number_to_currency($_tax['field_one'], $xin_system['default_currency'],null,0);
 												}
 												?>
                                                 <option tax-type="<?php echo $_tax['field_two'];?>" tax-rate="<?php echo $_tax['field_one'];?>" value="<?php echo $_tax['constants_id'];?>" <?php if($_tax['constants_id'] == $get_invoice['tax_type']):?> selected="selected"<?php endif;?>> <?php echo $_tax['category_name'];?> (<?php echo $_tax_type;?>)</option>
@@ -278,7 +278,7 @@ $invoice_items = $OrderitemsModel->where('order_id', $invoice_id)->findAll();
                                 <td class="text-xs-right"><?php echo $sc_show;?> <span class="grand_total"><?= $get_invoice['grand_total'];?></span></td>
                               </tr>
                                 </tbody>
-                              
+
                             </table>
                           </div>
                         </div>

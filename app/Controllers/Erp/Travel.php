@@ -30,16 +30,16 @@ use App\Models\ConstantsModel;
 class Travel extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -62,13 +62,13 @@ class Travel extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function travel_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$TravelModel = new TravelModel();
 		$request = \Config\Services::request();
@@ -79,7 +79,7 @@ class Travel extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -102,7 +102,7 @@ class Travel extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function travel_calendar()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -110,7 +110,7 @@ class Travel extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -135,11 +135,11 @@ class Travel extends BaseController {
 	}
 	// |||add record|||
 	public function add_travel() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -207,14 +207,14 @@ class Travel extends BaseController {
 			} else {
 				$start_date = $this->request->getPost('start_date',FILTER_SANITIZE_STRING);
 				$end_date = $this->request->getPost('end_date',FILTER_SANITIZE_STRING);
-				$visit_purpose = $this->request->getPost('visit_purpose',FILTER_SANITIZE_STRING);		
+				$visit_purpose = $this->request->getPost('visit_purpose',FILTER_SANITIZE_STRING);
 				$visit_place = $this->request->getPost('visit_place',FILTER_SANITIZE_STRING);
 				$expected_budget = $this->request->getPost('expected_budget',FILTER_SANITIZE_STRING);
-				$actual_budget = $this->request->getPost('actual_budget',FILTER_SANITIZE_STRING);	
+				$actual_budget = $this->request->getPost('actual_budget',FILTER_SANITIZE_STRING);
 				$arrangement_type = $this->request->getPost('arrangement_type',FILTER_SANITIZE_STRING);
 				$travel_mode = $this->request->getPost('travel_mode',FILTER_SANITIZE_STRING);
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -241,8 +241,8 @@ class Travel extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$TravelModel = new TravelModel();
-				$result = $TravelModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TravelModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_travel_added_msg');
 				} else {
@@ -259,11 +259,11 @@ class Travel extends BaseController {
 	}
 	// |||update record|||
 	public function update_travel() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -331,16 +331,16 @@ class Travel extends BaseController {
 			} else {
 				$start_date = $this->request->getPost('start_date',FILTER_SANITIZE_STRING);
 				$end_date = $this->request->getPost('end_date',FILTER_SANITIZE_STRING);
-				$visit_purpose = $this->request->getPost('visit_purpose',FILTER_SANITIZE_STRING);		
+				$visit_purpose = $this->request->getPost('visit_purpose',FILTER_SANITIZE_STRING);
 				$visit_place = $this->request->getPost('visit_place',FILTER_SANITIZE_STRING);
 				$expected_budget = $this->request->getPost('expected_budget',FILTER_SANITIZE_STRING);
-				$actual_budget = $this->request->getPost('actual_budget',FILTER_SANITIZE_STRING);	
+				$actual_budget = $this->request->getPost('actual_budget',FILTER_SANITIZE_STRING);
 				$arrangement_type = $this->request->getPost('arrangement_type',FILTER_SANITIZE_STRING);
 				$travel_mode = $this->request->getPost('travel_mode',FILTER_SANITIZE_STRING);
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$associated_goals = implode(',',$this->request->getPost('associated_goals',FILTER_SANITIZE_STRING));
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$data = [
 					'start_date'  => $start_date,
 					'end_date'  => $end_date,
@@ -355,7 +355,7 @@ class Travel extends BaseController {
 				];
 				$TravelModel = new TravelModel();
 				$result = $TravelModel->update($id,$data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_travel_updated_msg');
 				} else {
@@ -372,11 +372,11 @@ class Travel extends BaseController {
 	}
 	// |||update record|||
 	public function update_travel_status() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -402,13 +402,13 @@ class Travel extends BaseController {
 			} else {
 				$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$data = [
 					'status'  => $status,
 				];
 				$TravelModel = new TravelModel();
 				$result = $TravelModel->update($id,$data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_travel_status_updated_msg');
 				} else {
@@ -428,9 +428,9 @@ class Travel extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -444,9 +444,9 @@ class Travel extends BaseController {
 			$get_data = $TravelModel->where('company_id',$usession['sup_user_id'])->orderBy('travel_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  			
+
+          foreach($get_data as $r) {
+
 				$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url().'erp/view-travel-info/'.uencode($r['travel_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><span class="fa fa-arrow-circle-right"></span></button></a></span>';
 				if(in_array('travel4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 					$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['travel_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
@@ -455,7 +455,7 @@ class Travel extends BaseController {
 				}
 				// user info
 				$iuser_info = $UsersModel->where('user_id', $r['employee_id'])->first();
-				
+
 				// type
 				$category_info = $ConstantsModel->where('constants_id', $r['arrangement_type'])->where('type','travel_type')->first();
 				if($category_info){
@@ -463,12 +463,12 @@ class Travel extends BaseController {
 				} else {
 					$category_name = '';
 				}
-				$combhr = $view.$delete;			
+				$combhr = $view.$delete;
 
 				if($r['status']==0): $status = '<span class="badge badge-warning">'.lang('Main.xin_pending').'</span>';
 				elseif($r['status']==1): $status = '<span class="badge badge-success">'.lang('Main.xin_accepted').'</span>';else: $status = '<span class="badge badge-danger">'.lang('Main.xin_rejected'); endif;
-				$expected_budget = number_to_currency($r['expected_budget'], $xin_system['default_currency'],null,2);
-				$actual_budget = number_to_currency($r['actual_budget'], $xin_system['default_currency'],null,2);
+				$expected_budget = number_to_currency($r['expected_budget'], $xin_system['default_currency'],null,0);
+				$actual_budget = number_to_currency($r['actual_budget'], $xin_system['default_currency'],null,0);
 				if($iuser_info){
 					$employee_name = $iuser_info['first_name'].' '.$iuser_info['last_name'];
 					$iemployee_name = '<div class="d-inline-block align-middle">
@@ -485,7 +485,7 @@ class Travel extends BaseController {
 			$start_date = set_date_format($r['start_date']);
 			// get end date
 			$end_date = set_date_format($r['end_date']);
-			
+
 			$t_employee_name = '
 				'.$iemployee_name.'
 				<div class="overlay-edit">
@@ -512,7 +512,7 @@ class Travel extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -527,7 +527,7 @@ class Travel extends BaseController {
 	}
 	// delete record
 	public function delete_travel() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

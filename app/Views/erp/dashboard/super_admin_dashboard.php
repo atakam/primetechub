@@ -147,7 +147,7 @@ $get_invoices = $InvoicepaymentsModel->orderBy('membership_invoice_id','DESC')->
         <div class="row pb-2">
           <div class="col-auto m-b-10">
             <h3 class="mb-1">
-              <?= number_to_currency(total_membership_payments(), $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency(total_membership_payments(), $xin_system['default_currency'],null,0);?>
             </h3>
             <span>
             <?= lang('Invoices.xin_total_amount');?>
@@ -189,7 +189,7 @@ $get_invoices = $InvoicepaymentsModel->orderBy('membership_invoice_id','DESC')->
                     </h6></td>
                   <td><?= $membership['membership_type'];?></td>
                   <td><h6 class="mb-1 text-success">
-                      <?= number_to_currency($r['membership_price'], $xin_system['default_currency'],null,2);?>
+                      <?= number_to_currency($r['membership_price'], $xin_system['default_currency'],null,0);?>
                     </h6></td>
                 </tr>
                 <?php } ?>

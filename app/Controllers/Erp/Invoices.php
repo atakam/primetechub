@@ -385,7 +385,7 @@ class Invoices extends BaseController {
 
 
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
-			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 
 			$invoice_date = set_date_format($r['invoice_date']);
 			$invoice_due_date = set_date_format($r['invoice_due_date']);
@@ -451,7 +451,7 @@ class Invoices extends BaseController {
 
 
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
-			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 
 			$invoice_date = set_date_format($r['invoice_date']);
 			$invoice_due_date = set_date_format($r['invoice_due_date']);
@@ -513,7 +513,7 @@ class Invoices extends BaseController {
 			} else {
 				$ititle = '--';
 			}
-			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 
 			$invoice_date = set_date_format($r['invoice_date']);
 			$invoice_due_date = set_date_format($r['invoice_due_date']);
@@ -572,7 +572,7 @@ class Invoices extends BaseController {
           foreach($get_data as $r) {
 
 			$project = $ProjectsModel->where('company_id',$r['company_id'])->where('project_id',$r['project_id'])->first();
-			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+			$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 
 			$invoice_date = set_date_format($r['invoice_date']);
 			$invoice_due_date = set_date_format($r['invoice_due_date']);

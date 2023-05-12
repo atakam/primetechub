@@ -16,7 +16,7 @@
  */
 namespace App\Controllers\Erp;
 use App\Controllers\BaseController;
- 
+
 use App\Models\SystemModel;
 use App\Models\UsersModel;
 use App\Models\InvoicepaymentsModel;
@@ -25,7 +25,7 @@ use App\Models\MembershipModel;
 class Membershipinvoices extends BaseController {
 
 	public function index()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -37,10 +37,10 @@ class Membershipinvoices extends BaseController {
 
 		$data['subview'] = view('erp/invoices/invoice_payment_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function billing_details()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -66,18 +66,18 @@ class Membershipinvoices extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicepaymentsModel = new InvoicepaymentsModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$MembershipModel = new MembershipModel();
 		$billing = $InvoicepaymentsModel->orderBy('membership_invoice_id', 'ASC')->findAll();
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
-		
+
 		$data = array();
-		
-          foreach($billing as $r) {						
-		  	
+
+          foreach($billing as $r) {
+
 			$membership = $MembershipModel->where('membership_id', $r['membership_id'])->first();
 			$company = $UsersModel->where('user_id', $r['company_id'])->first();
 			if($r['subscription'] == 'monthly'){
@@ -85,8 +85,8 @@ class Membershipinvoices extends BaseController {
 			} else {
 				$subscription = '<span class="text-info">'.lang('Membership.xin_subscription_yearly').'</span>';
 			}
-			$mp_subs = $membership['membership_type'];	
-			$price = number_to_currency($r['membership_price'], $xin_system['default_currency'],null,2);
+			$mp_subs = $membership['membership_type'];
+			$price = number_to_currency($r['membership_price'], $xin_system['default_currency'],null,0);
 
 			$transaction_date = set_date_format($r['transaction_date']);
 			if($r['payment_method'] == 'Stripe'){
@@ -121,27 +121,27 @@ class Membershipinvoices extends BaseController {
           exit();
      }
 	 public function membership_invoice_amount_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
-		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();		
+		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		/* Define return | here result is used to return user data and error for error message *///
 		$Return = array('invoice_amount'=>'', 'paid_invoice'=>'','unpaid_invoice'=>'', 'paid_inv_label'=>'','unpaid_inv_label'=>'');
 		$invoice_month = array();
 		$paid_invoice = array();
 		$someArray = array();
 		$j=0;
-		for ($i = 0; $i <= 11; $i++) 
+		for ($i = 0; $i <= 11; $i++)
 		{
-		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));		   
+		   $months = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
 		   $paid_amount = company_paid_invoices($months);
 		   $paid_invoice[] = $paid_amount;
-		   $invoice_month[] = $months;		   
+		   $invoice_month[] = $months;
 		}
 		$Return['invoice_month'] = $invoice_month;
 		$Return['paid_inv_label'] = lang('Invoices.xin_paid_invoices');

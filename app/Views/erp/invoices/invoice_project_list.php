@@ -119,7 +119,7 @@ $paid = number_format((float)$paid, 1, '.', '');
             <p class="m-b-10 m-t-30">
               <?= lang('Invoices.xin_due');?>
               <span class="float-right"><i class="fa fa-caret-down m-r-10"></i>
-              <?= number_to_currency($all_due, $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency($all_due, $xin_system['default_currency'],null,0);?>
               </span></p>
             <div class="progress red">
               <div class="progress-bar bg-danger" style="width:<?= $unpaid;?>%"></div>
@@ -127,7 +127,7 @@ $paid = number_format((float)$paid, 1, '.', '');
             <p class="m-b-10 m-t-30">
               <?= lang('Invoices.xin_paid_amount');?>
               <span class="float-right"><i class="fa fa-caret-up m-r-10"></i>
-              <?= number_to_currency($all_payments, $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency($all_payments, $xin_system['default_currency'],null,0);?>
               </span></p>
             <div class="progress">
               <div class="progress-bar bg-info" style="width:<?= $paid;?>%"></div>
@@ -197,7 +197,8 @@ $paid = number_format((float)$paid, 1, '.', '');
 		if($r['status']==1){
 			$status = '<span class="badge badge-light-success">'.lang('Invoices.xin_paid').'</span>';
 		} else if ($payment_amount != 0) {
-			$status = '<span class="badge badge-light-warning">'.lang('Invoices.xin_partial').' '.(($payment_amount/$r['grand_total'])*100).'%</span>';
+      $perc = number_format((float)(($payment_amount/$r['grand_total'])*100), 2, '.', '');
+			$status = '<span class="badge badge-light-warning">'.lang('Invoices.xin_partial').' '.$perc.'%</span>';
 		} else {
       $status = '<span class="badge badge-light-danger">'.lang('Invoices.xin_unpaid').'</span>';
     }

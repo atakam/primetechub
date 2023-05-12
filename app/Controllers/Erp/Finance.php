@@ -19,7 +19,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -30,18 +30,18 @@ use App\Models\ConstantsModel;
 use App\Models\TransactionsModel;
 
 class Finance extends BaseController {
-	
+
 	public function bank_cash()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -64,16 +64,16 @@ class Finance extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function deposit()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -96,13 +96,13 @@ class Finance extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function account_ledger()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$AccountsModel = new AccountsModel();
 		$request = \Config\Services::request();
@@ -113,7 +113,7 @@ class Finance extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -136,14 +136,14 @@ class Finance extends BaseController {
 		return view('erp/layout/pre_layout_main', $data); //page load
 	}
 	public function transaction_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		
+
 		$TransactionsModel = new TransactionsModel();
 		$ifield_id = udecode($request->uri->getSegment(3));
 		$isegment_val = $TransactionsModel->where('transaction_id', $ifield_id)->first();
@@ -152,7 +152,7 @@ class Finance extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -175,16 +175,16 @@ class Finance extends BaseController {
 		return view('erp/layout/pre_layout_main', $data); //page load
 	}
 	public function expense()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -208,16 +208,16 @@ class Finance extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function transfer()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
@@ -233,16 +233,16 @@ class Finance extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function transactions()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
 		$request = \Config\Services::request();
 		$session = \Config\Services::session();
-		
+
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -269,9 +269,9 @@ class Finance extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -284,9 +284,9 @@ class Finance extends BaseController {
 			$get_data = $AccountsModel->where('company_id',$usession['sup_user_id'])->orderBy('account_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('accounts3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".edit-modal-data" data-field_id="'. uencode($r['account_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -303,7 +303,7 @@ class Finance extends BaseController {
 			} else {
 				$ledger = $r['account_name'];
 			}
-			$account_balance = number_to_currency($r['account_balance'], $xin_system['default_currency'],null,2);
+			$account_balance = number_to_currency($r['account_balance'], $xin_system['default_currency'],null,0);
 			$created_at = set_date_format($r['created_at']);
 			//$account_name = $ledger;
 			$combhr = $ledger.$edit.$delete;
@@ -312,18 +312,18 @@ class Finance extends BaseController {
 				'.$r['account_name'].'
 				<div class="overlay-edit">
 					'.$combhr.'
-				</div>';	  				
+				</div>';
 			} else {
 				$iaccount_name = $r['account_name'];
 			}
-				
+
 			$data[] = array(
 				$iaccount_name,
 				$r['account_number'],
 				$account_balance,
 				$r['bank_branch']
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -337,9 +337,9 @@ class Finance extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -355,9 +355,9 @@ class Finance extends BaseController {
 			$get_data = $TransactionsModel->where('company_id',$usession['sup_user_id'])->where('transaction_type','income')->orderBy('transaction_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('deposit3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".edit-modal-data" data-field_id="'. uencode($r['transaction_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -368,7 +368,7 @@ class Finance extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$iaccounts = $AccountsModel->where('account_id', $r['account_id'])->first();
 			if($iaccounts){
 				$account_name = $iaccounts['account_name'];
@@ -383,8 +383,8 @@ class Finance extends BaseController {
 			} else {
 				$payer_name = '';
 			}
-			
-			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,2);
+
+			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,0);
 			$category_info = $ConstantsModel->where('constants_id', $r['entity_category_id'])->where('type', 'income_type')->first();
 			if($category_info){
 				$category_name = $category_info['category_name'];
@@ -397,7 +397,7 @@ class Finance extends BaseController {
 			} else {
 				$ipayment_method = '';
 			}
-			
+
 			$transaction_date = set_date_format($r['transaction_date']);
 			$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/transaction-details').'/'.uencode($r['transaction_id']).'" target="_blank"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
 			$combhr = $view.$edit.$delete;
@@ -414,8 +414,8 @@ class Finance extends BaseController {
 				$r['reference'],
 				$ipayment_method,
 				$transaction_date
-			);	
-			
+			);
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -423,15 +423,15 @@ class Finance extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	// record list
 	public function expense_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -447,9 +447,9 @@ class Finance extends BaseController {
 			$get_data = $TransactionsModel->where('company_id',$usession['sup_user_id'])->where('transaction_type','expense')->orderBy('transaction_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			if(in_array('expense3',staff_role_resource()) || $user_info['user_type'] == 'company') { //edit
 				$edit = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_edit').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light" data-toggle="modal" data-target=".edit-modal-data" data-field_id="'. uencode($r['transaction_id']) . '"><i class="feather icon-edit"></i></button></span>';
 			} else {
@@ -460,7 +460,7 @@ class Finance extends BaseController {
 			} else {
 				$delete = '';
 			}
-			
+
 			$iaccounts = $AccountsModel->where('account_id', $r['account_id'])->first();
 			if($iaccounts){
 				$account_name = $iaccounts['account_name'];
@@ -474,7 +474,7 @@ class Finance extends BaseController {
 			} else {
 				$payer_name = '';
 			}
-			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,2);
+			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,0);
 			$category_info = $ConstantsModel->where('constants_id', $r['entity_category_id'])->where('type', 'expense_type')->first();
 			if($category_info){
 				$category_name = $category_info['category_name'];
@@ -487,7 +487,7 @@ class Finance extends BaseController {
 			} else {
 				$ipayment_method = '';
 			}
-			
+
 			$transaction_date = set_date_format($r['transaction_date']);
 			$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url('erp/transaction-details').'/'.uencode($r['transaction_id']).'" target="_blank"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></a></span>';
 			$combhr = $view.$edit.$delete;
@@ -496,7 +496,7 @@ class Finance extends BaseController {
 			<div class="overlay-edit">
 				'.$combhr.'
 			</div>';
-				
+
 			$data[] = array(
 				$iaccount_name,
 				$payer_name,
@@ -505,7 +505,7 @@ class Finance extends BaseController {
 				$r['reference'],
 				$ipayment_method,
 				$transaction_date
-			);	
+			);
 		}
           $output = array(
                //"draw" => $draw,
@@ -513,15 +513,15 @@ class Finance extends BaseController {
             );
           echo json_encode($output);
           exit();
-     }  
+     }
 	 // record list
 	public function transaction_list() {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -537,17 +537,17 @@ class Finance extends BaseController {
 			$get_data = $TransactionsModel->where('company_id',$usession['sup_user_id'])->orderBy('transaction_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  			
+
 			$iaccounts = $AccountsModel->where('account_id', $r['account_id'])->first();
 			if($iaccounts){
 				$account_name = $iaccounts['account_name'];
 			} else {
 				$account_name = '--';
 			}
-			
-			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,2);
+
+			$amount = number_to_currency($r['amount'], $xin_system['default_currency'],null,0);
 		//	$category_info = $ConstantsModel->where('constants_id', $r['entity_category_id'])->first();
 			$payment_method = $ConstantsModel->where('constants_id', $r['payment_method_id'])->where('type', 'payment_method')->first();
 			if($payment_method){
@@ -580,14 +580,14 @@ class Finance extends BaseController {
             );
           echo json_encode($output);
           exit();
-     } 
+     }
 	// |||add record|||
 	public function add_account() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -625,8 +625,8 @@ class Finance extends BaseController {
 					}
 				}
 			} else {
-				$account_name = $this->request->getPost('account_name',FILTER_SANITIZE_STRING);		
-				$account_balance = $this->request->getPost('account_balance',FILTER_SANITIZE_STRING);	
+				$account_name = $this->request->getPost('account_name',FILTER_SANITIZE_STRING);
+				$account_balance = $this->request->getPost('account_balance',FILTER_SANITIZE_STRING);
 				$account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
 				$branch_code = $this->request->getPost('branch_code',FILTER_SANITIZE_STRING);
 				$bank_branch = $this->request->getPost('bank_branch',FILTER_SANITIZE_STRING);
@@ -648,8 +648,8 @@ class Finance extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$AccountsModel = new AccountsModel();
-				$result = $AccountsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AccountsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_account_added_msg');
 				} else {
@@ -666,14 +666,14 @@ class Finance extends BaseController {
 	}
 	// |||add record|||
 	public function add_deposit() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -744,7 +744,7 @@ class Finance extends BaseController {
 				$attachment = $this->request->getFile('attachment');
 				$file_name = $attachment->getName();
 				$attachment->move('public/uploads/transactions/');
-				
+
 				$account_id = $this->request->getPost('account_id',FILTER_SANITIZE_STRING);
 				$amount = $this->request->getPost('amount',FILTER_SANITIZE_STRING);
 				$deposit_date = $this->request->getPost('deposit_date',FILTER_SANITIZE_STRING);
@@ -753,7 +753,7 @@ class Finance extends BaseController {
 				$payment_method = $this->request->getPost('payment_method',FILTER_SANITIZE_STRING);
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$reference = $this->request->getPost('reference',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -761,7 +761,7 @@ class Finance extends BaseController {
 				} else {
 					$company_id = $usession['sup_user_id'];
 				}
-				
+
 				$data = [
 					'company_id' => $company_id,
 					'staff_id' => $usession['sup_user_id'],
@@ -780,8 +780,8 @@ class Finance extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$TransactionsModel = new TransactionsModel();
-				$result = $TransactionsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TransactionsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_deposit_added_msg');
 				} else {
@@ -789,7 +789,7 @@ class Finance extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -798,14 +798,14 @@ class Finance extends BaseController {
 	}
 	// |||add record|||
 	public function add_expense() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -876,7 +876,7 @@ class Finance extends BaseController {
 				$attachment = $this->request->getFile('attachment');
 				$file_name = $attachment->getName();
 				$attachment->move('public/uploads/transactions/');
-				
+
 				$account_id = $this->request->getPost('account_id',FILTER_SANITIZE_STRING);
 				$amount = $this->request->getPost('amount',FILTER_SANITIZE_STRING);
 				$deposit_date = $this->request->getPost('deposit_date',FILTER_SANITIZE_STRING);
@@ -885,7 +885,7 @@ class Finance extends BaseController {
 				$payment_method = $this->request->getPost('payment_method',FILTER_SANITIZE_STRING);
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$reference = $this->request->getPost('reference',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 				if($user_info['user_type'] == 'staff'){
@@ -893,7 +893,7 @@ class Finance extends BaseController {
 				} else {
 					$company_id = $usession['sup_user_id'];
 				}
-				
+
 				$data = [
 					'company_id' => $company_id,
 					'staff_id' => $usession['sup_user_id'],
@@ -912,8 +912,8 @@ class Finance extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$TransactionsModel = new TransactionsModel();
-				$result = $TransactionsModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TransactionsModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_expense_added_msg');
 				} else {
@@ -921,7 +921,7 @@ class Finance extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -930,14 +930,14 @@ class Finance extends BaseController {
 	}
 	// |||edit record|||
 	public function update_deposit() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1011,7 +1011,7 @@ class Finance extends BaseController {
 					$file_name = $attachment->getName();
 					$attachment->move('public/uploads/transactions/');
 				}
-				
+
 				$account_id = $this->request->getPost('account_id',FILTER_SANITIZE_STRING);
 				$amount = $this->request->getPost('amount',FILTER_SANITIZE_STRING);
 				$deposit_date = $this->request->getPost('deposit_date',FILTER_SANITIZE_STRING);
@@ -1021,7 +1021,7 @@ class Finance extends BaseController {
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$reference = $this->request->getPost('reference',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				if ($validated) {
 					$data = [
 						'account_id'  => $account_id,
@@ -1046,10 +1046,10 @@ class Finance extends BaseController {
 						'reference' => $reference
 					];
 				}
-				
+
 				$TransactionsModel = new TransactionsModel();
-				$result = $TransactionsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TransactionsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_deposit_updated_msg');
 				} else {
@@ -1057,7 +1057,7 @@ class Finance extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -1066,14 +1066,14 @@ class Finance extends BaseController {
 	}
 	// |||edit record|||
 	public function update_expense() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1147,7 +1147,7 @@ class Finance extends BaseController {
 					$file_name = $attachment->getName();
 					$attachment->move('public/uploads/transactions/');
 				}
-				
+
 				$account_id = $this->request->getPost('account_id',FILTER_SANITIZE_STRING);
 				$amount = $this->request->getPost('amount',FILTER_SANITIZE_STRING);
 				$deposit_date = $this->request->getPost('deposit_date',FILTER_SANITIZE_STRING);
@@ -1157,7 +1157,7 @@ class Finance extends BaseController {
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$reference = $this->request->getPost('reference',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				if ($validated) {
 					$data = [
 						'account_id'  => $account_id,
@@ -1182,10 +1182,10 @@ class Finance extends BaseController {
 						'reference' => $reference
 					];
 				}
-				
+
 				$TransactionsModel = new TransactionsModel();
-				$result = $TransactionsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TransactionsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_expense_updated_msg');
 				} else {
@@ -1193,7 +1193,7 @@ class Finance extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -1202,11 +1202,11 @@ class Finance extends BaseController {
 	}
 	// |||edit record|||
 	public function update_account() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -1244,13 +1244,13 @@ class Finance extends BaseController {
 					}
 				}
 			} else {
-				$account_name = $this->request->getPost('account_name',FILTER_SANITIZE_STRING);		
-				$account_balance = $this->request->getPost('account_balance',FILTER_SANITIZE_STRING);	
+				$account_name = $this->request->getPost('account_name',FILTER_SANITIZE_STRING);
+				$account_balance = $this->request->getPost('account_balance',FILTER_SANITIZE_STRING);
 				$account_number = $this->request->getPost('account_number',FILTER_SANITIZE_STRING);
 				$branch_code = $this->request->getPost('branch_code',FILTER_SANITIZE_STRING);
 				$bank_branch = $this->request->getPost('bank_branch',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
-				
+
 				$data = [
 					'account_name' => $account_name,
 					'account_balance'  => $account_balance,
@@ -1260,8 +1260,8 @@ class Finance extends BaseController {
 					'bank_branch'  => $bank_branch
 				];
 				$AccountsModel = new AccountsModel();
-				$result = $AccountsModel->update($id,$data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $AccountsModel->update($id,$data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_finance_account_updated_msg');
 				} else {
@@ -1281,7 +1281,7 @@ class Finance extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1299,7 +1299,7 @@ class Finance extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -1314,7 +1314,7 @@ class Finance extends BaseController {
 	}
 	// delete record
 	public function delete_account() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -1342,7 +1342,7 @@ class Finance extends BaseController {
 	}
 	// delete record
 	public function delete_transaction() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
