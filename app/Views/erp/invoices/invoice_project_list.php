@@ -176,8 +176,8 @@ $paid = number_format((float)$paid, 1, '.', '');
     <div class="row">
       <?php foreach($get_invoices as $r) {?>
       <?php
-		$invoice_date = set_date_format($r['invoice_date']);
-		$invoice_due_date = set_date_format($r['invoice_due_date']);
+		$invoice_date = set_date_format(str_replace('/', '-', $r['invoice_date']));
+		$invoice_due_date = set_date_format(str_replace('/', '-', $r['invoice_due_date']));
 
 		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$client_info = $UsersModel->where('user_id',$r['client_id'])->where('user_type','customer')->first();

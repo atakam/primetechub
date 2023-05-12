@@ -705,8 +705,8 @@ class Invoices extends BaseController {
 				$_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
 				$_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
 				// invoice month
-				$dd1 = explode('-',$invoice_date);
-				$inv_mnth = $dd1[0].'-'.$dd1[1];
+				$dd1 = explode('/',$invoice_date);
+				$inv_mnth = $dd1[2].'-'.$dd1[1];
 				$data = [
 					'invoice_number'  => $invoice_number,
 					'company_id' => $company_id,
@@ -922,8 +922,8 @@ class Invoices extends BaseController {
 				$_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
 				$_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
 				// invoice month
-				$dd1 = explode('-',$invoice_date);
-				$inv_mnth = $dd1[0].'-'.$dd1[1];
+				$dd1 = explode('/',$invoice_date);
+				$inv_mnth = $dd1[2].'-'.$dd1[1];
 				$data = [
 					'invoice_number'  => $invoice_number,
 					'company_id' => $company_id,
