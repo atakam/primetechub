@@ -218,9 +218,7 @@ if($_payment_method){
                     <thead>
                       <tr class="thead-default">
                         <th><?= lang('Main.xin_description');?></th>
-                        <th><?= lang('Main.xin_qty');?></th>
                         <th><?= lang('Invoices.xin_amount');?></th>
-                        <th><?= lang('Main.xin_total');?></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -229,8 +227,6 @@ if($_payment_method){
                         <td><h6>
                             <?= $item['item_name'];?>
                           </h6></td>
-                        <td><?= $item['item_qty'];?></td>
-                        <td><?= number_to_currency($item['item_unit_price'],$xin_system['default_currency'],null,0);?></td>
                         <td><?= number_to_currency($item['item_sub_total'],$xin_system['default_currency'],null,0);?></td>
                       </tr>
                       <?php } ?>

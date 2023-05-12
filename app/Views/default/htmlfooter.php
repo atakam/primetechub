@@ -2,14 +2,18 @@
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
+use App\Models\ConstantsModel;
 
 $SystemModel = new SystemModel();
 $UserRolesModel = new RolesModel();
-$UsersModel = new UsersModel();	
+$UsersModel = new UsersModel();
+$ConstantsModel = new ConstantsModel();
 
 $session = \Config\Services::session();
 $session = $session->get('sup_username');
 $router = service('router');
+
+$result = $ConstantsModel->where('type','training_type')->findAll();
 
 $xin_system = $SystemModel->where('setting_id', 1)->first();
 $xin_com_system = erp_company_settings();
@@ -56,7 +60,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
     <?php if($router->methodName() =='goal_details' || $router->methodName() =='task_details' || $router->methodName() =='project_details'){?>
     <script type="text/javascript" src="<?= base_url();?>/public/assets/plugins/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
     <script type="text/javascript">
-	$(document).ready(function(){	
+	$(document).ready(function(){
 		$("#range_grid").ionRangeSlider({
 			type: "single",
 			min: 0,
@@ -101,7 +105,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 			$(this).datepicker('widget').removeClass('hide-calendar');
 			$(this).datepicker('widget').hide();
 		}
-			
+
 	});
 </script>
 <script>
@@ -196,14 +200,14 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 	</script>
     <?php endif;?>
     <?php if($router->controllerName() == '\App\Controllers\Erp\Dashboard' || $router->methodName() == 'helpdesk_dashboard' || $router->methodName() == 'projects_dashboard' || $router->methodName() == 'timesheet_dashboard' || $router->methodName() == 'invoice_dashboard' || $router->methodName() == 'leave_status' || $router->methodName() == 'tasks_summary' || $router->methodName() == 'corehr_dashboard' || $router->methodName() == 'staff_dashboard' || $router->methodName() == 'client_details' || $router->methodName() == 'recruitment_dashboard' || $router->methodName() == 'tickets_page' || $router->methodName() == 'recruitment_dashboard' || $router->controllerName() == '\App\Controllers\Erp\Leave' || $router->methodName() == 'project_invoices' || $router->methodName() == 'jobs'){?>
-    
+
     <script src="<?= base_url();?>/public/assets/js/plugins/apexcharts.min.js"></script>
     <script src="<?= base_url();?>/public/assets/js/plugins/jquery.peity.min.js"></script>
     <?php } ?>
     <?php if($router->methodName() =='tasks_scrum_board' || $router->methodName() =='projects_scrum_board') { ?>
     <script src="<?php echo base_url();?>/public/assets/plugins/dragula/dragula.js"></script>
     <?php } ?>
-    
+
     <script type="text/javascript">
     var desk_url = '<?php echo site_url('erp/desk'); ?>';
     var processing_request = '<?= lang('Login.xin_processing_request');?>';</script>
@@ -220,7 +224,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 	<script type="text/javascript">var main_url = '<?= site_url('erp/'); ?>';</script>
 	<script type="text/javascript">var processing_request = '<?= lang('Login.xin_processing_request');?>';</script>
 	<script type="text/javascript">var request_submitted = '<?= lang('Dashboard.xin_hr_request_submitted');?>';</script>
-    
+
     <script type="text/javascript" src="<?php echo base_url();?>/public/assets/plugins/kendo/kendo.all.min.js"></script>
     <script src="<?php echo base_url();?>/public/assets/plugins/kendo/kendo.timezones.min.js"></script>
 	<script type="text/javascript" src="<?= base_url().'/public/module_scripts/'.$path_url.'.js'; ?>"></script>
@@ -238,7 +242,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
     <script src="<?php echo base_url();?>/public/assets/js/plugins/lightbox.min.js"></script>
     <script src="<?php echo base_url();?>/public/assets/js/pages/ac-lightbox.js"></script>
     <?php } ?>
-    
+
     <?php if($router->methodName() =='leave_status' || $router->methodName() =='invoice_dashboard' || $router->methodName() =='tickets_page' || $router->methodName() == 'recruitment_dashboard' || $router->methodName() == 'tasks_summary' || $router->methodName() == 'projects_dashboard' || $router->controllerName() == '\App\Controllers\Erp\Dashboard' || $router->controllerName() == '\App\Controllers\Erp\Leave' || $router->methodName() == 'project_invoices' || $router->methodName() == 'jobs') { ?>
     <script type="text/javascript" src="<?= base_url().'/public/module_scripts/dashboard/leave_status.js'; ?>"></script>
     <?php } ?>
@@ -252,7 +256,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
         </script>
     <?php if($router->controllerName() == '\App\Controllers\Erp\Roles'){?>
     <?php /*?><script type="text/javascript" src="<?= base_url();?>/public/assets/plugins/kendo/kendo.all.min.js"></script><?php */?>
-	
+
     <?= view('erp/staff_roles/role_values');?>
     <?php } ?>
     <?php if($router->methodName() =='org_chart'){?>
@@ -315,13 +319,17 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 						+'<hr>'
 						+'<div class="form-group mb-1 col-sm-12 col-md-5">'
 						+'<label for="item_name"><?= lang('Invoices.xin_title_item');?></label>'
-						+'<br>'
-						+'<input type="text" class="form-control item_name" name="item_name[]" id="item_name" placeholder="Item Name">'
+						+'<select onchange="itemSelection(this)" class="form-control" data-plugin="select_hrm" data-placeholder="<?= lang('Invoices.xin_title_item');?>">'
+            +'<option value=""><?= lang('Invoices.xin_title_item');?></option>'
+            +'<?php foreach($result as $item) {?>'
+            +'<option value="<?php echo $item['category_name'] . '#@#' . $item['field_one']; ?>"><?php echo $item['category_name']?></option>'
+            +'<?php } ?>'
+            +'</select>'
+            +'<input type="text" class="form-control item_name" name="item_name[]" id="item_name" placeholder="Item Name" hidden>'
 						+'</div>'
 						+'<div class="form-group mb-1 col-sm-12 col-md-2">'
-						+'<label for="qty_hrs" class="cursor-pointer"><?= lang('Invoices.xin_title_qty_hrs');?></label>'
 						+'<br>'
-						+'<input type="text" class="form-control qty_hrs" name="qty_hrs[]" id="qty_hrs" value="1">'
+						+'<input type="text" class="form-control qty_hrs" name="qty_hrs[]" id="qty_hrs" value="1" hidden>'
 						+'</div>'
 						+'<div class="skin skin-flat form-group mb-1 col-sm-12 col-md-2">'
 						+'<label for="unit_price"><?= lang('Invoices.xin_title_unit_price');?></label>'
@@ -337,16 +345,16 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 						+'<label for="profession">&nbsp;</label><br><button type="button" class="btn icon-btn btn-sm btn-outline-danger waves-effect waves-light remove-invoice-item" data-repeater-delete=""> <span class="fa fa-trash"></span></button>'
 						+'</div>'
 						+'</div>'
-	
+
 			$('#item-list').append(invoice_items).fadeIn(500);
-	
+
 		});
-	});	
-	
+	});
+
 	</script>
     <?php } ?>
     <?php if($router->methodName() =='upgrade_subscription'){?>
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script> 
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
 	//set your publishable key
 	Stripe.setPublishableKey('<?= $xin_system['stripe_publishable_key'];?>');
@@ -373,7 +381,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 		$("#stripe_payment").submit(function(event) {
 			//disable the submit button to prevent repeated clicks
 			$('#payBtn').attr("disabled", "disabled");
-			
+
 			//create single-use token to charge the user
 			Stripe.createToken({
 				number: $('.card-number').val(),
@@ -381,7 +389,7 @@ $user_info = $UsersModel->where('user_id', $session['sup_user_id'])->first();
 				exp_month: $('.card-expiry-month').val(),
 				exp_year: $('.card-expiry-year').val()
 			}, stripeResponseHandler);
-			
+
 			//submit from callback
 			return false;
 		});
