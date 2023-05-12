@@ -34,7 +34,7 @@ $total_projects = $ProjectsModel->where('company_id',$company_id)->countAllResul
 $total_tickets = $TicketsModel->where('company_id',$company_id)->countAllResults();
 $open = $TicketsModel->where('company_id',$company_id)->where('ticket_status', 1)->countAllResults();
 $closed = $TicketsModel->where('company_id',$company_id)->where('ticket_status', 2)->countAllResults();
-	
+
 // membership
 $company_membership = $CompanymembershipModel->where('company_id', $usession['sup_user_id'])->first();
 $subs_plan = $MembershipModel->where('membership_id', $company_membership['membership_id'])->first();
@@ -44,12 +44,12 @@ if($company_membership_details['diff_days'] < 8){
 	$alert_bg = 'alert-danger';
 } else {
 	$alert_bg = 'alert-warning';
-}	
+}
 ?>
 
 <div class="row">
   <div class="col-xl-6 col-md-12">
-    
+
     <div class="row">
       <div class="col-xl-12 col-md-12">
         <div class="row">
@@ -62,7 +62,7 @@ if($company_membership_details['diff_days'] < 8){
                       <?= lang('Dashboard.xin_total_deposit');?>
                     </h6>
                     <h3 class="m-b-0 text-white">
-                      <?= number_to_currency(total_deposit(), $xin_system['default_currency'],null,2);?>
+                      <?= number_to_currency(total_deposit(), $xin_system['default_currency'],null,0);?>
                     </h3>
                   </div>
                   <div class="col-auto"> <i class="fas fa-database text-white"></i> </div>
@@ -98,14 +98,14 @@ if($company_membership_details['diff_days'] < 8){
             <div class="row pb-2">
               <div class="col-auto m-b-10">
                 <h3 class="mb-1">
-                  <?= number_to_currency(erp_total_paid_invoices(), $xin_system['default_currency'],null,2);?>
+                  <?= number_to_currency(erp_total_paid_invoices(), $xin_system['default_currency'],null,0);?>
                 </h3>
                 <span>
                 <?= lang('Invoices.xin_total_paid');?>
                 </span> </div>
               <div class="col-auto m-b-10">
                 <h3 class="mb-1">
-                  <?= number_to_currency(erp_total_unpaid_invoices(), $xin_system['default_currency'],null,2);?>
+                  <?= number_to_currency(erp_total_unpaid_invoices(), $xin_system['default_currency'],null,0);?>
                 </h3>
                 <span>
                 <?= lang('Invoices.xin_total_unpaid');?>
@@ -233,7 +233,7 @@ if($company_membership_details['diff_days'] < 8){
                   <?= lang('Finance.xin_total_expense');?>
                 </h6>
                 <h3 class="m-b-0 text-white">
-                  <?= number_to_currency(total_expense(), $xin_system['default_currency'],null,2);?>
+                  <?= number_to_currency(total_expense(), $xin_system['default_currency'],null,0);?>
                 </h3>
               </div>
               <div class="col-auto"> <i class="fas fa-database text-white"></i> </div>
@@ -252,14 +252,14 @@ if($company_membership_details['diff_days'] < 8){
         <div class="row pb-2">
           <div class="col-auto m-b-10">
             <h3 class="mb-1">
-              <?= number_to_currency(total_payroll(), $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency(total_payroll(), $xin_system['default_currency'],null,0);?>
             </h3>
             <span>
             <?= lang('Main.xin_total');?>
             </span> </div>
           <div class="col-auto m-b-10">
             <h3 class="mb-1">
-              <?= number_to_currency(payroll_this_month(), $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency(payroll_this_month(), $xin_system['default_currency'],null,0);?>
             </h3>
             <span>
             <?= lang('Payroll.xin_payroll_this_month');?>
@@ -280,7 +280,7 @@ if($company_membership_details['diff_days'] < 8){
         </div>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-xl-6 col-md-12">
         <div class="card">

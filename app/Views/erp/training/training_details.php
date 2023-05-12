@@ -15,7 +15,7 @@ $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
 $UsersModel = new UsersModel();
-$SystemModel = new SystemModel();			
+$SystemModel = new SystemModel();
 $TrainingModel = new TrainingModel();
 $TrainersModel = new TrainersModel();
 $ConstantsModel = new ConstantsModel();
@@ -66,7 +66,7 @@ elseif($result['training_status']==3):
 endif;
 ?>
 
-<div class="row"> 
+<div class="row">
   <!-- [ training-detail-left ] start -->
   <div class="col-xl-4 col-lg-12 task-detail-right">
     <?php if(in_array('training7',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
@@ -208,7 +208,7 @@ endif;
                 <?= lang('Main.xin_overview');?>
                 </strong> </span> </div>
             </div>
-            
+
             <div class="task-details">
               <table class="table">
                 <tbody>
@@ -230,7 +230,7 @@ endif;
                     <td><i class="far fa-credit-card m-r-5"></i>
                       <?= lang('Main.xin_training_cost');?>
                       :</td>
-                    <td class="text-right"><?= number_to_currency($result['training_cost'], $xin_system['default_currency'],null,2);?></td>
+                    <td class="text-right"><?= number_to_currency($result['training_cost'], $xin_system['default_currency'],null,0);?></td>
                   </tr>
                   <tr>
                     <td><i class="far fa-calendar-alt m-r-5"></i>
@@ -286,7 +286,7 @@ endif;
             <div class="m-b-20">
               <?= html_entity_decode($result['description']);?>
             </div>
-            
+
           </div>
           <?php if(in_array('training5',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -331,6 +331,6 @@ endif;
       </div>
     </div>
   </div>
-  
-  <!-- [ training-detail-right ] end --> 
+
+  <!-- [ training-detail-right ] end -->
 </div>

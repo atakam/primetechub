@@ -19,7 +19,7 @@ $company_types = $ConstantsModel->where('type','company_type')->orderBy('constan
 $all_countries = $CountryModel->orderBy('country_id', 'ASC')->findAll();
 $membership_plans = $MembershipModel->orderBy('membership_id', 'ASC')->findAll();
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -41,8 +41,8 @@ if($result['is_active'] == 1){
 $membership = $MembershipModel->orderBy('membership_id', 'ASC')->paginate(8);
 $pager = $MembershipModel->pager;
 
-/*$converted = currency_converter($xin_super_system['default_currency'],$xin_system['default_currency'],2);	
-		
+/*$converted = currency_converter($xin_super_system['default_currency'],$xin_system['default_currency'],2);
+
 echo $converted;*/
 //echo $url;
 //echo $url['sites']['rates']['AED'];
@@ -71,12 +71,12 @@ echo $converted;*/
                     <?= lang('Membership.xin_membership_plans');?>
                 </h2>
                 <p class="my-4">
-                <?= lang('Membership.xin_subscription_list_text1');?></p>                        
+                <?= lang('Membership.xin_subscription_list_text1');?></p>
             </div>
         </div>
     </div>
 </div>
-<div class="row"> 
+<div class="row">
   <!-- membership list  start -->
   <div class="col-12">
     <?php foreach($membership as $r) { ?>
@@ -127,7 +127,7 @@ echo $converted;*/
                     <?= $r['total_employees']?>
                     </small> </a> </div></td>
                 <td width="350"><h5>
-                    <?= number_to_currency($converted, $xin_system['default_currency'],null,2);?>
+                    <?= number_to_currency($converted, $xin_system['default_currency'],null,0);?>
                   </h5></td>
                 <td class="text-left"><div class="text-left d-inline-block">
                     <h6 class="my-0">
@@ -153,7 +153,7 @@ echo $converted;*/
     </div>
     <?php } ?>
   </div>
-  <!-- membership list  end --> 
+  <!-- membership list  end -->
 </div>
 <hr>
 <div class="p-2">

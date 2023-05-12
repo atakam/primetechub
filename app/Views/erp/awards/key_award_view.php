@@ -12,8 +12,8 @@ use App\Models\Moduleattributesvalsel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();		
-$AwardsModel = new AwardsModel();	
+$UsersModel = new UsersModel();
+$AwardsModel = new AwardsModel();
 $SystemModel = new SystemModel();
 $ConstantsModel = new ConstantsModel();
 $TrackgoalsModel = new TrackgoalsModel();
@@ -37,7 +37,7 @@ $xin_system = erp_company_settings();
 
 $segment_id = $request->uri->getSegment(3);
 $award_id = udecode($segment_id);
-$result = $AwardsModel->where('award_id', $award_id)->first();	
+$result = $AwardsModel->where('award_id', $award_id)->first();
 ?>
 <div class="row">
   <div class="col-lg-4">
@@ -104,13 +104,13 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
             <?= lang('Main.xin_overview');?>
             </button>
             </a> </li>
-          <?php if(in_array('award3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>  
+          <?php if(in_array('award3',staff_role_resource()) || $user_info['user_type'] == 'company') { ?>
           <li class="nav-item m-r-5"> <a href="#pills-edit" data-toggle="tab" aria-expanded="false" class="">
             <button type="button" class="btn btn-shadow btn-secondary text-uppercase">
             <?= lang('Main.xin_edit');?>
             </button>
             </a> </li>
-         <?php } ?>   
+         <?php } ?>
         </ul>
       </div>
     </div>
@@ -140,7 +140,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
                   </tr>
                   <tr>
                     <td><?= lang('Employees.xin_cash');?></td>
-                    <td><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,2);?></td>
+                    <td><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,0);?></td>
                   </tr>
                   </td>
                   </tr>
@@ -203,7 +203,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="gift">
-                      <?= lang('Employees.xin_gift');?> 
+                      <?= lang('Employees.xin_gift');?>
                     </label>
                     <div class="input-group">
                       <div class="input-group-append"><span class="input-group-text"><i class="fas fa-gift"></i></span></div>
@@ -316,7 +316,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
                   <div class="<?= $mattribute['col_width'];?>">
                     <div class="form-group">
                       <label for="<?php echo $mattribute['attribute'];?>"><?php echo $mattribute['attribute_label'];?> <?= $validate_opt;?></label>
-                      <input class="form-control date" 
+                      <input class="form-control date"
                       placeholder="<?php echo $mattribute['attribute_label'];?>" name="<?php echo $mattribute['attribute'];?>" type="text" value="<?= $attr_val;?>">
                     </div>
                   </div>

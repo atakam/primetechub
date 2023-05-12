@@ -8,8 +8,8 @@ use App\Models\ConstantsModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();		
-$AwardsModel = new AwardsModel();	
+$UsersModel = new UsersModel();
+$AwardsModel = new AwardsModel();
 $SystemModel = new SystemModel();
 $ConstantsModel = new ConstantsModel();
 $xin_system = $SystemModel->where('setting_id', 1)->first();
@@ -62,7 +62,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
     <div class="col-md-6">
       <div class="form-group">
         <label for="gift">
-          <?= lang('Employees.xin_gift');?> 
+          <?= lang('Employees.xin_gift');?>
         </label>
         <div class="input-group">
           <div class="input-group-append"><span class="input-group-text"><i class="fas fa-gift"></i></span></div>
@@ -166,10 +166,10 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
 .ui-datepicker-div { top:500px !important; }
 </style>
 <script type="text/javascript">
- $(document).ready(function(){	
+ $(document).ready(function(){
 		Ladda.bind('button[type=submit]');
 		$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
-		$('[data-plugin="select_hrm"]').select2({ width:'100%' });	 
+		$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 		// Award Date
 		$('.d_award_date').bootstrapMaterialDatePicker({
 			weekStart: 0,
@@ -193,8 +193,8 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
 				$(this).datepicker('widget').removeClass('hide-calendar');
 				$(this).datepicker('widget').hide();
 			}
-				
-		});		
+
+		});
 		$("#edit_award").submit(function(e){
 		var fd = new FormData(this);
 		var obj = $(this), action = obj.attr('name');
@@ -238,10 +238,10 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
 							},
 						},
 						"fnDrawCallback": function(settings){
-						$('[data-toggle="tooltip"]').tooltip();          
+						$('[data-toggle="tooltip"]').tooltip();
 						}
 					});
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -249,15 +249,15 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
 					Ladda.stopAll();
 				}
 			},
-			error: function() 
+			error: function()
 			{
 				toastr.error(JSON.error);
 				$('input[name="csrf_token"]').val(JSON.csrf_hash);
 				Ladda.stopAll();
-			} 	        
+			}
 	   });
 	});
-	});	
+	});
   </script>
 <?php } elseif($request->getGet('type') === 'view_award' && $request->getGet('field_id')){
 $award_id = udecode($field_id);
@@ -297,7 +297,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
       </tr>
       <tr>
         <th><?= lang('Employees.xin_cash');?></th>
-        <td style="display: table-cell;"><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,2);?></td>
+        <td style="display: table-cell;"><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,0);?></td>
       </tr>
       <tr>
         <th><?= lang('Main.xin_attachment');?></th>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -57,7 +57,7 @@ $paid = $EstimatesModel->where('company_id',$company_id)->where('status', 1)->co
 </div>
 <hr class="border-light m-0 mb-3">
 <?php } ?>
-<div class="row"> 
+<div class="row">
   <!-- [ invoice-list ] start -->
   <!-- [ right ] start -->
   <div class="col-xl-12 col-lg-12 filter-bar invoice-list">
@@ -87,7 +87,7 @@ $paid = $EstimatesModel->where('company_id',$company_id)->where('status', 1)->co
 		} else if($r['status'] == 2) {
 			$status = '<span class="badge badge-light-danger">'.lang('Projects.xin_project_cancelled').'</span>';
 		}
-		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$client_info = $UsersModel->where('user_id',$r['client_id'])->where('user_type','customer')->first();
 		$_payment_method = $ConstantsModel->where('type','payment_method')->where('constants_id', $r['payment_method'])->first();
 		if($_payment_method){
@@ -131,7 +131,7 @@ $paid = $EstimatesModel->where('company_id',$company_id)->where('status', 1)->co
                   <li>
                     <?= lang('Invoices.xin_method');?>
                     : <span class="text-semibold"><?= $ipayment_method;?></span></li>
-                  <?php } ?>  
+                  <?php } ?>
                 </ul>
               </div>
             </div>
@@ -172,7 +172,7 @@ $paid = $EstimatesModel->where('company_id',$company_id)->where('status', 1)->co
       <?php } ?>
     </div>
   </div>
-  <!-- [ invoice-list ] end --> 
+  <!-- [ invoice-list ] end -->
 </div>
 <hr>
 <div class="p-2">

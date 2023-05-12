@@ -19,7 +19,7 @@ use App\Controllers\BaseController;
 
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
- 
+
 use App\Models\SystemModel;
 use App\Models\UsersModel;
 use App\Models\RolesModel;
@@ -29,10 +29,10 @@ use App\Models\CompanymembershipModel;
 
 
 class Membership extends BaseController {
-	
+
 	public function index()
-	{		
-		
+	{
+
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -43,10 +43,10 @@ class Membership extends BaseController {
 		$data['breadcrumbs'] = lang('Membership.xin_membership_plans');
 		$data['subview'] = view('erp/membership/membership_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function membership_details()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -72,7 +72,7 @@ class Membership extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$MembershipModel = new MembershipModel();
 		$SystemModel = new SystemModel();
 		$membership = $MembershipModel->orderBy('membership_id', 'ASC')->findAll();
@@ -80,8 +80,8 @@ class Membership extends BaseController {
 		$data = array();
 		$avatar_array = array('badge badge-danger','badge badge-primary','badge badge-info','badge badge-success','badge badge-warning','badge badge-secondary','badge badge-dark');
 		$i=0;
-        foreach($membership as $r) {						
-		  			
+        foreach($membership as $r) {
+
 				$view = '<a href="'.site_url('erp/membership-detail/'). uencode($r['membership_id']) . '"><span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view').'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><i class="feather icon-arrow-right"></i></button></span></a>';
 				$view_modal = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view').'"><button type="button" class="btn icon-btn btn-sm btn-light-success waves-effect waves-light" data-toggle="modal" data-target=".view-modal-data" data-field_id="'. uencode($r['membership_id']) . '"><span class="fa fa-eye"></span></button></span>';
 				if($r['membership_id'] != 1){
@@ -89,7 +89,7 @@ class Membership extends BaseController {
 				} else {
 					$delete = '';
 				}
-			$price = number_to_currency($r['price'], $xin_system['default_currency'],null,2);
+			$price = number_to_currency($r['price'], $xin_system['default_currency'],null,0);
 			$subs_str_plan = substr($r['membership_type'], 0, 1);
 			$plan2= $r['membership_type'];
 			/*'<div class="media align-items-center">
@@ -104,7 +104,7 @@ class Membership extends BaseController {
 				$plan_duration = lang('Membership.xin_subscription_yearly');
 			} else {
 				$plan_duration = lang('Membership.xin_subscription_unlimit');
-			}	
+			}
 			$combhr = $view_modal.$view.$delete;
 			$_price = '<h6 class="mb-1 text-success">'.$price.'</h6>';
 			$links = '
@@ -112,7 +112,7 @@ class Membership extends BaseController {
 				<div class="overlay-edit">
 					'.$combhr.'
 				</div>
-			';						 			  				
+			';
 			$data[] = array(
 				$links,
 				'<h6 class="mb-1 text-primary">'.$r['subscription_id'].'</h6>',
@@ -129,12 +129,12 @@ class Membership extends BaseController {
           exit();
      }
 	public function add_membership() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$MembershipModel = new MembershipModel();
-	
+
 		if ($this->request->getMethod() === 'post') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -179,7 +179,7 @@ class Membership extends BaseController {
 		$price = $this->request->getPost('price',FILTER_SANITIZE_STRING);
 		$plan_duration = $this->request->getPost('plan_duration',FILTER_SANITIZE_STRING);
 		$total_employees = $this->request->getPost('total_employees',FILTER_SANITIZE_STRING);
-		$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);	
+		$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 		//$ar_role_resources = serialize($role_resources);
 		$subscription_id = generate_subscription_id();
 		$data = [
@@ -192,8 +192,8 @@ class Membership extends BaseController {
 			'created_at' => date('d-m-Y h:i:s'),
         ];
 		$MembershipModel = new MembershipModel();
-        $result = $MembershipModel->insert($data);	
-		$Return['csrf_hash'] = csrf_hash();	
+        $result = $MembershipModel->insert($data);
+		$Return['csrf_hash'] = csrf_hash();
 		if ($result == TRUE) {
 			$Return['result'] = lang('Membership.xin_membership_added_success');
 		} else {
@@ -201,10 +201,10 @@ class Membership extends BaseController {
 		}
 		$this->output($Return);
 		exit;
-	} 
+	}
 	// update record
 	public function update_membership() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
@@ -252,8 +252,8 @@ class Membership extends BaseController {
 			$price = $this->request->getPost('price',FILTER_SANITIZE_STRING);
 			$plan_duration = $this->request->getPost('plan_duration',FILTER_SANITIZE_STRING);
 			$total_employees = $this->request->getPost('total_employees',FILTER_SANITIZE_STRING);
-			$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);		
-			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));			
+			$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
+			$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
 			$data = [
 				'membership_type' => $membership_type,
 				'price' => $price,
@@ -276,8 +276,8 @@ class Membership extends BaseController {
 			$this->output($Return);
 			exit;
 		}
-		
-	} 
+
+	}
 	// read record
 	public function read()
 	{
@@ -296,9 +296,9 @@ class Membership extends BaseController {
 	public function membership_type_chart() {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -316,7 +316,7 @@ class Membership extends BaseController {
 				$title_info[] = $r['membership_type'];
 				$series_info[] = $comp_count;
 			}
-		}				  
+		}
 		$Return['iseries'] = $series_info;
 		$Return['ilabels'] = $title_info;
 		$Return['total_label'] = lang('Main.xin_total');
@@ -324,12 +324,12 @@ class Membership extends BaseController {
 		exit;
 	}
 	public function membership_by_country_chart() {
-		
+
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -346,7 +346,7 @@ class Membership extends BaseController {
 				$title_info[] = $r['country_name'];
 				$series_info[] = $comp_count;
 			}
-		}				  
+		}
 		$Return['iseries'] = $series_info;
 		$Return['ilabels'] = $title_info;
 		$this->output($Return);
@@ -354,7 +354,7 @@ class Membership extends BaseController {
 	}
 	 // delete record
 	public function delete_membership() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

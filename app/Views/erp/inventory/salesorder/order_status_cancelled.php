@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -52,9 +52,9 @@ if($user_info['user_type'] == 'staff'){
 </div>
 <hr class="border-light m-0 mb-3">
 <?php } ?>
-<div class="row"> 
+<div class="row">
   <!-- [ invoice-list ] start -->
-  <!-- [ left ] end --> 
+  <!-- [ left ] end -->
   <!-- [ right ] start -->
   <div class="col-xl-12 col-lg-12 filter-bar invoice-list">
     <nav class="navbar m-b-30 p-10">
@@ -87,7 +87,7 @@ if($user_info['user_type'] == 'staff'){
 		} else {
 			$status = '<span class="badge badge-light-success">'.lang('Inventory.xin_delivered_orders_text').'</span>';
 		}
-		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$client_info = $UsersModel->where('user_id',$r['customer_id'])->where('user_type','customer')->first();
 		if($client_info){
 			$iclient_info = $client_info['first_name'].' '.$client_info['last_name'];
@@ -136,7 +136,7 @@ if($user_info['user_type'] == 'staff'){
                   <li>
                     <?= lang('Invoices.xin_method');?>
                     : <span class="text-semibold"><?= $ipayment_method;?></span></li>
-                  <?php } ?>  
+                  <?php } ?>
                 </ul>
               </div>
             </div>
@@ -157,7 +157,7 @@ if($user_info['user_type'] == 'staff'){
       <?php } ?>
     </div>
   </div>
-  <!-- [ invoice-list ] end --> 
+  <!-- [ invoice-list ] end -->
 </div>
 <hr>
 <div class="p-2">

@@ -42,9 +42,9 @@ $training_report = training_report($start_date,$end_date,$status);
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 ?>
 
-<div class="row justify-content-md-center"> 
+<div class="row justify-content-md-center">
   <!-- [ Attendance view ] start -->
-  <div class="col-md-10"> 
+  <div class="col-md-10">
     <!-- [ Attendance view ] start -->
     <div class="container">
       <div>
@@ -87,7 +87,7 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
                     </thead>
                     <tbody>
                       <?php foreach($training_report as $_training) {
-						  	$training_type = $ConstantsModel->where('company_id',$company_id)->where('type','training_type')->where('constants_id',$_training['training_type_id'])->first(); 
+						  	$training_type = $ConstantsModel->where('company_id',$company_id)->where('type','training_type')->where('constants_id',$_training['training_type_id'])->first();
 								if($training_type){
 									$category_name = $training_type['category_name'];
 								} else {
@@ -110,7 +110,7 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 								$status = '<span class="text-success">'.lang('Projects.xin_completed').'</span>';
 							else:
 								$status = '<span class="text-danger">'.lang('Main.xin_rejected').'</span>'; endif;
-				
+
 							  ?>
 							  <tr>
 								<td width="150"><?= $multi_users;?>
@@ -119,10 +119,10 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 								<td><?= $trainer_name;?></td>
 								<td><?= set_date_format($_training['start_date']);?></td>
 								<td><?= set_date_format($_training['finish_date']);?></td>
-								<td><?= number_to_currency($_training['training_cost'], $xin_system['default_currency'],null,2);;?></td>
+								<td><?= number_to_currency($_training['training_cost'], $xin_system['default_currency'],null,0);;?></td>
 								<td><?= $status;?></td>
 							  </tr>
-                    <?php } ?> 
+                    <?php } ?>
                     </tbody>
                   </table>
                 </div>
@@ -139,6 +139,6 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
         </div>
       </div>
     </div>
-    <!-- [ Attendance view ] end --> 
+    <!-- [ Attendance view ] end -->
   </div>
 </div>

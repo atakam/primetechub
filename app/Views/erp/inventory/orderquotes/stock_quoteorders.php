@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -64,9 +64,9 @@ $paid = number_format((float)$paid, 1, '.', '');
 </div>
 <hr class="border-light m-0 mb-3">
 <?php } ?>
-<div class="row"> 
+<div class="row">
   <!-- [ invoice-list ] start -->
-  <!-- [ left ] end --> 
+  <!-- [ left ] end -->
   <!-- [ right ] start -->
   <div class="col-xl-12 col-lg-12 filter-bar invoice-list">
     <nav class="navbar m-b-30 p-10">
@@ -95,7 +95,7 @@ $paid = number_format((float)$paid, 1, '.', '');
 		} else {
 			$status = '<span class="badge badge-light-danger">'.lang('Projects.xin_project_cancelled').'</span>';
 		}
-		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,2);
+		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$client_info = $UsersModel->where('user_id',$r['customer_id'])->where('user_type','customer')->first();
 		if($client_info){
 			$iclient_info = $client_info['first_name'].' '.$client_info['last_name'];
@@ -144,7 +144,7 @@ $paid = number_format((float)$paid, 1, '.', '');
                   <li>
                     <?= lang('Invoices.xin_method');?>
                     : <span class="text-semibold"><?= $ipayment_method;?></span></li>
-                  <?php } ?>  
+                  <?php } ?>
                 </ul>
               </div>
             </div>
@@ -185,7 +185,7 @@ $paid = number_format((float)$paid, 1, '.', '');
       <?php } ?>
     </div>
   </div>
-  <!-- [ invoice-list ] end --> 
+  <!-- [ invoice-list ] end -->
 </div>
 <hr>
 <div class="p-2">

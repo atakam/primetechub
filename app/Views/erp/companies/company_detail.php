@@ -19,7 +19,7 @@ $company_types = $ConstantsModel->where('type','company_type')->orderBy('constan
 $all_countries = $CountryModel->orderBy('country_id', 'ASC')->findAll();
 $membership_plans = $MembershipModel->orderBy('membership_id', 'ASC')->findAll();
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -211,7 +211,7 @@ if($result['is_active'] == 1){
               </div>
             </div>
           </div>
-          
+
         </div>
         <div class="card-footer text-right">
             <button type="submit" class="btn btn-primary">
@@ -257,7 +257,7 @@ if($result['is_active'] == 1){
                     <tr>
                       <td><i class="far fa-credit-card m-r-5"></i> <?= lang('Main.xin_price');?>:</td>
                       <td class="text-right"><div class="btn-group text-success">
-                          <?= number_to_currency($subs_price, $xin_system['default_currency'],null,2);?>
+                          <?= number_to_currency($subs_price, $xin_system['default_currency'],null,0);?>
                         </div></td>
                     </tr>
                     <tr>
@@ -296,7 +296,7 @@ if($result['is_active'] == 1){
                       <option value="<?= $plans['membership_id'];?>" <?php if($company_membership['membership_id']==$plans['membership_id']):?> selected="selected"<?php endif;?>>
                       <?= $plans['membership_type'];?>
                       (
-                      <?= number_to_currency($plans['price'], $xin_system['default_currency'],null,2);?>
+                      <?= number_to_currency($plans['price'], $xin_system['default_currency'],null,0);?>
                       ) </option>
                       <?php } ?>
                       <?php } ?>
