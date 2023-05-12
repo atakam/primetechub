@@ -8,8 +8,8 @@ use App\Models\ConstantsModel;
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
-$UsersModel = new UsersModel();		
-$AdvancesalaryModel = new AdvancesalaryModel();	
+$UsersModel = new UsersModel();
+$AdvancesalaryModel = new AdvancesalaryModel();
 $SystemModel = new SystemModel();
 $ConstantsModel = new ConstantsModel();
 $xin_system = $SystemModel->where('setting_id', 1)->first();
@@ -150,20 +150,20 @@ $result = $AdvancesalaryModel->where('advance_salary_id', $advance_salary_id)->f
   <div class="col-md-6">
     <div class="form-group">
       <div class="alert alert-success" role="alert">
-        <?= lang('Invoices.xin_paid');?>:&nbsp;<?= number_to_currency($result['total_paid'], $xin_system['default_currency'],null,2);?>
+        <?= lang('Invoices.xin_paid');?>:&nbsp;<?= number_to_currency($result['total_paid'], $xin_system['default_currency'],null,0);?>
     </div>
     </div>
       </div>
-     <?php $remaining_amount = $result['advance_amount'] - $result['total_paid'];?> 
+     <?php $remaining_amount = $result['advance_amount'] - $result['total_paid'];?>
       <div class="col-md-6">
         <div class="form-group">
           <div class="alert alert-warning" role="alert">
-            <?= lang('Main.xin_remaining');?>:&nbsp;<?= number_to_currency($remaining_amount, $xin_system['default_currency'],null,2);?>
+            <?= lang('Main.xin_remaining');?>:&nbsp;<?= number_to_currency($remaining_amount, $xin_system['default_currency'],null,0);?>
         </div>
         </div>
       </div>
     </div>
-    
+
     <?php if($result['status']=='1'):?>
     <div class="alert alert-success" role="alert">
         <?= lang('Main.xin_advance_salary_request_accepted');?>
@@ -193,10 +193,10 @@ $result = $AdvancesalaryModel->where('advance_salary_id', $advance_salary_id)->f
 .ui-datepicker-div { top:500px !important; }
 </style>
 <script type="text/javascript">
- $(document).ready(function(){	
+ $(document).ready(function(){
 		Ladda.bind('button[type=submit]');
 		$('[data-plugin="select_hrm"]').select2($(this).attr('data-options'));
-		$('[data-plugin="select_hrm"]').select2({ width:'100%' });	 
+		$('[data-plugin="select_hrm"]').select2({ width:'100%' });
 		$(".mone_time_deduct").change(function(){
 			if($(this).val()==1){
 				$('#mmonthly_installment').attr('disabled',true);
@@ -220,8 +220,8 @@ $result = $AdvancesalaryModel->where('advance_salary_id', $advance_salary_id)->f
 				$(this).datepicker('widget').removeClass('hide-calendar');
 				$(this).datepicker('widget').hide();
 			}
-				
-		});		
+
+		});
 		$("#edit_advance_salary").submit(function(e){
 		var fd = new FormData(this);
 		var obj = $(this), action = obj.attr('name');
@@ -265,10 +265,10 @@ $result = $AdvancesalaryModel->where('advance_salary_id', $advance_salary_id)->f
 							},
 						},
 						"fnDrawCallback": function(settings){
-						$('[data-toggle="tooltip"]').tooltip();          
+						$('[data-toggle="tooltip"]').tooltip();
 						}
 					});
-					xin_table.api().ajax.reload(function(){ 
+					xin_table.api().ajax.reload(function(){
 						toastr.success(JSON.result);
 					}, true);
 					$('input[name="csrf_token"]').val(JSON.csrf_hash);
@@ -276,15 +276,15 @@ $result = $AdvancesalaryModel->where('advance_salary_id', $advance_salary_id)->f
 					Ladda.stopAll();
 				}
 			},
-			error: function() 
+			error: function()
 			{
 				toastr.error(JSON.error);
 				$('input[name="csrf_token"]').val(JSON.csrf_hash);
 				Ladda.stopAll();
-			} 	        
+			}
 	   });
 	});
-	});	
+	});
   </script>
 <?php } elseif($request->getGet('type') === 'view_award' && $request->getGet('field_id')){
 $award_id = udecode($field_id);
@@ -324,7 +324,7 @@ $result = $AwardsModel->where('award_id', $award_id)->first();
       </tr>
       <tr>
         <th><?= lang('Employees.xin_cash');?></th>
-        <td style="display: table-cell;"><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,2);?></td>
+        <td style="display: table-cell;"><?= number_to_currency($result['cash_price'], $xin_system['default_currency'],null,0);?></td>
       </tr>
       <tr>
         <th><?= lang('Main.xin_attachment');?></th>

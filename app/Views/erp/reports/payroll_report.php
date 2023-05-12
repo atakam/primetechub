@@ -66,9 +66,9 @@ $month_year = date('Y-m');
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 ?>
 
-<div class="row justify-content-md-center"> 
+<div class="row justify-content-md-center">
   <!-- [ Attendance view ] start -->
-  <div class="col-md-10"> 
+  <div class="col-md-10">
     <!-- [ Attendance view ] start -->
     <div class="container">
       <div>
@@ -115,12 +115,12 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
                                 <p class="m-b-0"><?= $pay_user['email'];?></p>
                             </div>
                         </div></td>
-                        <td width="200"><strong class="text-success"><?= number_to_currency($_payslip['net_salary'], $xin_system['default_currency'],null,2);?></strong></td>
+                        <td width="200"><strong class="text-success"><?= number_to_currency($_payslip['net_salary'], $xin_system['default_currency'],null,0);?></strong></td>
                         <td><?= $_payslip['salary_month'];?></td>
                         <td><?= set_date_format($_payslip['created_at']);?></td>
                         <td><?= $wages_type;?></td>
                       </tr>
-                    <?php } ?> 
+                    <?php } ?>
                     </tbody>
                   </table>
                 </div>
@@ -137,6 +137,6 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
         </div>
       </div>
     </div>
-    <!-- [ Attendance view ] end --> 
+    <!-- [ Attendance view ] end -->
   </div>
 </div>

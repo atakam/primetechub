@@ -27,8 +27,8 @@ $xin_system = erp_company_settings();
 $invoice_report = sales_report($start_date,$end_date,$status);
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
 ?>
-<div class="row justify-content-md-center"> 
-  <div class="col-md-10"> 
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
     <!-- [ Invoice view ] start -->
     <div class="container">
       <div>
@@ -91,11 +91,11 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
                       <tr>
                         <td width="150"><?= $customer_name;?></td>
                         <td width="200"><?= $_invoice->order_number;?></td>
-                        <td><?= number_to_currency($_invoice->grand_total,$xin_system['default_currency'],null,2);?></td>
+                        <td><?= number_to_currency($_invoice->grand_total,$xin_system['default_currency'],null,0);?></td>
                         <td><?= set_date_format($_invoice->invoice_date);?></td>
                         <td><?= $status;?></td>
                       </tr>
-                    <?php } ?> 
+                    <?php } ?>
                     </tbody>
                   </table>
                 </div>
@@ -112,6 +112,6 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
         </div>
       </div>
     </div>
-    <!-- [ Invoice view ] end --> 
+    <!-- [ Invoice view ] end -->
   </div>
 </div>

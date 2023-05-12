@@ -5,7 +5,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use CodeIgniter\I18n\Time;
- 
+
 use App\Models\SystemModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -36,7 +36,7 @@ use App\Models\Moduleattributesvalsel;
 class Training extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -45,7 +45,7 @@ class Training extends BaseController {
 		$usession = $session->get('sup_username');
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -67,7 +67,7 @@ class Training extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function training_calendar()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -75,7 +75,7 @@ class Training extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -98,7 +98,7 @@ class Training extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function training_details()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -113,7 +113,7 @@ class Training extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -140,9 +140,9 @@ class Training extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -157,9 +157,9 @@ class Training extends BaseController {
 			$get_data = $TrainingModel->where('company_id',$usession['sup_user_id'])->orderBy('training_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
+
           foreach($get_data as $r) {
-			  
+
 			//assigned user
 			$assigned_to = explode(',',$r['employee_id']);
 			$multi_users = multi_user_profile_photo($assigned_to);
@@ -169,13 +169,13 @@ class Training extends BaseController {
 				$edit = '';
 			}
 			$view = '<span data-toggle="tooltip" data-placement="top" data-state="primary" title="'.lang('Main.xin_view_details').'"><a href="'.site_url().'erp/training-details/'.uencode($r['training_id']).'"><button type="button" class="btn icon-btn btn-sm btn-light-primary waves-effect waves-light"><span class="fa fa-arrow-circle-right"></span></button></a></span>';
-			
+
 			if(in_array('training6',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 				$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['training_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 			} else {
 				$delete = '';
 			}
-			
+
 			$start_date = set_date_format($r['start_date']);
 			$finish_date = set_date_format($r['finish_date']);
 			//status
@@ -200,13 +200,13 @@ class Training extends BaseController {
 				$itype = $training_types['category_name'];
 			} else {
 				$itype = '';
-			}			
+			}
 			// training date
 			$start_date = set_date_format($r['start_date']);
 			$finish_date = set_date_format($r['finish_date']);
 			// set currency
-			$training_cost = number_to_currency($r['training_cost'], $xin_system['default_currency'],null,2);
-			$combhr = $edit.$view.$delete;	
+			$training_cost = number_to_currency($r['training_cost'], $xin_system['default_currency'],null,0);
+			$combhr = $edit.$view.$delete;
 			$t_type = '
 				'.$itype.'
 				<div class="overlay-edit">
@@ -221,7 +221,7 @@ class Training extends BaseController {
 				$training_cost,
 				$status
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -229,14 +229,14 @@ class Training extends BaseController {
             );
           echo json_encode($output);
           exit();
-     }	
+     }
 	// |||add record|||
 	public function add_training() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -314,10 +314,10 @@ class Training extends BaseController {
 							}
 						 }
 						 $i++;
-					 }		
+					 }
 					 if($Return['error']!=''){
 						$this->output($Return);
-					}	
+					}
 				}
 				$data = [
 					'company_id'  => $company_id,
@@ -334,9 +334,9 @@ class Training extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$TrainingModel = new TrainingModel();
-				$result = $TrainingModel->insert($data);	
+				$result = $TrainingModel->insert($data);
 				$module_id = $TrainingModel->insertID();
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_training_added_msg');
 					if($count_module_attributes > 0){
@@ -370,11 +370,11 @@ class Training extends BaseController {
 	}
 	// |||edit record|||
 	public function update_training() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -455,10 +455,10 @@ class Training extends BaseController {
 							}
 						 }
 						 $i++;
-					 }		
+					 }
 					 if($Return['error']!=''){
 						$this->output($Return);
-					}	
+					}
 				}
 				$data = [
 					'employee_id' => $staff_id,
@@ -471,13 +471,13 @@ class Training extends BaseController {
 					'associated_goals'  => $associated_goals
 				];
 				$TrainingModel = new TrainingModel();
-				$result = $TrainingModel->update($id, $data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TrainingModel->update($id, $data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_training_updated_msg');
 					if($count_module_attributes > 0){
 						foreach($module_attributes as $mattribute) {
-							
+
 							// update value
 							$count_exist_values = $Moduleattributesval->where('user_id',$id)->where('module_attributes_id',$mattribute['custom_field_id'])->countAllResults();
 							if($count_exist_values > 0){
@@ -517,11 +517,11 @@ class Training extends BaseController {
 	}
 	// |||update record|||
 	public function update_training_status() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -545,7 +545,7 @@ class Training extends BaseController {
 					}
 				}
 			} else {
-				$performance = $this->request->getPost('performance',FILTER_SANITIZE_STRING);	
+				$performance = $this->request->getPost('performance',FILTER_SANITIZE_STRING);
 				$status = $this->request->getPost('status',FILTER_SANITIZE_STRING);
 				$remarks = $this->request->getPost('remarks',FILTER_SANITIZE_STRING);
 				$id = udecode($this->request->getPost('token',FILTER_SANITIZE_STRING));
@@ -556,7 +556,7 @@ class Training extends BaseController {
 				];
 				$TrainingModel = new TrainingModel();
 				$result = $TrainingModel->update($id, $data);
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_training_status_updated_msg');
 				} else {
@@ -573,11 +573,11 @@ class Training extends BaseController {
 	}
 	// |||update record|||
 	public function add_note() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -618,17 +618,17 @@ class Training extends BaseController {
 					'created_at' => date('d-m-Y h:i:s')
 				];
 				$TrainingnotesModel = new TrainingnotesModel();
-				$result = $TrainingnotesModel->insert($data);	
-				$Return['csrf_hash'] = csrf_hash();	
+				$result = $TrainingnotesModel->insert($data);
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_training_note_added_msg');
 				} else {
 					$Return['error'] = lang('Main.xin_error_msg');
 				}
-				
+
 				$this->output($Return);
 				exit;
-				
+
 			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
@@ -641,7 +641,7 @@ class Training extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -656,7 +656,7 @@ class Training extends BaseController {
 	}
 	// delete record
 	public function delete_training() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
@@ -677,7 +677,7 @@ class Training extends BaseController {
 	}
 	// delete record
 	public function delete_training_note() {
-		
+
 		if($this->request->getVar('field_id')) {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

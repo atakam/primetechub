@@ -16,7 +16,7 @@
  */
 namespace App\Controllers\Erp;
 use App\Controllers\BaseController;
- 
+
 use App\Models\SystemModel;
 use App\Models\UsersModel;
 use App\Models\InvoicepaymentsModel;
@@ -25,7 +25,7 @@ use App\Models\MembershipModel;
 class Paymenthistory extends BaseController {
 
 	public function index()
-	{		
+	{
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$session = \Config\Services::session();
@@ -37,10 +37,10 @@ class Paymenthistory extends BaseController {
 
 		$data['subview'] = view('erp/invoices/payment_history_list', $data);
 		return view('erp/layout/layout_main', $data); //page load
-		
+
 	}
 	public function billing_details()
-	{		
+	{
 		$session = \Config\Services::session();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
@@ -67,18 +67,18 @@ class Paymenthistory extends BaseController {
      {
 
 		$session = \Config\Services::session();
-		$usession = $session->get('sup_username');	
+		$usession = $session->get('sup_username');
 		$InvoicepaymentsModel = new InvoicepaymentsModel();
 		$SystemModel = new SystemModel();
 		$UsersModel = new UsersModel();
 		$MembershipModel = new MembershipModel();
 		$billing = $InvoicepaymentsModel->where('company_id',$usession['sup_user_id'])->orderBy('membership_invoice_id', 'ASC')->findAll();
 		$xin_system = erp_company_settings();
-		
+
 		$data = array();
-		
-          foreach($billing as $r) {						
-		  	
+
+          foreach($billing as $r) {
+
 			$membership = $MembershipModel->where('membership_id', $r['membership_id'])->first();
 			$company = $UsersModel->where('user_id', $r['company_id'])->first();
 			if($r['subscription'] == 'monthly'){
@@ -86,8 +86,8 @@ class Paymenthistory extends BaseController {
 			} else {
 				$subscription = '<span class="text-info">'.lang('Membership.xin_subscription_yearly').'</span>';
 			}
-			$mp_subs = $membership['membership_type'];	
-			$price = number_to_currency($r['membership_price'], $xin_system['default_currency'],null,2);
+			$mp_subs = $membership['membership_type'];
+			$price = number_to_currency($r['membership_price'], $xin_system['default_currency'],null,0);
 
 			$transaction_date = set_date_format($r['transaction_date']);
 			if($r['payment_method'] == 'Stripe'){

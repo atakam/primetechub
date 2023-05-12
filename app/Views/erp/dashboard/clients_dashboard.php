@@ -140,7 +140,7 @@ foreach($get_projects as $_project){
                       <tbody>
                         <?php foreach($get_projects as $r){ ?>
                         <?php
-						// status			
+						// status
 						if($r['status'] == 0) {
 							$status = '<label class="badge badge-light-warning">'.lang('Projects.xin_not_started').'</label>';
 						} else if($r['status'] ==1){
@@ -172,7 +172,7 @@ foreach($get_projects as $_project){
 						} else {
 							$progress_class = 'bg-success';
 						}
-						
+
 						$progress_bar = '<div class="progress" style="height: 10px;"><div class="progress-bar '.$progress_class.' progress-bar-striped" role="progressbar" style="width: '.$r['project_progress'].'%;" aria-valuenow="'.$r['project_progress'].'" aria-valuemin="0" aria-valuemax="100">'.$r['project_progress'].'%</div></div>';
 						?>
                         <tr>
@@ -211,14 +211,14 @@ foreach($get_projects as $_project){
         <div class="row pb-2">
           <div class="col-auto m-b-10">
             <h3 class="mb-1">
-              <?= number_to_currency(client_total_paid_invoices(), $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency(client_total_paid_invoices(), $xin_system['default_currency'],null,0);?>
             </h3>
             <span>
             <?= lang('Invoices.xin_total_paid');?>
             </span> </div>
           <div class="col-auto m-b-10">
             <h3 class="mb-1">
-              <?= number_to_currency(client_total_unpaid_invoices(), $xin_system['default_currency'],null,2);?>
+              <?= number_to_currency(client_total_unpaid_invoices(), $xin_system['default_currency'],null,0);?>
             </h3>
             <span>
             <?= lang('Invoices.xin_total_unpaid');?>

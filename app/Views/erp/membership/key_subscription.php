@@ -17,7 +17,7 @@ $CompanymembershipModel = new CompanymembershipModel();
 
 
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -57,7 +57,7 @@ $converted = currency_converter($membership['price']);
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <?php $attributes = array('name' => 'paypal_process', 'id' => 'paypal_process', 'autocomplete' => 'off');?>
 								<?php $hidden = array('paypal_info' => uencode($usession['sup_user_id']), 'token' => $field_id);?>
-                                <?= form_open('erp/pay/paypal_process', $attributes, $hidden);?> 
+                                <?= form_open('erp/pay/paypal_process', $attributes, $hidden);?>
                                 <div class="card-body bg-light">
                                     <div class="row">
                                         <div class="col-sm-8">
@@ -73,7 +73,7 @@ $converted = currency_converter($membership['price']);
                                   <?= lang('Membership.xin_complete_order');?>
                                   </button>
                                 </div>
-                               <?= form_close(); ?> 
+                               <?= form_close(); ?>
                             </div>
                         </div>
                         <?php endif;?>
@@ -88,7 +88,7 @@ $converted = currency_converter($membership['price']);
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                             <?php $attributes = array('name' => 'stripe_payment', 'id' => 'stripe_payment', 'autocomplete' => 'off');?>
 							<?php $hidden = array('stripe_info' => uencode($usession['sup_user_id']), 'token' => $field_id);?>
-                            <?= form_open('erp/stripe/payment', $attributes, $hidden);?>                            
+                            <?= form_open('erp/stripe/payment', $attributes, $hidden);?>
                                 <div class="card-body bg-light">
                                 <span class="payment-errors alert"></span>
                                     <div class="row">
@@ -120,7 +120,7 @@ $converted = currency_converter($membership['price']);
                                                 <input type="text" id="card_expiry" class="form-control bg-transparent card-expiry-month" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM" name="card_exp_month" value="11">
                                             </div>
                                       </div>
-                                      <div class="col-md-2">      
+                                      <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="card-expiry-date"><?= lang('Membership.xin_expiry_year');?></label>
                                                 <input type="text" id="card_expiry" class="form-control bg-transparent card-expiry-year" data-toggle="input-mask" data-mask-format="00/00" placeholder="YYYY" name="card_exp_year" value="2022">
@@ -176,7 +176,7 @@ $converted = currency_converter($membership['price']);
                                         </p>
                                     </td>
                                     <td class="text-right">
-                                        <?= number_to_currency($converted, $xin_system['default_currency'],null,2);?>
+                                        <?= number_to_currency($converted, $xin_system['default_currency'],null,0);?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -191,7 +191,7 @@ $converted = currency_converter($membership['price']);
                                     <td>
                                         <p class="m-0 d-inline-block align-middle">
                                             <a href="#!" class="text-body font-weight-semibold"><?= lang('Main.xin_description');?></a>
-                                            
+
                                             <br>
                                             <small><?= lang('Employees.xin_total_employees');?>: <?= $membership['total_employees'];?></small>
                                             <br>
@@ -215,7 +215,7 @@ $converted = currency_converter($membership['price']);
                                     <h6 class="m-0"><?= lang('Invoices.xin_subtotal');?>:</h6>
                                 </td>
                                 <td>
-                                    <?= number_to_currency($converted, $xin_system['default_currency'],null,2);?>
+                                    <?= number_to_currency($converted, $xin_system['default_currency'],null,0);?>
                                 </td>
                             </tr>
                             <tr class="border-top">
@@ -223,7 +223,7 @@ $converted = currency_converter($membership['price']);
                                     <h5 class="m-0"><?= lang('Main.xin_total');?>:</h5>
                                 </td>
                                 <td class="font-weight-semibold">
-                                    <?= number_to_currency($converted, $xin_system['default_currency'],null,2);?>
+                                    <?= number_to_currency($converted, $xin_system['default_currency'],null,0);?>
                                 </td>
                             </tr>
                         </tbody>

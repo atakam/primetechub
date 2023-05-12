@@ -20,7 +20,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 
-use App\Models\OffModel; 
+use App\Models\OffModel;
 use App\Models\MainModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
@@ -36,7 +36,7 @@ use App\Models\Moduleattributesvalsel;
 class Awards extends BaseController {
 
 	public function index()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -44,7 +44,7 @@ class Awards extends BaseController {
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -67,7 +67,7 @@ class Awards extends BaseController {
 		return view('erp/layout/layout_main', $data); //page load
 	}
 	public function award_view()
-	{		
+	{
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -83,7 +83,7 @@ class Awards extends BaseController {
 			return redirect()->to(site_url('erp/desk'));
 		}
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
@@ -107,14 +107,14 @@ class Awards extends BaseController {
 	}
 	// |||add record|||
 	public function add_awards() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'add_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -178,7 +178,7 @@ class Awards extends BaseController {
 				$award_picture = $this->request->getFile('award_picture');
 				$file_name = $award_picture->getName();
 				$award_picture->move('public/uploads/awards/');
-				
+
 				$award_type_id = $this->request->getPost('award_type_id',FILTER_SANITIZE_STRING);
 				$award_date = $this->request->getPost('award_date',FILTER_SANITIZE_STRING);
 				$gift = $this->request->getPost('gift',FILTER_SANITIZE_STRING);
@@ -186,7 +186,7 @@ class Awards extends BaseController {
 				$month_year = $this->request->getPost('month_year',FILTER_SANITIZE_STRING);
 				$description = $this->request->getPost('description',FILTER_SANITIZE_STRING);
 				$award_information = $this->request->getPost('award_information',FILTER_SANITIZE_STRING);
-				
+
 				$UsersModel = new UsersModel();
 				$SystemModel = new SystemModel();
 				$ConstantsModel = new ConstantsModel();
@@ -219,10 +219,10 @@ class Awards extends BaseController {
 							}
 						 }
 						 $i++;
-					 }		
+					 }
 					 if($Return['error']!=''){
 						$this->output($Return);
-					}	
+					}
 				}
 				$data = [
 					'company_id' => $company_id,
@@ -237,9 +237,9 @@ class Awards extends BaseController {
 					'created_at' => $award_date
 				];
 				$AwardsModel = new AwardsModel();
-				$result = $AwardsModel->insert($data);	
+				$result = $AwardsModel->insert($data);
 				$module_id = $AwardsModel->insertID();
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_award_added_msg');
 					if($count_module_attributes > 0){
@@ -265,7 +265,7 @@ class Awards extends BaseController {
 						$istaff_info = $UsersModel->where('user_id', $staff_id)->first();
 						// award type
 						$category_info = $ConstantsModel->where('constants_id', $award_type_id)->where('type','award_type')->first();
-						$category_name = $category_info['category_name'];	
+						$category_name = $category_info['category_name'];
 						$isubject = $itemplate['subject'];
 						$ibody = html_entity_decode($itemplate['message']);
 						$fbody = str_replace(array("{site_name}","{award_name}"),array($company_info['company_name'],$category_name),$ibody);
@@ -287,7 +287,7 @@ class Awards extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -296,14 +296,14 @@ class Awards extends BaseController {
 	}
 	// |||edit record|||
 	public function update_award() {
-			
+
 		$validation =  \Config\Services::validation();
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}	
+		}
 		if ($this->request->getPost('type') === 'edit_record') {
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');
 			$Return['csrf_hash'] = csrf_hash();
@@ -370,7 +370,7 @@ class Awards extends BaseController {
 					$file_name = $award_picture->getName();
 					$award_picture->move('public/uploads/awards/');
 				}
-				
+
 				$award_type_id = $this->request->getPost('award_type_id',FILTER_SANITIZE_STRING);
 				$award_date = $this->request->getPost('award_date',FILTER_SANITIZE_STRING);
 				$gift = $this->request->getPost('gift',FILTER_SANITIZE_STRING);
@@ -403,10 +403,10 @@ class Awards extends BaseController {
 							}
 						 }
 						 $i++;
-					 }		
+					 }
 					 if($Return['error']!=''){
 						$this->output($Return);
-					}	
+					}
 				}
 				if ($validated) {
 					$data = [
@@ -434,10 +434,10 @@ class Awards extends BaseController {
 				}
 				$AwardsModel = new AwardsModel();
 				$MainModel = new MainModel();
-				$result = $AwardsModel->update($id,$data);	
+				$result = $AwardsModel->update($id,$data);
 				if($count_module_attributes > 0){
 					foreach($module_attributes as $mattribute) {
-						
+
 						// update value
 						$count_exist_values = $Moduleattributesval->where('user_id',$id)->where('module_attributes_id',$mattribute['custom_field_id'])->countAllResults();
 						if($count_exist_values > 0){
@@ -463,7 +463,7 @@ class Awards extends BaseController {
 						}
 					}
 				}
-				$Return['csrf_hash'] = csrf_hash();	
+				$Return['csrf_hash'] = csrf_hash();
 				if ($result == TRUE) {
 					$Return['result'] = lang('Success.ci_award_updated_msg');
 				} else {
@@ -471,7 +471,7 @@ class Awards extends BaseController {
 				}
 				$this->output($Return);
 				exit;
-			}			
+			}
 		} else {
 			$Return['error'] = lang('Main.xin_error_msg');
 			$this->output($Return);
@@ -483,9 +483,9 @@ class Awards extends BaseController {
 
 		$session = \Config\Services::session();
 		$usession = $session->get('sup_username');
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
-		}		
+		}
 		$RolesModel = new RolesModel();
 		$UsersModel = new UsersModel();
 		$SystemModel = new SystemModel();
@@ -499,9 +499,9 @@ class Awards extends BaseController {
 			$get_data = $AwardsModel->where('company_id',$usession['sup_user_id'])->orderBy('award_id', 'ASC')->findAll();
 		}
 		$data = array();
-		
-          foreach($get_data as $r) {						
-		  			
+
+          foreach($get_data as $r) {
+
 				if(in_array('award4',staff_role_resource()) || $user_info['user_type'] == 'company') { //delete
 					$delete = '<span data-toggle="tooltip" data-placement="top" data-state="danger" title="'.lang('Main.xin_delete').'"><button type="button" class="btn icon-btn btn-sm btn-light-danger waves-effect waves-light delete" data-toggle="modal" data-target=".delete-modal" data-record-id="'. uencode($r['award_id']) . '"><i class="feather icon-trash-2"></i></button></span>';
 				} else {
@@ -527,9 +527,9 @@ class Awards extends BaseController {
 				$cname = $category_info['category_name'];
 			} else {
 				$cname = '--';
-			}	
+			}
 			// award cash
-			$cash_price = number_to_currency($r['cash_price'], $xin_system['default_currency'],null,2);
+			$cash_price = number_to_currency($r['cash_price'], $xin_system['default_currency'],null,0);
 			$icname = '
 				'.$cname.'
 				<div class="overlay-edit">
@@ -542,7 +542,7 @@ class Awards extends BaseController {
 				$cash_price,
 				$award_date,
 			);
-			
+
 		}
           $output = array(
                //"draw" => $draw,
@@ -556,7 +556,7 @@ class Awards extends BaseController {
 	{
 		$session = \Config\Services::session();
 		$request = \Config\Services::request();
-		if(!$session->has('sup_username')){ 
+		if(!$session->has('sup_username')){
 			return redirect()->to(site_url('erp/login'));
 		}
 		$id = $request->getGet('field_id');
@@ -571,7 +571,7 @@ class Awards extends BaseController {
 	}
 	// delete record
 	public function delete_award() {
-		
+
 		if($this->request->getPost('type')=='delete_record') {
 			/* Define return | here result is used to return user data and error for error message */
 			$Return = array('result'=>'', 'error'=>'', 'csrf_hash'=>'');

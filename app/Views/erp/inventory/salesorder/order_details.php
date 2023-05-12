@@ -16,7 +16,7 @@ $ConstantsModel = new ConstantsModel();
 $OrderitemsModel = new OrderitemsModel();
 
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -67,9 +67,9 @@ if($_payment_method){
 }
 ?>
 
-<div class="row justify-content-md-center print-invoice"> 
+<div class="row justify-content-md-center print-invoice">
   <!-- [ basic-alert ] start -->
-  <div class="col-md-10"> 
+  <div class="col-md-10">
     <!-- [ Invoice ] start -->
     <div class="container">
       <div>
@@ -195,7 +195,7 @@ if($_payment_method){
                 <h6 class="text-uppercase text-primary">
                   <?= lang('Main.xin_total');?>
                   : <span>
-                  <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,2);?>
+                  <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,0);?>
                   </span> </h6>
               </div>
             </div>
@@ -218,15 +218,15 @@ if($_payment_method){
 							$pname = $product_info['product_name'];
 						} else {
 							$pname = '--';
-						}					  
+						}
 					  ?>
                       <tr>
                         <td><h6>
                             <?= $pname;?>
                           </h6></td>
                         <td><?= $item['item_qty'];?></td>
-                        <td><?= number_to_currency($item['item_unit_price'],$xin_system['default_currency'],null,2);?></td>
-                        <td><?= number_to_currency($item['item_sub_total'],$xin_system['default_currency'],null,2);?></td>
+                        <td><?= number_to_currency($item['item_unit_price'],$xin_system['default_currency'],null,0);?></td>
+                        <td><?= number_to_currency($item['item_sub_total'],$xin_system['default_currency'],null,0);?></td>
                       </tr>
                       <?php } ?>
                     </tbody>
@@ -241,17 +241,17 @@ if($_payment_method){
                     <tr>
                       <th><?= lang('Invoices.xin_subtotal');?>
                         :</th>
-                      <td><?= number_to_currency($result['sub_total_amount'],$xin_system['default_currency'],null,2);?></td>
+                      <td><?= number_to_currency($result['sub_total_amount'],$xin_system['default_currency'],null,0);?></td>
                     </tr>
                     <tr>
                       <th><?= lang('Invoices.xin_tax');?>
                         (0%) :</th>
-                      <td><?= number_to_currency($result['total_tax'],$xin_system['default_currency'],null,2);?></td>
+                      <td><?= number_to_currency($result['total_tax'],$xin_system['default_currency'],null,0);?></td>
                     </tr>
                     <tr>
                       <th><?= lang('Invoices.xin_discount');?>
                         (0%) :</th>
-                      <td><?= number_to_currency($result['total_discount'],$xin_system['default_currency'],null,2);?></td>
+                      <td><?= number_to_currency($result['total_discount'],$xin_system['default_currency'],null,0);?></td>
                     </tr>
                     <tr class="text-info">
                       <td><hr />
@@ -260,7 +260,7 @@ if($_payment_method){
                           :</h5></td>
                       <td><hr />
                         <h5 class="text-primary">
-                          <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,2);?>
+                          <?= number_to_currency($result['grand_total'],$xin_system['default_currency'],null,0);?>
                         </h5></td>
                     </tr>
                   </tbody>
@@ -281,7 +281,7 @@ if($_payment_method){
         </div>
       </div>
     </div>
-    <!-- [ Invoice ] end --> 
+    <!-- [ Invoice ] end -->
   </div>
-  <!-- [ basic-alert ] end --> 
+  <!-- [ basic-alert ] end -->
 </div>

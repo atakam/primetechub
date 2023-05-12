@@ -19,7 +19,7 @@ $company_types = $ConstantsModel->where('type','company_type')->orderBy('constan
 $all_countries = $CountryModel->orderBy('country_id', 'ASC')->findAll();
 $membership = $MembershipModel->orderBy('membership_id', 'ASC')->findAll();
 /* Company Details view
-*/		
+*/
 $session = \Config\Services::session();
 $usession = $session->get('sup_username');
 $request = \Config\Services::request();
@@ -37,7 +37,7 @@ $xin_system = $SystemModel->where('setting_id', 1)->first();
                <div class="object" id="object_four" style="left:60px;"></div>
                <div class="object" id="object_five" style="left:80px;"></div>
             </div>
-         </div>  
+         </div>
       </div>
       <!-- pre loader area end -->
       <!-- back to top start -->
@@ -50,7 +50,7 @@ $xin_system = $SystemModel->where('setting_id', 1)->first();
       <!-- header area start -->
       <?php echo view('frontend/components/top_link'); ?>
       <!-- header area end -->
-      <!-- sidebar area start -->      
+      <!-- sidebar area start -->
       <div class="body-overlay"></div>
       <!-- sidebar area end -->
       <main>
@@ -109,7 +109,7 @@ $xin_system = $SystemModel->where('setting_id', 1)->first();
                            <span><?= $r['membership_type']?></span>
                         </div>
                         <div class="price__tag mb-15">
-                           <h3><?= number_to_currency($r['price'],$xin_system['default_currency'],null,2);?><span> <?= $plan_duration;?></span></h3>
+                           <h3><?= number_to_currency($r['price'],$xin_system['default_currency'],null,0);?><span> <?= $plan_duration;?></span></h3>
                         </div>
                         <div class="price__text mb-25">
                            <p><?= lang('Frontend.xin_start_for_free_pick_a_plan');?></p>
