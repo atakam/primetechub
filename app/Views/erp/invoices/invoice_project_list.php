@@ -119,7 +119,7 @@ $paid = number_format((float)$paid, 1, '.', '');
             <p class="m-b-10 m-t-30">
               <?= lang('Invoices.xin_due');?>
               <span class="float-right"><i class="fa fa-caret-down m-r-10"></i>
-                <?= number_to_currency($all_due, $xin_system['default_currency'],null,0);?>
+              <?= number_to_currency($all_due, $xin_system['default_currency'],null,0);?>
               </span></p>
             <div class="progress red">
               <div class="progress-bar bg-danger" style="width:<?= $unpaid;?>%"></div>
@@ -127,7 +127,7 @@ $paid = number_format((float)$paid, 1, '.', '');
             <p class="m-b-10 m-t-30">
               <?= lang('Invoices.xin_paid_amount');?>
               <span class="float-right"><i class="fa fa-caret-up m-r-10"></i>
-                <?= number_to_currency($all_payments, $xin_system['default_currency'],null,0);?>
+              <?= number_to_currency($all_payments, $xin_system['default_currency'],null,0);?>
               </span></p>
             <div class="progress">
               <div class="progress-bar bg-info" style="width:<?= $paid;?>%"></div>
@@ -176,8 +176,8 @@ $paid = number_format((float)$paid, 1, '.', '');
     <div class="row">
       <?php foreach($get_invoices as $r) {?>
       <?php
-        $invoice_date = set_date_format(str_replace('/', '-', $r['invoice_date']));
-		    $invoice_due_date = set_date_format(str_replace('/', '-', $r['invoice_due_date']));
+		$invoice_date = set_date_format(str_replace('/', '-', $r['invoice_date']));
+		$invoice_due_date = set_date_format(str_replace('/', '-', $r['invoice_due_date']));
 
 		$invoice_total = number_to_currency($r['grand_total'], $xin_system['default_currency'],null,0);
 		$client_info = $UsersModel->where('user_id',$r['client_id'])->where('user_type','customer')->first();

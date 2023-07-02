@@ -1,7 +1,7 @@
 <?php
 
 //Dashboard override core en language system validation or define your own en language validation message
-return [	
+return [
 	'xin_attendance_calendar' => 'Calendrier de présence',
 	'xin_daily_attendance_report' => 'Rapport quotidien de présence',
 	'xin_office_shift_not_assigned' => 'Shift non affecté',
@@ -14,6 +14,7 @@ return [
 	'dashboard_total_rest' => 'Repos total',
 	'xin_attendance_date' => 'Date de présence',
 	'xin_attendance_month' => 'Mois de fréquentation',
+  'xin_attendance_total_paid' => 'Montant total',
 	'xin_edit_attendance' => 'Modifier la participation',
 	'xin_add_attendance' => 'Ajouter une participation',
 	'xin_overtime_thours' => 'Heures totales',

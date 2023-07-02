@@ -64,6 +64,12 @@ $month = date('m', $date_info);
 $year = date('Y', $date_info);
 $month_year = date('Y-m');
 $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
+$total_paid = 0;
+?>
+
+<?php foreach($payslip_data as $_payslip) {
+  $total_paid = $total_paid + $_payslip['net_salary'];
+}
 ?>
 
 <div class="row justify-content-md-center">
@@ -82,6 +88,12 @@ $ci_erp_settings = $SystemModel->where('setting_id', 1)->first();
                 <h5 class="m-b-10 text-primary text-uppercase"><?php echo lang('Attendance.xin_attendance_month');?></h5>
                 <h4 class="text-uppercase text-primary m-l-30"> <strong>
                   <?= $date;?>
+                  </strong> </h4>
+              </div>
+              <div class="col-md-6">
+                <h5 class="m-b-10 text-primary text-uppercase"><?php echo lang('Attendance.xin_attendance_total_paid');?></h5>
+                <h4 class="text-uppercase text-primary m-l-30"> <strong>
+                  <?= number_to_currency($total_paid, $xin_system['default_currency'],null,0);?>
                   </strong> </h4>
               </div>
             </div>
