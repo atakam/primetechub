@@ -138,7 +138,7 @@ $employee_id = generate_random_employeeid();
                 <div class="form-group">
                   <label for="logo">
                     <?= lang('Main.xin_attachment');?>
-                    <span class="text-danger">*</span> </label>
+                    <span class="text-danger"></span> </label>
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" name="file">
                     <label class="custom-file-label">
