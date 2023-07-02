@@ -14,6 +14,7 @@ return [
 	'dashboard_total_rest' => 'Total Rest',
 	'xin_attendance_date' => 'Attendance Date',
 	'xin_attendance_month' => 'Attendance Month',
+  'xin_attendance_total_paid' => 'Total Paid',
 	'xin_edit_attendance' => 'Edit Attendance',
 	'xin_add_attendance' => 'Add Attendance',
 	'xin_overtime_thours' => 'Total Hours',
