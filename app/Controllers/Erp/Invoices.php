@@ -659,7 +659,7 @@ class Invoices extends BaseController {
 				}
 			} else {
 				$invoice_number = $this->request->getPost('invoice_number',FILTER_SANITIZE_STRING);
-				$project_id = $this->request->getPost('project',FILTER_SANITIZE_STRING);
+				$client_id = $this->request->getPost('project',FILTER_SANITIZE_STRING);
 				$invoice_date = $this->request->getPost('invoice_date',FILTER_SANITIZE_STRING);
 				$invoice_due_date = $this->request->getPost('invoice_due_date',FILTER_SANITIZE_STRING);
 				$j=0;
@@ -702,16 +702,16 @@ class Invoices extends BaseController {
 				} else {
 					$company_id = $usession['sup_user_id'];
 				}
-				$_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
-				$_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
+				// $_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
+				// $_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
 				// invoice month
 				$dd1 = explode('/',$invoice_date);
 				$inv_mnth = $dd1[2].'-'.$dd1[1];
 				$data = [
 					'invoice_number'  => $invoice_number,
 					'company_id' => $company_id,
-					'client_id' => $_client['user_id'],
-					'project_id'  => $project_id,
+					'client_id' => $client_id,
+					// 'project_id'  => $project_id,
 					'invoice_month'  => $inv_mnth,
 					'invoice_date'  => $invoice_date,
 					'invoice_due_date'  => $invoice_due_date,
@@ -751,7 +751,7 @@ class Invoices extends BaseController {
 						// add values
 						$data2 = array(
 						'invoice_id' => $invoice_id,
-						'project_id' => $project_id,
+						// 'project_id' => $project_id,
 						'item_name' => $iname,
 						'item_qty' => $qtyhrs,
 						'item_unit_price' => $price,
@@ -826,7 +826,7 @@ class Invoices extends BaseController {
 				}
 			} else {
 				$invoice_number = $this->request->getPost('invoice_number',FILTER_SANITIZE_STRING);
-				$project_id = $this->request->getPost('project',FILTER_SANITIZE_STRING);
+				$client_id = $this->request->getPost('project',FILTER_SANITIZE_STRING);
 				$invoice_date = $this->request->getPost('invoice_date',FILTER_SANITIZE_STRING);
 				$invoice_due_date = $this->request->getPost('invoice_due_date',FILTER_SANITIZE_STRING);
 				$j=0;
@@ -919,16 +919,16 @@ class Invoices extends BaseController {
 				} else {
 					$company_id = $usession['sup_user_id'];
 				}
-				$_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
-				$_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
+				// $_project = $ProjectsModel->where('company_id',$company_id)->where('project_id', $project_id)->first();
+				// $_client = $UsersModel->where('user_id', $_project['client_id'])->where('user_type','customer')->first();
 				// invoice month
 				$dd1 = explode('/',$invoice_date);
 				$inv_mnth = $dd1[2].'-'.$dd1[1];
 				$data = [
 					'invoice_number'  => $invoice_number,
 					'company_id' => $company_id,
-					'client_id' => $_client['user_id'],
-					'project_id'  => $project_id,
+					'client_id' => $client_id,
+					// 'project_id'  => $project_id,
 					'invoice_month'  => $inv_mnth,
 					'invoice_date'  => $invoice_date,
 					'invoice_due_date'  => $invoice_due_date,
@@ -966,7 +966,7 @@ class Invoices extends BaseController {
 						// add values
 						$data3 = array(
 						'invoice_id' => $id,
-						'project_id' => $project_id,
+						// 'project_id' => $project_id,
 						'item_name' => $iname,
 						'item_qty' => $qtyhrs,
 						'item_unit_price' => $price,
