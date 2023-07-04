@@ -567,7 +567,7 @@ class Employees extends BaseController {
 					'last_name' => 'required',
 					'employee_id' => 'required',
 					'office_shift_id' => 'required',
-					'email' => 'valid_email|is_unique[ci_erp_users.email]',
+					'email' => 'required|valid_email|is_unique[ci_erp_users.email]',
 					'department_id' => 'required',
 					'designation_id' => 'required',
 					'username' => 'required|min_length[6]|is_unique[ci_erp_users.username]',
@@ -591,6 +591,7 @@ class Employees extends BaseController {
 						'required' => lang('Employees.xin_office_shift_field_error'),
 					],
 					'email' => [
+						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email'),
 						'is_unique' => lang('Main.xin_already_exist_error_email'),
 					],
@@ -2195,7 +2196,7 @@ class Employees extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'email' => 'valid_email',
+					'email' => 'required|valid_email',
 					'username' => 'required|min_length[6]',
 					'department_id' => 'required',
 					'designation_id' => 'required',
@@ -2218,6 +2219,7 @@ class Employees extends BaseController {
 						'required' => lang('Employees.xin_office_shift_field_error'),
 					],
 					'email' => [
+						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email')
 					],
 					'department_id' => [
@@ -2528,11 +2530,12 @@ class Employees extends BaseController {
 			$Return['csrf_hash'] = csrf_hash();
 			// set rules
 			$validation->setRules([
-					'email' => 'valid_email',
+					'email' => 'required|valid_email',
 					'username' => 'required|min_length[6]',
 				],
 				[   // Errors
 					'email' => [
+						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email')
 					],
 					'username' => [
