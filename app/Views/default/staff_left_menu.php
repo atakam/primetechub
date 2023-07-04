@@ -310,9 +310,9 @@ $setup_modules = unserialize($xin_com_system['setup_modules']);
   <?php } ?>
   <?php if(in_array('project1',staff_role_resource())) {?>
   <!-- Projects -->
-  <li class="pc-item"><a href="<?= site_url('erp/projects-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">
+  <!-- <li class="pc-item"><a href="<?= site_url('erp/projects-list');?>" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">
     <?= lang('Dashboard.left_projects');?>
-    </span></a></li>
+    </span></a></li> -->
   <?php } ?>
   <?php if(in_array('invoice2',staff_role_resource()) || in_array('invoice_payments',staff_role_resource()) || in_array('invoice_calendar',staff_role_resource()) || in_array('tax_type1',staff_role_resource())) {?>
   <!-- Invoices -->
