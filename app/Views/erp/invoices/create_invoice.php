@@ -108,7 +108,7 @@ $xin_system = erp_company_settings();
                         <div data-repeater-list="items">
                           <div data-repeater-item="">
                             <div class="row item-row">
-                              <div class="form-group mb-1 col-sm-12 col-md-5">
+                              <div class="form-group mb-1 col-sm-12 col-md-7">
                                 <label for="item_name">
                                   <?= lang('Invoices.xin_title_item');?>
                                 </label>
@@ -119,9 +119,6 @@ $xin_system = erp_company_settings();
                                   <?php } ?>
                                 </select>
                                 <input type="text" class="form-control item_name" name="item_name[]" id="item_name" placeholder="Item Name" hidden>
-                              </div>
-                              <div class="form-group mb-1 col-sm-12 col-md-2">
-                                <br>
                                 <input type="text" class="form-control qty_hrs" name="qty_hrs[]" id="qty_hrs" value="1" hidden>
                               </div>
                               <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-2">
