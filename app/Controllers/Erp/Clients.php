@@ -176,25 +176,25 @@ class Clients extends BaseController {
 		$request = \Config\Services::request();
 		$ifield_id = udecode($request->uri->getSegment(3));
 		$isegment_val = $UsersModel->where('user_id', $ifield_id)->first();
-		if(!$isegment_val){
-			$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
-			return redirect()->to(site_url('erp/desk'));
-		}
+		// if(!$isegment_val){
+		// 	$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
+		// 	return redirect()->to(site_url('erp/desk'));
+		// }
 		$user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 		if(!$session->has('sup_username')){
 			$session->setFlashdata('err_not_logged_in',lang('Dashboard.err_not_logged_in'));
 			return redirect()->to(site_url('erp/login'));
 		}
-		if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
-			$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
-			return redirect()->to(site_url('erp/desk'));
-		}
-		if($user_info['user_type'] != 'company'){
-			if(!in_array('client1',staff_role_resource())) {
-				$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
-				return redirect()->to(site_url('erp/desk'));
-			}
-		}
+		// if($user_info['user_type'] != 'company' && $user_info['user_type']!='staff'){
+		// 	$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
+		// 	return redirect()->to(site_url('erp/desk'));
+		// }
+		// if($user_info['user_type'] != 'company'){
+		// 	if(!in_array('client1',staff_role_resource())) {
+		// 		$session->setFlashdata('unauthorized_module',lang('Dashboard.xin_error_unauthorized_module'));
+		// 		return redirect()->to(site_url('erp/desk'));
+		// 	}
+		// }
 		$xin_system = $SystemModel->where('setting_id', 1)->first();
 		$data['title'] = lang('Main.xin_lead_details').' | '.$xin_system['application_name'];
 		$data['path_url'] = 'lead_details';
