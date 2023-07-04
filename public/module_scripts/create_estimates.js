@@ -12,7 +12,7 @@ function update_total() {
 		
 		total = parseFloat(total);
 		
-		sub_total = Math.floor(total+sub_total);
+		sub_total = total+sub_total;
     });
 	// discount
 	var discount_figure = $('.discount_figure').val();
@@ -42,7 +42,7 @@ function update_total() {
 	var tax_rate = $('.tax_rate').val();
 	
 	var gdTotal = parseFloat(sub_total) - parseFloat(discount_amount);
-	var grand_total = Math.floor(parseFloat(gdTotal) + parseFloat(tax_rate));
+	var grand_total = parseFloat(gdTotal) + parseFloat(tax_rate);
 	jQuery('.sub_total').html(sub_total);
 	jQuery('.items-sub-total').val(sub_total);
 	$('.fgrand_total').val(grand_total.toFixed(2));
