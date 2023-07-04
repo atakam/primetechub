@@ -647,7 +647,7 @@ class Invoices extends BaseController {
 			if(!$this->validate($rules)){
 				$ruleErrors = [
                     "invoice_number" => $validation->getError('invoice_number'),
-					"project" => $validation->getError('project'),
+					"project" => $validation->getError('student'),
 					"invoice_date" => $validation->getError('invoice_date'),
 					"invoice_due_date" => $validation->getError('invoice_due_date')
                 ];
@@ -814,7 +814,7 @@ class Invoices extends BaseController {
 			if(!$this->validate($rules)){
 				$ruleErrors = [
                     "invoice_number" => $validation->getError('invoice_number'),
-					"project" => $validation->getError('project'),
+					"project" => $validation->getError('student'),
 					"invoice_date" => $validation->getError('invoice_date'),
 					"invoice_due_date" => $validation->getError('invoice_due_date')
                 ];
