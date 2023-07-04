@@ -80,7 +80,7 @@ $xin_system = erp_company_settings();
                       </label>
                       <select class="form-control" name="project" data-plugin="select_hrm" data-placeholder="<?= lang('Projects.xin_client');?>">
                         <option value=""></option>
-                        <?php foreach($students as $students) {?>
+                        <?php foreach($students as $student) {?>
                           <option value="<?php echo $student['user_id']?>" <?php if($student['user_id']==$get_invoice['client_id']):?> selected="selected"<?php endif;?>><?php echo $student['first_name'] . ' ' . $student['last_name'] ?></option>
                         <?php } ?>
                       </select>
