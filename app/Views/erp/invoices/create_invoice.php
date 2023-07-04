@@ -67,7 +67,7 @@ $xin_system = erp_company_settings();
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="project">
-                        <?= lang('Projects.xin_project');?> <span class="text-danger">*</span>
+                        <?= lang('Projects.xin_client');?> <span class="text-danger">*</span>
                       </label>
                       <select class="form-control" name="project" data-plugin="select_hrm" data-placeholder="<?= lang('Projects.xin_client');?>">
                         <option value=""></option>
