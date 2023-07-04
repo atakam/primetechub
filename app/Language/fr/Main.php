@@ -389,7 +389,7 @@ return [
 'xin_follow_up' => 'Suivre',
 'xin_new_follow_up' => 'Nouveau suivi',
 'xin_next_follow_up' => 'Prochain suivi',
-'xin_change_to_client' => 'Changer de client',
+'xin_change_to_client' => 'Changer en étudiant',
 'xin_create_new_estimate' => 'Créer une nouvelle estimation',
 'xin_estimate_number' => "Nombre d'estimation",
 'xin_estimate_date' => 'Date estimée',

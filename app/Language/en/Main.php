@@ -388,7 +388,7 @@ return [
 	'xin_follow_up' => 'Follow Up',
 	'xin_new_follow_up' => 'New Follow Up',
 	'xin_next_follow_up' => 'Next Follow Up',
-	'xin_change_to_client' => 'Change to Client',
+	'xin_change_to_client' => 'Change to Student',
 	'xin_create_new_estimate' => 'Create New Estimate',
 	'xin_estimate_number' => 'Estimate Number',
 	'xin_estimate_date' => 'Estimate Date',
