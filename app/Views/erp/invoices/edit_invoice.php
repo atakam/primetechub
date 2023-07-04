@@ -29,11 +29,13 @@ $locale = service('request')->getLocale();
 $user_info = $UsersModel->where('user_id', $usession['sup_user_id'])->first();
 if($user_info['user_type'] == 'staff'){
 	$projects = $ProjectsModel->where('company_id',$user_info['company_id'])->orderBy('project_id', 'ASC')->findAll();
+  $students = $UsersModel->where('company_id',$user_info['company_id'])->where('user_type','customer')->orderBy('user_id', 'ASC')->findAll();
 	$tax_types = $ConstantsModel->where('company_id', $user_info['company_id'])->where('type','tax_type')->findAll();
 	$get_invoice = $InvoicesModel->where('company_id',$user_info['company_id'])->where('invoice_id', $invoice_id)->first();
 	$invoice_items = $InvoiceitemsModel->where('invoice_id', $invoice_id)->findAll();
 } else {
 	$projects = $ProjectsModel->where('company_id',$usession['sup_user_id'])->orderBy('project_id', 'ASC')->findAll();
+  $students = $UsersModel->where('company_id',$usession['sup_user_id'])->where('user_type','customer')->orderBy('user_id', 'ASC')->findAll();
 	$tax_types = $ConstantsModel->where('company_id', $usession['sup_user_id'])->where('type','tax_type')->findAll();
 	$get_invoice = $InvoicesModel->where('company_id',$usession['sup_user_id'])->where('invoice_id', $invoice_id)->first();
 	$invoice_items = $InvoiceitemsModel->where('invoice_id', $invoice_id)->findAll();
@@ -76,9 +78,10 @@ $xin_system = erp_company_settings();
                       <label for="project">
                         <?= lang('Projects.xin_project');?> <span class="text-danger">*</span>
                       </label>
-                      <select class="form-control" name="project" data-plugin="select_hrm" data-placeholder="<?= lang('Projects.xin_project');?>">
+                      <select class="form-control" name="project" data-plugin="select_hrm" data-placeholder="<?= lang('Projects.xin_client');?>">
+                        <option value=""></option>
                         <?php foreach($projects as $project) {?>
-                        <option value="<?php echo $project['project_id']?>" <?php if($project['project_id']==$get_invoice['project_id']):?> selected="selected"<?php endif;?>><?php echo $project['title']?></option>
+                          <option value="<?php echo $student['user_id']?>" <?php if($student['user_id']==$get_invoice['client_id']):?> selected="selected"<?php endif;?>><?php echo $student['first_name'] . ' ' . $student['last_name'] ?></option>
                         <?php } ?>
                       </select>
                     </div>
