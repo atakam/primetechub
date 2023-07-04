@@ -163,7 +163,7 @@ $xin_system = erp_company_settings();
                               <tbody>
                                 <tr>
                                   <td><?= lang('Invoices.xin_subtotal');?></td>
-                                  <td class="text-xs-right"><?php echo $sc_show;?><span class="sub_total">0</span></td>
+                                  <td class="text-xs-right"><?php echo $sc_show;?> <span class="sub_total">0</span></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2" style="border-bottom:1px solid #dddddd; padding:0px !important; text-align:left"><table class="table table-bordered">
