@@ -105,7 +105,7 @@ $employee_id = generate_random_employeeid();
                 <div class="form-group">
                   <label for="email">
                     <?= lang('Main.xin_email');?>
-                    <span class="text-danger">*</span> </label>
+                    <span class="text-danger"></span> </label>
                   <div class="input-group">
                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
                     <input class="form-control" placeholder="<?= lang('Main.xin_email');?>" name="email" type="text">

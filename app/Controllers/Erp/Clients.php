@@ -603,7 +603,7 @@ class Clients extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'email' => 'required|valid_email|is_unique[ci_erp_users.email]',
+					'email' => 'valid_email|is_unique[ci_erp_users.email]',
 					'username' => 'required|min_length[6]|is_unique[ci_erp_users.username]',
 					'password' => 'required|min_length[6]',
 					'contact_number' => 'required',
@@ -623,7 +623,6 @@ class Clients extends BaseController {
 						'required' => lang('Main.xin_employee_error_last_name'),
 					],
 					'email' => [
-						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email'),
 						'is_unique' => lang('Main.xin_already_exist_error_email'),
 					],
@@ -819,7 +818,7 @@ class Clients extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'email' => 'required|valid_email|is_unique[ci_erp_users.email]',
+					'email' => 'valid_email|is_unique[ci_erp_users.email]',
 					'contact_number' => 'required'
 				],
 				[   // Errors
@@ -830,7 +829,6 @@ class Clients extends BaseController {
 						'required' => lang('Main.xin_employee_error_last_name'),
 					],
 					'email' => [
-						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email'),
 						'is_unique' => lang('Main.xin_already_exist_error_email'),
 					],
@@ -864,7 +862,7 @@ class Clients extends BaseController {
 				],
 			]);
 			if (!$validated) {
-				$Return['error'] = lang('Employees.xin_staff_picture_field_error');
+				$file_name = "icon2.png";
 			} else {
 
 				$avatar = $this->request->getFile('file');
@@ -946,7 +944,7 @@ class Clients extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'email' => 'required|valid_email',
+					'email' => 'valid_email',
 					'contact_number' => 'required',
 					'country' => 'required',
 				],
@@ -958,7 +956,6 @@ class Clients extends BaseController {
 						'required' => lang('Main.xin_employee_error_last_name'),
 					],
 					'email' => [
-						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email')
 					],
 					'contact_number' => [
@@ -1042,7 +1039,7 @@ class Clients extends BaseController {
 			$validation->setRules([
 					'first_name' => 'required',
 					'last_name' => 'required',
-					'email' => 'required|valid_email',
+					'email' => 'valid_email',
 					'username' => 'required|min_length[6]',
 					'contact_number' => 'required',
 					'status' => 'required'
@@ -1055,7 +1052,6 @@ class Clients extends BaseController {
 						'required' => lang('Main.xin_employee_error_last_name'),
 					],
 					'email' => [
-						'required' => lang('Main.xin_employee_error_email'),
 						'valid_email' => lang('Main.xin_employee_error_invalid_email')
 					],
 					'username' => [

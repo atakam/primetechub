@@ -159,7 +159,7 @@ if($result['is_active'] == 1){
                 <div class="form-group">
                   <label for="email">
                     <?= lang('Main.xin_email');?>
-                    <span class="text-danger">*</span> </label>
+                    <span class="text-danger"></span> </label>
                   <input class="form-control" placeholder="<?= lang('Main.xin_email');?>" name="email" type="email" value="<?= $result['email'];?>">
                 </div>
               </div>
