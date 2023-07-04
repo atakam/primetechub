@@ -118,20 +118,14 @@ $xin_system = erp_company_settings();
                         <div data-repeater-list="items">
                           <div data-repeater-item="">
                             <div class="row item-row">
-                              <div class="form-group mb-1 col-sm-12 col-md-5">
+                              <div class="form-group mb-1 col-sm-12 col-md-7">
                                 <input type="hidden" name="item[<?php echo $item['invoice_item_id'];?>]" value="<?php echo $item['invoice_item_id'];?>" />
                                 <label for="item_name">
                                   <?= lang('Invoices.xin_title_item');?>
                                 </label>
                                 <br>
                                 <input type="text" class="form-control item_name" name="eitem_name[<?php echo $item['invoice_item_id'];?>]" id="item_name" placeholder="Item Name" value="<?= $item['item_name'];?>">
-                              </div>
-                              <div class="form-group mb-1 col-sm-12 col-md-2">
-                                <label for="qty_hrs" class="cursor-pointer">
-                                  <?= lang('Invoices.xin_title_qty_hrs');?>
-                                </label>
-                                <br>
-                                <input type="text" class="form-control qty_hrs" name="eqty_hrs[<?php echo $item['invoice_item_id'];?>]" id="qty_hrs" value="<?= $item['item_qty'];?>">
+                                <input type="hidden" class="form-control qty_hrs" name="eqty_hrs[<?php echo $item['invoice_item_id'];?>]" id="qty_hrs" value="<?= $item['item_qty'];?>">
                               </div>
                               <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-2">
                                 <label for="unit_price">
@@ -144,7 +138,7 @@ $xin_system = erp_company_settings();
                                 <label for="profession">
                                   <?= lang('Invoices.xin_subtotal');?>
                                 </label>
-                                <input type="text" class="form-control sub-total-item" readonly="readonly" name="esub_total_item[<?php echo round($item['invoice_item_id']);?>]" value="<?= $item['item_sub_total'];?>" />
+                                <input type="text" class="form-control sub-total-item" readonly="readonly" name="esub_total_item[<?php echo $item['invoice_item_id'];?>]" value="<?= round($item['item_sub_total']);?>" />
                                 <!-- <br>-->
                                 <p style="display:none" class="form-control-static"><span class="amount-html">0</span></p>
                               </div>
@@ -180,7 +174,7 @@ $xin_system = erp_company_settings();
                               <tbody>
                                 <tr>
                                   <td><?= lang('Invoices.xin_subtotal');?></td>
-                                  <td class="text-xs-right"><?php echo $sc_show;?><span class="sub_total">
+                                  <td class="text-xs-right"><span class="sub_total">
                                     <?= number_to_currency($get_invoice['sub_total_amount'], $xin_system['default_currency'],null,0);?>
                                     </span></td>
                                 </tr>
@@ -218,7 +212,7 @@ $xin_system = erp_company_settings();
                               <input type="hidden" class="fgrand_total" name="fgrand_total" value="<?= $get_invoice['grand_total'];?>" />
                               <tr>
                                 <td><?= lang('Invoices.xin_grand_total');?></td>
-                                <td class="text-xs-right"><?php echo $sc_show;?> <span class="grand_total">
+                                <td class="text-xs-right"><span class="grand_total">
                                   <?= number_to_currency($get_invoice['grand_total'], $xin_system['default_currency'],null,0);?>
                                   </span></td>
                               </tr>
